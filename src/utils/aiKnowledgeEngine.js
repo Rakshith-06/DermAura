@@ -23,8 +23,6 @@ export function query50kCohortDataset(messageText) {
   ) {
     return `Dealing with persistent dandruff and scalp itch can be really frustrating, but it is very treatable once we address both the fungal balance and the scalp barrier.
 
-In our clinical study of 50,000 patients across India, dandruff was the most common scalp concern (affecting over 30% of patients). In more than 70% of persistent cases, mineral buildup from hard groundwater (>300 ppm) was a major silent driver that aggravated itching and flaking.
-
 ### 💡 Clinical Action Plan:
 1. **Target the Yeast (*Malassezia*):** Use an active shampoo containing **Ketoconazole 2%** or **Zinc Pyrithione (ZPTO)** 2 to 3 times a week. *Key tip:* Leave the lather on your scalp for 3–5 minutes before rinsing so the active ingredients can work.
 2. **Dissolve Buildup:** If you have thick or stubborn scaling, a gentle **Salicylic Acid (1–2%)** scalp serum helps clear dead cell accumulation without stripping moisture.
@@ -46,7 +44,7 @@ To give you the most accurate advice: **Are your flakes dry and powdery (falling
   ) {
     return `Facial breakouts and acne can feel exhausting to manage, but understanding your specific breakout type makes treatment much more effective.
 
-In our 50,000-patient study, acne was the single most prevalent facial condition (affecting ~27% of patients, mostly between ages 15–39). Interestingly, over 25% of acne patients also had concurrent scalp flaking, which transferred excess fungal lipids to the forehead and hairline.
+
 
 ### 💡 Clinical Action Plan:
 1. **For Blackheads & Whiteheads (Clogged Pores):** Incorporate a **2% BHA (Salicylic Acid)** cleanser or serum 2–3 evenings a week to penetrate deep into pores and dissolve trapped sebum.

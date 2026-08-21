@@ -302,7 +302,7 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => { } })
               {isTyping && (
                 <div className="flex items-center space-x-2 text-stone-400 text-xs italic p-2">
                   <Bot className="w-4 h-4 animate-bounce text-emerald-600" />
-                  <span>Analyzing 50,000 patient records...</span>
+                  <span>Analyzing data...</span>
                 </div>
               )}
               <div ref={chatEndRef} />

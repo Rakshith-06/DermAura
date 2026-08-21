@@ -64,7 +64,7 @@ router.post('/propose', async (req, res) => {
     let patientDoc;
     try {
       patientDoc = await Patient.findById(patientId);
-    } catch (e) {}
+    } catch (e) { }
 
     const resolvedLeadDocId = leadDoctorId || patientDoc?.primaryLeadDoctorId || effectiveDoctorId;
     const isLeadDoctor = effectiveDoctorId.toString() === resolvedLeadDocId.toString();
@@ -118,7 +118,7 @@ router.post('/propose', async (req, res) => {
           actionUrl: '/doctor-dashboard?tab=pending-approvals',
           alertTiming: new Date(),
         });
-      } catch (e) {}
+      } catch (e) { }
     }
 
     return res.status(201).json({
@@ -210,7 +210,7 @@ router.patch('/:id/approve', async (req, res) => {
 
     try {
       prescription = await Prescription.findById(id);
-    } catch (e) {}
+    } catch (e) { }
 
     if (!prescription && mockPendingPrescriptions.has(id)) {
       prescription = mockPendingPrescriptions.get(id);
@@ -311,7 +311,7 @@ router.patch('/:id/approve', async (req, res) => {
           ];
           await patient.save();
         }
-      } catch (e) {}
+      } catch (e) { }
 
       // Notify Patient of Approval & Product Unlock
       try {
@@ -324,7 +324,7 @@ router.patch('/:id/approve', async (req, res) => {
           actionUrl: '/dashboard?tab=pharmacy',
           alertTiming: new Date(),
         });
-      } catch (e) {}
+      } catch (e) { }
     } else {
       // Notify Patient of Rejection
       try {
@@ -337,7 +337,7 @@ router.patch('/:id/approve', async (req, res) => {
           actionUrl: '/chat',
           alertTiming: new Date(),
         });
-      } catch (e) {}
+      } catch (e) { }
     }
 
     return res.status(200).json({

@@ -83,10 +83,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
     const currentLeadDocs = patientUser.leadDoctors && patientUser.leadDoctors.length > 0
       ? patientUser.leadDoctors
       : [
-          { category: 'SKIN_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
-          { category: 'HAIR_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
-          { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar', status: 'ACTIVE' },
-        ];
+        { category: 'SKIN_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
+        { category: 'HAIR_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
+        { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar', status: 'ACTIVE' },
+      ];
 
     const updatedLeadDocs = currentLeadDocs.map((ld) => {
       if (ld.category === switchedCategory) {
@@ -112,7 +112,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
     try {
       localStorage.setItem('dermaura_user', JSON.stringify(updatedUser));
-    } catch (e) {}
+    } catch (e) { }
 
     if (onUpdateUser) {
       onUpdateUser(updatedUser);
@@ -131,16 +131,16 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         type: 'text'
       };
       localStorage.setItem('dermaura_health_chatroom_messages', JSON.stringify([...existingMsgs, switchMsg]));
-    } catch (e) {}
+    } catch (e) { }
 
     setDoctorSwitchModalOpen(false);
     setBookingToast(`Doctor switched to ${newDocName} for ${switchedCategory.replace('_', ' ')}! Lead PCP updated in your profile and chatroom.`);
     setTimeout(() => setBookingToast(null), 5000);
   };
 
-  const [currentPage, setCurrentPage] = useState('chat'); // 'chat' | 'scan' | 'consultations' | 'records' | 'pharmacy' | 'emergency' | 'about'
+  const [currentPage, setCurrentPage] = useState('doctor-chat'); // 'doctor-chat' | 'scan' | 'consultations' | 'records' | 'pharmacy' | 'emergency' | 'about'
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  
+
   // Profile & Theme State
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [showProfileDetailsModal, setShowProfileDetailsModal] = useState(false);
@@ -157,7 +157,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   const [selectedDoctorForUnlock, setSelectedDoctorForUnlock] = useState(
     user?.primaryLeadDoctorName || user?.primaryLeadDoctorId || 'Dr. Sarah Jenkins'
   );
-  
+
   // Real-time synced doctor unlocks & chat requests via localStorage
   const [doctorUnlockedProducts, setDoctorUnlockedProducts] = useState(() => {
     try {
@@ -182,7 +182,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
       try {
         const saved = localStorage.getItem('dermaura_doctor_duty_status') || 'online';
         setDoctorDutyStatus(saved);
-      } catch (e) {}
+      } catch (e) { }
     };
     window.addEventListener('storage', syncDoctorDutyStatus);
     window.addEventListener('dermaura_duty_status_changed', syncDoctorDutyStatus);
@@ -209,7 +209,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
       try {
         const saved = localStorage.getItem('dermaura_session_requests');
         if (saved) setSessionRequests(JSON.parse(saved));
-      } catch (e) {}
+      } catch (e) { }
     };
     window.addEventListener('storage', syncRequests);
     const interval = setInterval(syncRequests, 1000);
@@ -404,33 +404,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
     return true;
   });
 
-  // Chatbot State
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: 'ai',
-      text: `Hello ${user.fullName}! I am DermAura AI, specialized exclusively in **Facial Skin** and **Hair/Scalp Dermatology**. How can I assist you with your facial skin or hair concern today?`,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-  ]);
-  const [inputQuery, setInputQuery] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [chatHistory, setChatHistory] = useState([
-    { id: 'c1', title: 'Facial Acne & Redness Check', date: 'Today' },
-    { id: 'c2', title: 'Scalp Hair Loss Assessment', date: 'Yesterday' },
-    { id: 'c3', title: 'Facial Sunscreen Recommendation', date: '3 days ago' },
-  ]);
-
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
-
+  // E-Commerce Cart Actions
   const addToCart = (product) => {
     const isOrganic = Boolean(product.isOrganic);
     const isUnlocked = doctorUnlockedProducts.includes(product.id);
@@ -447,69 +421,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   };
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
-
-  // Markdown Formatter Helper
-  const renderFormattedText = (text) => {
-    if (!text) return null;
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={index} className="font-bold text-teal-300">{part.slice(2, -2)}</strong>;
-      }
-      return part;
-    });
-  };
-
-  const handleSendMessage = (textToSend) => {
-    const query = textToSend || inputQuery;
-    if (!query.trim()) return;
-
-    const userMsg = {
-      id: Date.now(),
-      sender: 'user',
-      text: query,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
-    if (!textToSend) setInputQuery('');
-    setIsTyping(true);
-
-    setTimeout(() => {
-      let aiText = "Thank you for sharing your facial skin or hair concern. As an AI specialized in facial dermatology and hair health, I recommend keeping facial skin hydrated with fragrance-free moisturizers and using mineral sunscreens. You can also upload a clear face or scalp photo in our **DermScan Visual AI** tool!";
-      
-      const lower = query.toLowerCase();
-      if (lower.includes('acne') || lower.includes('pimple') || lower.includes('face') || lower.includes('rosacea')) {
-        aiText = `For facial acne or redness, wash your face twice daily with a non-comedogenic cleanser and apply a gentle ceramide facial moisturizer. For persistent facial acne, a dermatologist may prescribe **Tretinoin (0.05%)** available in our **DermPharmacy** store!`;
-      } else if (lower.includes('hair') || lower.includes('scalp') || lower.includes('dandruff') || lower.includes('alopecia')) {
-        aiText = `For scalp health and hair loss concerns, ensure your scalp is free of severe seborrheic dermatitis. **Minoxidil (5%)** or **Ketoconazole scalp solutions** are effective prescription options unlocked after a doctor consultation!`;
-      } else if (lower.includes('doctor') || lower.includes('appointment') || lower.includes('consult')) {
-        aiText = `I can connect you with certified dermatologists specializing in facial skin and hair care. Once your doctor evaluates your case, your prescription medicines in **DermPharmacy** will be unlocked!`;
-      }
-
-      const aiMsg = {
-        id: Date.now() + 1,
-        sender: 'ai',
-        text: aiText,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      setMessages((prev) => [...prev, aiMsg]);
-      setIsTyping(false);
-    }, 1200);
-  };
-
-  const handleNewChat = () => {
-    setMessages([
-      {
-        id: Date.now(),
-        sender: 'ai',
-        text: `New consultation session started. What facial skin or hair/scalp query can I help you with, ${user.fullName}?`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }
-    ]);
-    setCurrentPage('chat');
-  };
 
   // Stress & Cortisol Quiz State
   const [stressAnswers, setStressAnswers] = useState({});
@@ -639,9 +550,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   // Fires POST /api/reports/analyze and simultaneously writes to localStorage
   // so AutoReportBanner in the doctor's portal picks it up instantly (demo mode).
   const autoRouteReportToDoctor = async (reportType, reportData, imageUrl = '') => {
-    const patientId    = user.id || user._id || 'demo-patient-001';
+    const patientId = user.id || user._id || 'demo-patient-001';
     const leadDoctorId = user.primaryLeadDoctorId || 'demo-doctor-002';
-    const snapshot     = { fullName: user.fullName || 'Patient', age: user.age || 28, gender: user.gender || 'Male' };
+    const snapshot = { fullName: user.fullName || 'Patient', age: user.age || 28, gender: user.gender || 'Male' };
 
     const payload = { reportType, patientId, leadDoctorId, reportData: { ...reportData, scanImageUrl: imageUrl }, patientSnapshot: snapshot };
 
@@ -650,7 +561,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
       const lsKey = reportType === 'DERMSCAN' ? 'dermaura_auto_scan_report' : 'dermaura_shared_stress_report';
       const lsPayload = { id: `${reportType}-${Date.now()}`, ...reportData, scanImageUrl: imageUrl, patientSnapshot: snapshot, deliveredAt: new Date().toISOString() };
       localStorage.setItem(lsKey, JSON.stringify(lsPayload));
-    } catch (_) {}
+    } catch (_) { }
 
     // Also fire the API route (non-blocking)
     try {
@@ -767,7 +678,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   const handleConfirmBooking = () => {
     if (!selectedDoctorForBooking) return;
     const doc = selectedDoctorForBooking;
-    
+
     setConsultationList((prev) => [
       {
         id: `app-${Date.now()}`,
@@ -789,10 +700,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
   return (
     <div className={`flex h-screen w-screen ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-stone-50 text-stone-900'} font-sans overflow-hidden selection:bg-emerald-500 selection:text-white transition-colors duration-300`}>
-      
+
       {/* 1. CHATGPT-STYLE COLLAPSIBLE SIDEBAR */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} transition-all duration-300 ${darkMode ? 'bg-slate-900/95 border-slate-800' : 'bg-white border-stone-200'} border-r flex flex-col justify-between z-[60] relative shadow-xs h-full flex-shrink-0`}>
-        
+
         {/* Floating Expand Sidebar Button when Collapsed (z-[100] on sidebar right border) */}
         {!sidebarOpen && (
           <button
@@ -861,60 +772,17 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             )}
           </div>
 
-          {/* New Chat Button */}
-          <div className="p-3 relative group">
-            <button
-              onClick={handleNewChat}
-              title="New Consultation"
-              className="w-full py-2.5 px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-800 text-xs font-semibold flex items-center transition-all shadow-2xs cursor-pointer justify-start space-x-2.5"
-            >
-              <Plus className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              {sidebarOpen && <span>New Consultation</span>}
-            </button>
-            {!sidebarOpen && (
-              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                <Plus className="w-3.5 h-3.5 text-emerald-600" />
-                <span>New Consultation</span>
-              </div>
-            )}
-          </div>
-
           {/* Navigation Items */}
-          <div className="px-2 py-2 space-y-1">
-            <div className="relative group">
-              <button
-                onClick={() => setCurrentPage('chat')}
-                title="AI Health Chatbot"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'chat'
-                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
-                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
-              >
-                <MessageSquare className="w-4 h-4 flex-shrink-0 text-emerald-600" />
-                {sidebarOpen && <span>AI Health Chatbot</span>}
-              </button>
-              {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>AI Health Chatbot</span>
-                </div>
-              )}
-            </div>
-
+          <div className="px-2 py-3 space-y-1">
             <div className="relative group">
               <button
                 onClick={() => setCurrentPage('doctor-chat')}
                 title="Doctor Tele-Chatroom"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'doctor-chat'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'doctor-chat'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <Stethoscope className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
@@ -939,13 +807,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('reminders')}
                 title="Care & Medication Adherence"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'reminders'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'reminders'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
@@ -964,13 +830,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('pre-consult')}
                 title="Instant 24-Hr Session (₹300)"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'pre-consult'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'pre-consult'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <Sparkles className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
@@ -988,13 +852,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('pharmacy')}
                 title="DermPharmacy Store"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'pharmacy'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'pharmacy'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <ShoppingBag className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
@@ -1018,13 +880,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('scan')}
                 title="DermScan Visual AI"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'scan'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'scan'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <Scan className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && <span>DermScan Visual AI</span>}
@@ -1041,13 +901,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('stress')}
                 title="Stress & Cortisol Quiz"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'stress'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'stress'
                     ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
                     : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-                }`}
+                  }`}
               >
                 <Activity className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
@@ -1071,13 +929,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={() => setCurrentPage('emergency')}
                 title="Emergency Medical SOS"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
-                  sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all cursor-pointer ${
-                  currentPage === 'emergency'
+                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
+                  } transition-all cursor-pointer ${currentPage === 'emergency'
                     ? 'bg-rose-50 text-rose-800 font-bold border border-rose-300 shadow-2xs'
                     : 'text-rose-700 hover:bg-rose-50'
-                }`}
+                  }`}
               >
                 <PhoneCall className="w-4 h-4 flex-shrink-0 text-rose-600" />
                 {sidebarOpen && <span>Emergency SOS</span>}
@@ -1151,7 +1007,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
       {/* 2. MAIN CANVAS CONTENT */}
       <main className="flex-1 flex flex-col h-full overflow-hidden relative">
-        
+
         {/* Toast Notification */}
         {bookingToast && (
           <div className="absolute top-16 right-6 z-[100] p-4 bg-emerald-950/95 border border-emerald-700/80 rounded-2xl shadow-2xl text-xs text-emerald-200 flex items-center space-x-3 max-w-md animate-in slide-in-from-top backdrop-blur-md">
@@ -1217,9 +1073,8 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                         <div key={req.id} className="p-3 bg-stone-50 border border-stone-200 rounded-xl space-y-2 text-xs">
                           <div className="flex items-center justify-between">
                             <span className="font-bold text-stone-900 text-[11px]">24-Hr Assessment Request</span>
-                            <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${
-                              req.status === 'ACCEPTED' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse'
-                            }`}>
+                            <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${req.status === 'ACCEPTED' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse'
+                              }`}>
                               {req.status === 'ACCEPTED' ? '🟢 ACCEPTED BY DOCTOR' : '⏳ PENDING ACCEPTANCE'}
                             </span>
                           </div>
@@ -1259,19 +1114,17 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               title="Attending Lead Doctor Clinical Availability"
               className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs cursor-pointer hover:border-stone-300 transition-all shadow-2xs"
             >
-              <span className={`w-2.5 h-2.5 rounded-full ${
-                doctorDutyStatus === 'online' ? 'bg-emerald-500 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-500' : 'bg-rose-500'
-              }`} />
+              <span className={`w-2.5 h-2.5 rounded-full ${doctorDutyStatus === 'online' ? 'bg-emerald-500 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-500' : 'bg-rose-500'
+                }`} />
               <span className="font-bold text-stone-900">
                 {user.primaryLeadDoctorName || 'Dr. Sarah Jenkins'}
               </span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                doctorDutyStatus === 'online'
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                  : doctorDutyStatus === 'busy'
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${doctorDutyStatus === 'online'
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                : doctorDutyStatus === 'busy'
                   ? 'bg-amber-100 text-amber-900 border border-amber-300'
                   : 'bg-rose-100 text-rose-800 border border-rose-300'
-              }`}>
+                }`}>
                 {doctorDutyStatus === 'online' ? '🟢 Online & Available' : doctorDutyStatus === 'busy' ? '🟡 Busy in Consultation' : '🔴 Off-Duty'}
               </span>
             </div>
@@ -1313,7 +1166,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               user={user}
               onUpdateUser={(updated) => {
                 setPatientUser(updated);
-                try { localStorage.setItem('dermaura_user', JSON.stringify(updated)); } catch (e) {}
+                try { localStorage.setItem('dermaura_user', JSON.stringify(updated)); } catch (e) { }
                 if (onUpdateUser) onUpdateUser(updated);
               }}
               onLogout={onLogout}
@@ -1342,151 +1195,8 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 patientId={user.id || 'pat-aarav-101'}
                 leadDoctorId={user.primaryLeadDoctorId || 'doc-sarah-jenkins'}
                 onSessionCreated={() => setCurrentPage('doctor-chat')}
-                onCancel={() => setCurrentPage('chat')}
+                onCancel={() => setCurrentPage('doctor-chat')}
               />
-            </div>
-          </div>
-        )}
-        
-        {/* PAGE 1: CHATBOT PAGE */}
-        {currentPage === 'chat' && (
-          <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] w-full overflow-hidden relative bg-stone-50">
-            <div className="flex-1 overflow-y-auto custom-scrollbar w-full p-4 sm:p-6">
-              <div className="max-w-3xl w-full mx-auto space-y-6">
-                {messages.length <= 1 && (
-                  <div className="py-10 text-center space-y-4">
-                    <div className="w-14 h-14 rounded-2xl bg-emerald-100 border border-emerald-300 flex items-center justify-center font-bold text-emerald-800 mx-auto shadow-sm">
-                      <Bot className="w-8 h-8 text-emerald-600" />
-                    </div>
-                    <h2 className="text-2xl font-extrabold text-stone-900">
-                      What facial skin or hair query can I assist with today, <span className="text-emerald-700">{user.fullName}</span>?
-                    </h2>
-                    <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">
-                      DermAura AI is trained specifically for facial acne, rosacea, scalp health, and hair loss evaluation.
-                    </p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 max-w-lg mx-auto text-left">
-                      <button
-                        onClick={() => handleSendMessage('Check symptoms for facial acne, redness, and sensitive skin care')}
-                        className="p-3 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50/30 rounded-2xl text-xs text-stone-700 transition-all flex items-start space-x-2.5 shadow-2xs cursor-pointer"
-                      >
-                        <Smile className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <span className="font-semibold block text-stone-900">Facial Skin & Acne Check</span>
-                          <span className="text-[11px] text-stone-500">Rosacea, redness & facial care</span>
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={() => handleSendMessage('Assess scalp health, hair thinning, and anti-dandruff solutions')}
-                        className="p-3 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50/30 rounded-2xl text-xs text-stone-700 transition-all flex items-start space-x-2.5 shadow-2xs cursor-pointer"
-                      >
-                        <Scissors className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <span className="font-semibold block text-stone-900">Hair & Scalp Health</span>
-                          <span className="text-[11px] text-stone-500">Hair loss & scalp seborrhea</span>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex items-start space-x-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    {msg.sender === 'ai' && (
-                      <div className="w-8 h-8 rounded-xl bg-emerald-100/80 border border-emerald-300 flex items-center justify-center text-emerald-700 font-bold text-xs flex-shrink-0 shadow-2xs">
-                        <Bot className="w-4 h-4" />
-                      </div>
-                    )}
-
-                    <div className={`max-w-lg rounded-2xl p-4 text-xs leading-relaxed space-y-1 shadow-2xs ${
-                      msg.sender === 'user'
-                        ? 'bg-emerald-600 text-white rounded-tr-none font-medium'
-                        : 'bg-white border border-stone-200 text-stone-800 rounded-tl-none'
-                    }`}>
-                      <p className="whitespace-pre-wrap">{renderFormattedText(msg.text)}</p>
-                      <span className="text-[10px] opacity-70 block text-right font-mono">{msg.timestamp}</span>
-                    </div>
-
-                    {msg.sender === 'user' && (
-                      <div className="w-8 h-8 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-700 font-bold text-xs flex-shrink-0 shadow-2xs">
-                        <User className="w-4 h-4" />
-                      </div>
-                    )}
-                  </div>
-                ))}
-
-                {isTyping && (
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700 font-bold text-xs shadow-2xs">
-                      <Bot className="w-4 h-4" />
-                    </div>
-                    <div className="bg-white border border-stone-200 rounded-2xl px-4 py-3 text-xs text-stone-500 flex items-center space-x-1 shadow-2xs">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-150" />
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-300" />
-                    </div>
-                  </div>
-                )}
-
-                <div ref={messagesEndRef} />
-              </div>
-            </div>
-
-            <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 pt-2 pb-3">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage();
-                }}
-                className="relative border border-stone-300 focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-500/15 rounded-2xl p-2.5 shadow-sm transition-all bg-white"
-              >
-                <textarea
-                  rows={2}
-                  value={inputQuery}
-                  onChange={(e) => setInputQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendMessage();
-                    }
-                  }}
-                  placeholder="Ask DermAura AI about facial skin or hair/scalp concerns (Press Enter to send)..."
-                  className="w-full bg-transparent text-xs text-stone-900 placeholder-stone-400 focus:outline-none resize-none px-2"
-                />
-
-                <div className="flex items-center justify-between pt-1 px-1 border-t border-stone-100">
-                  <div className="flex items-center space-x-1">
-                    <button
-                      type="button"
-                      onClick={() => setCurrentPage('scan')}
-                      title="Upload Face or Hair Image"
-                      className="p-1.5 rounded-lg text-stone-500 hover:text-emerald-700 hover:bg-stone-100 transition-all cursor-pointer"
-                    >
-                      <Paperclip className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCurrentPage('pharmacy')}
-                      title="Open DermPharmacy Store"
-                      className="p-1.5 rounded-lg text-stone-500 hover:text-emerald-700 hover:bg-stone-100 transition-all cursor-pointer"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={!inputQuery.trim()}
-                    className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-30 text-white font-bold transition-all shadow-xs cursor-pointer"
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
         )}
@@ -1506,7 +1216,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   About <span className="text-emerald-400">DermAura</span>
                 </h1>
               </div>
-              
+
               <p className="text-sm text-stone-200 max-w-2xl leading-relaxed">
                 DermAura is an AI-driven, clinical-grade healthcare platform designed exclusively for <strong>Facial Skin Lesions</strong> and <strong>Hair/Scalp Dermatology</strong>. Built for the Smart India Hackathon (SIH), our system bridges intelligent AI triage with certified tele-dermatologists and doctor-gated e-commerce.
               </p>
@@ -1687,41 +1397,36 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <div className="flex flex-wrap gap-1.5 w-full sm:w-auto">
                 <button
                   onClick={() => setPharmacyCategory('all')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                    pharmacyCategory === 'all' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${pharmacyCategory === 'all' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                    }`}
                 >
                   All Products
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('organic')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                    pharmacyCategory === 'organic' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${pharmacyCategory === 'organic' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                    }`}
                 >
                   🌿 Organic Only
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('facial')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                    pharmacyCategory === 'facial' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${pharmacyCategory === 'facial' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                    }`}
                 >
                   Facial Skin Care
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('hair')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                    pharmacyCategory === 'hair' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${pharmacyCategory === 'hair' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                    }`}
                 >
                   Hair & Scalp
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('rx')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                    pharmacyCategory === 'rx' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
-                  }`}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${pharmacyCategory === 'rx' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
+                    }`}
                 >
                   Prescription Rx
                 </button>
@@ -1748,9 +1453,8 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 return (
                   <div
                     key={product.id}
-                    className={`relative bg-white border rounded-3xl p-5 flex flex-col justify-between transition-all ${
-                      !isBuyable ? 'border-stone-200/80 bg-stone-50/50' : 'border-stone-200 hover:border-emerald-500 shadow-xs'
-                    }`}
+                    className={`relative bg-white border rounded-3xl p-5 flex flex-col justify-between transition-all ${!isBuyable ? 'border-stone-200/80 bg-stone-50/50' : 'border-stone-200 hover:border-emerald-500 shadow-xs'
+                      }`}
                   >
                     {isOrganic ? (
                       <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10">
@@ -1782,13 +1486,12 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                         <p className="text-xs text-stone-600 mt-1 leading-relaxed line-clamp-2">{product.description}</p>
                       </div>
 
-                      <div className={`p-2.5 rounded-xl border text-[10px] leading-relaxed ${
-                        !isBuyable
-                          ? 'bg-rose-50 border-rose-200 text-rose-800'
-                          : isOrganic
+                      <div className={`p-2.5 rounded-xl border text-[10px] leading-relaxed ${!isBuyable
+                        ? 'bg-rose-50 border-rose-200 text-rose-800'
+                        : isOrganic
                           ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
                           : 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                      }`}>
+                        }`}>
                         <span className="font-bold uppercase tracking-wider block flex items-center mb-0.5">
                           <ShieldAlert className="w-3 h-3 mr-1 flex-shrink-0 text-emerald-700" />
                           <span>Status & Safety Warning:</span>
@@ -1859,7 +1562,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
             {/* Presets & Dropzone */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              
+
               {/* Left Selector & Upload */}
               <div className="md:col-span-6 space-y-4">
                 <div
@@ -1880,18 +1583,16 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => handlePresetSelect('acne')}
-                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                        scanPresetName.includes('Acne') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
-                      }`}
+                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${scanPresetName.includes('Acne') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
+                        }`}
                     >
                       <Smile className="w-4 h-4 mx-auto mb-1 text-emerald-600" />
                       <span>Facial Acne</span>
                     </button>
                     <button
                       onClick={() => handlePresetSelect('scalp')}
-                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                        scanPresetName.includes('Scalp') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
-                      }`}
+                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${scanPresetName.includes('Scalp') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
+                        }`}
                     >
                       <Scissors className="w-4 h-4 mx-auto mb-1 text-emerald-700" />
                       <span>Scalp Dandruff</span>
@@ -2041,11 +1742,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                         <button
                           key={optIdx}
                           onClick={() => handleSelectStressOption(q.id, opt.pts)}
-                          className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between cursor-pointer ${
-                            isSelected
-                              ? 'bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-2xs'
-                              : 'bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-white'
-                          }`}
+                          className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between cursor-pointer ${isSelected
+                            ? 'bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-2xs'
+                            : 'bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-white'
+                            }`}
                         >
                           <span>{opt.label}</span>
                           {isSelected && <CheckCircle2 className="w-4 h-4 text-emerald-600 ml-2 flex-shrink-0" />}
@@ -2062,11 +1762,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={handleCalculateStressScore}
                 disabled={Object.keys(stressAnswers).length < stressQuestions.length}
-                className={`py-3 px-8 rounded-2xl font-bold text-xs shadow-md flex items-center space-x-2 transition-all cursor-pointer ${
-                  Object.keys(stressAnswers).length < stressQuestions.length
-                    ? 'bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300'
-                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
-                }`}
+                className={`py-3 px-8 rounded-2xl font-bold text-xs shadow-md flex items-center space-x-2 transition-all cursor-pointer ${Object.keys(stressAnswers).length < stressQuestions.length
+                  ? 'bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300'
+                  : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
+                  }`}
               >
                 <Sparkles className="w-4 h-4" />
                 <span>
@@ -2132,11 +1831,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <button
                     onClick={handleShareStressReportWithDoctor}
                     disabled={stressSharedWithDoctor}
-                    className={`w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs shadow-xs flex items-center justify-center space-x-2 transition-all cursor-pointer ${
-                      stressSharedWithDoctor
-                        ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-default'
-                        : 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                    }`}
+                    className={`w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs shadow-xs flex items-center justify-center space-x-2 transition-all cursor-pointer ${stressSharedWithDoctor
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-default'
+                      : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                      }`}
                   >
                     {stressSharedWithDoctor ? (
                       <>
@@ -2485,7 +2183,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   try {
                     const savedMsgs = JSON.parse(localStorage.getItem('dermaura_health_chatroom_messages') || '[]');
                     localStorage.setItem('dermaura_health_chatroom_messages', JSON.stringify([...savedMsgs, chatMsg]));
-                  } catch (e) {}
+                  } catch (e) { }
 
                   setBookingToast(`Unlock request for ${unlockRequestModalProduct.name} posted to your Lead PCP ${user?.primaryLeadDoctorName || 'Dr. Sarah Jenkins'} in your Doctor Chatroom!`);
                   setTimeout(() => setBookingToast(null), 5000);
@@ -2523,7 +2221,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         title="Open 50k Cohort AI Assistant"
       >
         <Sparkles className="w-5 h-5 text-amber-300 animate-spin" style={{ animationDuration: '4s' }} />
-        <span className="text-xs font-bold pr-1">50k Cohort AI Chatbot</span>
+        <span className="text-xs font-bold pr-1">DermAura</span>
       </button>
 
       {/* AI Chatbot Widget Modal */}
