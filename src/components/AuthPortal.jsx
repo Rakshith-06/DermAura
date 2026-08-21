@@ -63,16 +63,11 @@ export default function AuthPortal() {
     languagesSpoken: 'English, Hindi',
   });
 
-  // Check if token already exists in localStorage on load
+  // Ensure login portal is always the first page when visiting the website
   useEffect(() => {
-    const savedUser = localStorage.getItem('dermaura_user');
-    if (savedUser) {
-      try {
-        setCurrentUser(JSON.parse(savedUser));
-      } catch (e) {
-        localStorage.removeItem('dermaura_user');
-      }
-    }
+    localStorage.removeItem('dermaura_user');
+    localStorage.removeItem('dermaura_token');
+    setCurrentUser(null);
   }, []);
 
   const handleChange = (e) => {
