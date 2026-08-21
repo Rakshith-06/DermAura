@@ -161,19 +161,10 @@ export default function PatientProfilePage({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow"
+              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow cursor-pointer"
             >
               <Edit className="w-4 h-4 text-amber-400" />
               <span>{isEditing ? 'Cancel Edit' : 'Edit Profile Webpage'}</span>
-            </button>
-
-            <button
-              onClick={onNavigateToSwitchDoctor}
-              title="Click to Switch Attending Lead Doctor"
-              className="px-4 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow cursor-pointer"
-            >
-              <Stethoscope className="w-4 h-4 text-amber-400" />
-              <span>Lead PCP: {leadDoctorName}</span>
             </button>
 
             {onLogout && (
@@ -209,9 +200,9 @@ export default function PatientProfilePage({
         </div>
 
         <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1 shadow-lg">
-          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Assigned Lead PCP</span>
+          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Clinical Care Team</span>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-teal-300 truncate">{leadDoctorName.split(',')[0]}</span>
+            <span className="text-xs font-bold text-teal-300 truncate">3 Domain Leads</span>
             <Stethoscope className="w-5 h-5 text-teal-400/60" />
           </div>
         </div>
@@ -221,6 +212,92 @@ export default function PatientProfilePage({
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-indigo-300 truncate">{formData.skinType}</span>
             <Activity className="w-5 h-5 text-indigo-400/60" />
+          </div>
+        </div>
+      </div>
+
+      {/* CATEGORY LEAD DOCTORS GRID */}
+      <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-4 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div>
+            <h3 className="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
+              <Stethoscope className="w-4 h-4 text-teal-400" />
+              <span>Assigned Category Lead Doctors (Multi-Specialist Team)</span>
+            </h3>
+            <p className="text-xs text-slate-400">
+              Dedicated clinical gatekeepers for each of your treatment domains.
+            </p>
+          </div>
+          <button
+            onClick={onNavigateToSwitchDoctor}
+            className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 rounded-xl text-xs font-semibold self-start sm:self-auto transition-all cursor-pointer"
+          >
+            Manage / Switch Doctors 🔄
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          {/* 1. Skin Care Lead */}
+          <div className="p-4 bg-slate-950/80 border border-teal-500/30 rounded-2xl space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/15 text-teal-300 border border-teal-500/30">
+                ✨ Skin Care Lead
+              </span>
+              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+            </div>
+            <div className="flex items-center space-x-3 pt-1">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+                👩‍⚕️
+              </div>
+              <div className="truncate">
+                <h4 className="text-xs font-bold text-white truncate">
+                  {resolvedUser.leadDoctors?.find(l => l.category === 'SKIN_CARE')?.doctorName || 'Dr. Sarah Jenkins, MD'}
+                </h4>
+                <p className="text-[10px] text-teal-400 font-mono truncate">AIIMS Hospital • Facial Acne & Barrier</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Hair Care Lead */}
+          <div className="p-4 bg-slate-950/80 border border-indigo-500/30 rounded-2xl space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+                💇 Hair Care Lead
+              </span>
+              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+            </div>
+            <div className="flex items-center space-x-3 pt-1">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+                👩‍⚕️
+              </div>
+              <div className="truncate">
+                <h4 className="text-xs font-bold text-white truncate">
+                  {resolvedUser.leadDoctors?.find(l => l.category === 'HAIR_CARE')?.doctorName || 'Dr. Priya Menon, MD'}
+                </h4>
+                <p className="text-[10px] text-indigo-400 font-mono truncate">AIIMS New Delhi • Trichology & Scalp</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. General Health Lead */}
+          <div className="p-4 bg-slate-950/80 border border-amber-500/30 rounded-2xl space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                🩺 General Health Gatekeeper
+              </span>
+              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+            </div>
+            <div className="flex items-center space-x-3 pt-1">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+                👨‍⚕️
+              </div>
+              <div className="truncate">
+                <h4 className="text-xs font-bold text-white truncate">
+                  {resolvedUser.leadDoctors?.find(l => l.category === 'GENERAL_HEALTH')?.doctorName || 'Dr. Rajesh Kumar, MBBS'}
+                </h4>
+                <p className="text-[10px] text-amber-400 font-mono truncate">Apollo Hospitals • Drug Safety & Vitals</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

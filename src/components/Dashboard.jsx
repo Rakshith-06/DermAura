@@ -83,11 +83,34 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   const handleDoctorSwitchSuccess = (transferSummary) => {
     const newDocName = transferSummary?.newDoctorName || 'Dr. Vikramaditya Sen';
     const newDocId = transferSummary?.newDoctorId || 'doc-dr-vikramaditya-sen';
+    const switchedCategory = transferSummary?.category || 'SKIN_CARE';
+
+    const currentLeadDocs = patientUser.leadDoctors && patientUser.leadDoctors.length > 0
+      ? patientUser.leadDoctors
+      : [
+          { category: 'SKIN_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
+          { category: 'HAIR_CARE', doctorId: patientUser.primaryLeadDoctorId || 'demo-doc-101', doctorName: patientUser.primaryLeadDoctorName || 'Dr. Sarah Jenkins', status: 'ACTIVE' },
+          { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar', status: 'ACTIVE' },
+        ];
+
+    const updatedLeadDocs = currentLeadDocs.map((ld) => {
+      if (ld.category === switchedCategory) {
+        return {
+          ...ld,
+          doctorId: newDocId,
+          doctorName: newDocName,
+          assignedAt: new Date().toISOString(),
+          status: 'ACTIVE',
+        };
+      }
+      return ld;
+    });
 
     const updatedUser = {
       ...patientUser,
-      primaryLeadDoctorId: newDocId,
-      primaryLeadDoctorName: newDocName,
+      leadDoctors: updatedLeadDocs,
+      primaryLeadDoctorId: switchedCategory === 'SKIN_CARE' ? newDocId : patientUser.primaryLeadDoctorId || newDocId,
+      primaryLeadDoctorName: switchedCategory === 'SKIN_CARE' ? newDocName : patientUser.primaryLeadDoctorName || newDocName,
     };
 
     setPatientUser(updatedUser);
@@ -106,9 +129,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
       const switchMsg = {
         id: `msg-switch-${Date.now()}`,
         sender: 'doctor',
-        senderName: `${newDocName} (New Lead Primary Care Provider)`,
+        senderName: `${newDocName} (${switchedCategory.replace('_', ' ')} Lead Doctor)`,
         isLead: true,
-        text: `🔄 CARE HANDOFF & DOCTOR SWITCH CONFIRMED: Lead primary care successfully transferred to ${newDocName}. Escrow balance of ₹${(transferSummary?.financialBreakdown?.amountTransferredToNewDoctor || 1800).toLocaleString('en-IN')} has been reallocated in escrow.`,
+        text: `🔄 CARE HANDOFF & DOCTOR SWITCH CONFIRMED: ${switchedCategory.replace('_', ' ')} lead care successfully transferred to ${newDocName}. Escrow balance of ₹${(transferSummary?.financialBreakdown?.amountTransferredToNewDoctor || 1800).toLocaleString('en-IN')} has been reallocated in escrow.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         type: 'text'
       };
@@ -116,7 +139,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
     } catch (e) {}
 
     setDoctorSwitchModalOpen(false);
-    setBookingToast(`Doctor switched to ${newDocName}! Lead PCP updated in your profile and chatroom.`);
+    setBookingToast(`Doctor switched to ${newDocName} for ${switchedCategory.replace('_', ' ')}! Lead PCP updated in your profile and chatroom.`);
     setTimeout(() => setBookingToast(null), 5000);
   };
 

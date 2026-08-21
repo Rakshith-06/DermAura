@@ -60,6 +60,35 @@ BaseUserSchema.methods.comparePassword = async function (candidatePassword) {
 
 const User = mongoose.model('User', BaseUserSchema);
 
+// Category-Specific Lead Doctor Subdocument Schema
+const LeadDoctorAssignmentSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      enum: {
+        values: ['SKIN_CARE', 'HAIR_CARE', 'GENERAL_HEALTH'],
+        message: '{VALUE} is not a valid clinical lead doctor category.',
+      },
+      required: [true, 'Clinical category is required for lead doctor assignment.'],
+    },
+    doctorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Doctor reference is required.'],
+    },
+    assignedAt: {
+      type: Date,
+      default: Date.now,
+    },
+    status: {
+      type: String,
+      enum: ['ACTIVE', 'TRANSFERRED', 'ARCHIVED'],
+      default: 'ACTIVE',
+    },
+  },
+  { _id: true }
+);
+
 // Patient Discriminator Schema
 const PatientSchema = new mongoose.Schema({
   age: {
@@ -78,6 +107,12 @@ const PatientSchema = new mongoose.Schema({
     relationship: { type: String, required: true, trim: true },
     phone: { type: String, required: true, trim: true },
   },
+  // Category-Specific Lead Doctors Array
+  leadDoctors: {
+    type: [LeadDoctorAssignmentSchema],
+    default: [],
+  },
+  // Legacy / fallback reference
   primaryLeadDoctorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -100,6 +135,49 @@ const PatientSchema = new mongoose.Schema({
     currentMedications: [{ type: String, trim: true }],
   },
 });
+
+// Helper Method: Get active lead doctor for a category
+PatientSchema.methods.getActiveLeadDoctor = function (category) {
+  const match = this.leadDoctors?.find(
+    (ld) => ld.category === category && ld.status === 'ACTIVE'
+  );
+  return match ? match.doctorId : this.primaryLeadDoctorId || null;
+};
+
+// Helper Method: Assign or replace a lead doctor for a specific category
+PatientSchema.methods.assignLeadDoctor = function (category, doctorId) {
+  if (!this.leadDoctors) this.leadDoctors = [];
+  
+  // Mark any existing active doctor for this category as transferred
+  this.leadDoctors.forEach((ld) => {
+    if (ld.category === category && ld.status === 'ACTIVE') {
+      ld.status = 'TRANSFERRED';
+    }
+  });
+
+  this.leadDoctors.push({
+    category,
+    doctorId,
+    assignedAt: new Date(),
+    status: 'ACTIVE',
+  });
+
+  // Keep primaryLeadDoctorId synced for backward compatibility (defaults to SKIN_CARE or first assigned)
+  if (category === 'SKIN_CARE' || !this.primaryLeadDoctorId) {
+    this.primaryLeadDoctorId = doctorId;
+  }
+
+  this.isFirstLogin = false;
+};
+
+// Helper Method: Bulk assign category lead doctors
+PatientSchema.methods.assignMultipleLeadDoctors = function (assignments = []) {
+  assignments.forEach(({ category, doctorId }) => {
+    if (category && doctorId) {
+      this.assignLeadDoctor(category, doctorId);
+    }
+  });
+};
 
 // Doctor Discriminator Schema
 const DoctorSchema = new mongoose.Schema({

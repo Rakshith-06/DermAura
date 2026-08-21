@@ -65,8 +65,9 @@ const MOCK_SPECIALISTS = [
 export default function DoctorSwitchModal({
   isOpen = true,
   consultationId = 'consult-md-101',
-  currentDoctorName = 'Dr. Ananya Patel',
-  currentDoctorId = 'doc-dr-ananya-patel',
+  currentDoctorName = 'Dr. Sarah Jenkins',
+  currentDoctorId = 'demo-doc-101',
+  initialCategory = 'SKIN_CARE',
   totalDays = 10,
   daysServed = 4,
   totalAmount = 3000,
@@ -74,12 +75,13 @@ export default function DoctorSwitchModal({
   onClose = () => {},
   onSwitchSuccess = () => {},
 }) {
+  const [targetCategory, setTargetCategory] = useState(initialCategory); // 'SKIN_CARE' | 'HAIR_CARE' | 'GENERAL_HEALTH'
   const [specialistCategoryFilter, setSpecialistCategoryFilter] = useState('ALL'); // 'ALL' | 'SKIN' | 'HAIR'
   const [selectedDoctorId, setSelectedDoctorId] = useState(MOCK_SPECIALISTS[0].id);
   const [handoffNotes, setHandoffNotes] = useState(
-    'Patient skin barrier has stabilized over the last 4 days. Recommending specialist transfer for focused scalp alopecia treatment.'
+    'Patient care handoff notes for specialized treatment domain.'
   );
-  const [reason, setReason] = useState('Specialist referral for scalp involvement');
+  const [reason, setReason] = useState('Specialist transfer for targeted clinical domain');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [transferResult, setTransferResult] = useState(null);
@@ -118,15 +120,16 @@ export default function DoctorSwitchModal({
         throw new Error(data.message || 'Failed to complete doctor transfer');
       }
 
-      setTransferResult(data.transferSummary);
+      setTransferResult({ ...data.transferSummary, category: targetCategory });
       setTimeout(() => {
-        onSwitchSuccess(data.transferSummary);
+        onSwitchSuccess({ ...data.transferSummary, category: targetCategory });
       }, 1800);
     } catch (err) {
       // Mock Fallback for Demo Mode
       const selectedDoc = MOCK_SPECIALISTS.find((d) => d.id === selectedDoctorId);
       const mockResult = {
         consultationId,
+        category: targetCategory,
         previousDoctorId: currentDoctorId,
         newDoctorId: selectedDoctorId,
         newDoctorName: selectedDoc?.name || 'Dr. Vikramaditya Sen',

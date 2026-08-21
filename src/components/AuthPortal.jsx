@@ -101,6 +101,11 @@ export default function AuthPortal() {
       gender: 'Male',
       primaryLeadDoctorId: 'demo-doc-101',
       primaryLeadDoctorName: 'Dr. Sarah Jenkins',
+      leadDoctors: [
+        { category: 'SKIN_CARE', doctorId: 'demo-doc-101', doctorName: 'Dr. Sarah Jenkins, MD', specialization: 'Dermatology & Clinical Trichology', status: 'ACTIVE' },
+        { category: 'HAIR_CARE', doctorId: 'demo-doc-101', doctorName: 'Dr. Sarah Jenkins, MD', specialization: 'Dermatology & Clinical Trichology', status: 'ACTIVE' },
+        { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar, MBBS', specialization: 'Internal Medicine & General Physician', status: 'ACTIVE' },
+      ],
       isFirstLogin: false,
       isVerified: true
     };
@@ -217,6 +222,11 @@ export default function AuthPortal() {
           gender: 'Male',
           primaryLeadDoctorId: 'demo-doc-101',
           primaryLeadDoctorName: 'Dr. Sarah Jenkins',
+          leadDoctors: [
+            { category: 'SKIN_CARE', doctorId: 'demo-doc-101', doctorName: 'Dr. Sarah Jenkins, MD', specialization: 'Dermatology & Clinical Trichology', status: 'ACTIVE' },
+            { category: 'HAIR_CARE', doctorId: 'demo-doc-101', doctorName: 'Dr. Sarah Jenkins, MD', specialization: 'Dermatology & Clinical Trichology', status: 'ACTIVE' },
+            { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar, MBBS', specialization: 'Internal Medicine & General Physician', status: 'ACTIVE' },
+          ],
           isFirstLogin: false,
           isVerified: true
         };

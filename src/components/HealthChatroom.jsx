@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import {
   MessageSquare,
@@ -59,47 +59,48 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     return id;
   };
 
-  const getStorageKeyForPatient = (patId) => {
-    const norm = normalizePatientId(patId);
-    return `dermaura_health_chatroom_messages_${norm}`;
+  const getStorageKeyForChat = (patId, channelId) => {
+    const normPat = normalizePatientId(patId);
+    const normChan = channelId || 'SKIN_CARE_demo-doc-101';
+    return `dermaura_chat_${normPat}_${normChan}`;
   };
 
-  // Doctors list — lead slot is always the patient's chosen PCP
-  const doctorsList = [
-    {
-      id: resolvedUser.primaryLeadDoctorId || 'demo-doc-101',
-      name: leadDoctorName,
-      specialty: 'General Physician & Primary Care Provider (PCP)',
-      hospital: 'AIIMS Hospital',
-      photo: '👩‍⚕️',
-      isLeadDoctor: true,
-      doctorRole: 'LEAD_PRIMARY',
-      status: 'ACTIVE_LEAD',
-      availability: '🟢 Live & Online (Lead Gatekeeper)'
-    },
-    {
-      id: 'doc-2',
-      name: 'Dr. Vikramaditya Sen, MD, DM',
-      specialty: 'Trichology & Scalp Specialist',
-      hospital: 'Max Healthcare & DermAura Panel',
-      photo: '👨‍⚕️',
-      isLeadDoctor: false,
-      doctorRole: 'SPECIALIST_REFERRED',
-      status: 'REFERRED_CONSULT',
-      availability: '🟢 Referred Consultant'
-    },
-    {
-      id: 'doc-3',
-      name: 'Dr. Priya Menon, MD',
-      specialty: 'Onco-Dermatologist Specialist',
-      hospital: 'AIIMS & DermAura Panel',
-      photo: '👩‍⚕️',
-      isLeadDoctor: false,
-      doctorRole: 'SPECIALIST_REFERRED',
-      status: 'CLOSED_READ_ONLY',
-      availability: '🔴 Consultation Completed (Read-Only)'
-    }
-  ];
+  // Dynamic Category-Specific Lead Doctors list with unique channel identifiers
+  const doctorsList = useMemo(() => {
+    const rawLeadDocs = (resolvedUser.leadDoctors && resolvedUser.leadDoctors.length > 0)
+      ? resolvedUser.leadDoctors
+      : [
+          { category: 'SKIN_CARE', doctorId: 'demo-doc-101', doctorName: 'Dr. Sarah Jenkins, MD', specialization: 'Facial Dermatology & Barrier Specialist', status: 'ACTIVE' },
+          { category: 'HAIR_CARE', doctorId: 'doc-pcp-3', doctorName: 'Dr. Priya Menon, MD', specialization: 'Trichologist & Scalp Specialist', status: 'ACTIVE' },
+          { category: 'GENERAL_HEALTH', doctorId: 'doc-pcp-2', doctorName: 'Dr. Rajesh Kumar, MBBS', specialization: 'Internal Medicine & Drug Safety Gatekeeper', status: 'ACTIVE' },
+        ];
+
+    const categoryMeta = {
+      SKIN_CARE: { label: '✨ Skin Care Lead', icon: '👩‍⚕️', hospital: 'AIIMS Hospital & DermAura Board', prefix: 'Facial Dermatology' },
+      HAIR_CARE: { label: '💇 Hair Care Lead', icon: '👩‍⚕️', hospital: 'AIIMS New Delhi Trichology Wing', prefix: 'Hair & Scalp Health' },
+      GENERAL_HEALTH: { label: '🩺 General Care Lead', icon: '👨‍⚕️', hospital: 'Apollo Hospitals, Delhi', prefix: 'General Health & Vitals' },
+    };
+
+    return rawLeadDocs.map((ld) => {
+      const meta = categoryMeta[ld.category] || { label: '🩺 Primary Lead', icon: '👩‍⚕️', hospital: 'AIIMS Hospital', prefix: 'General Practice' };
+      const channelId = `${ld.category}_${ld.doctorId || 'demo-doc-101'}`;
+      return {
+        id: ld.doctorId || 'demo-doc-101',
+        channelId: channelId,
+        name: ld.doctorName || 'Dr. Sarah Jenkins',
+        category: ld.category,
+        categoryLabel: meta.label,
+        categoryPrefix: meta.prefix,
+        specialty: `${meta.label} • ${ld.specialization || 'Clinical Specialist'}`,
+        hospital: ld.hospitalName || meta.hospital,
+        photo: meta.icon,
+        isLeadDoctor: true,
+        doctorRole: 'LEAD_PRIMARY',
+        status: 'ACTIVE_LEAD',
+        availability: '🟢 Active Category Gatekeeper',
+      };
+    });
+  }, [resolvedUser.leadDoctors]);
 
   // Patients list for Doctor's view
   const defaultPatientsList = [
@@ -202,18 +203,21 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     return entryRole !== 'DOCTOR';
   });
 
-  // Initial Seed Messages generator per patient
-  const getInitialSeedMessagesForPatient = (patId, patName, doctorName) => {
+  // ── Helper to generate unique seed messages per Clinical Category & Doctor ──
+  const getCategorySeedMessagesForPatient = (patId, patName, doctorObj) => {
     const norm = normalizePatientId(patId);
+    const category = doctorObj?.category || 'SKIN_CARE';
+    const doctorName = doctorObj?.name || 'Dr. Sarah Jenkins, MD';
 
+    // Different seed messages for other patients in doctor portal
     if (norm === 'pat-2') {
       return [
         {
           id: 'msg-p2-1',
           sender: 'doctor',
-          senderName: `${doctorName} (Lead Primary Care Provider)`,
+          senderName: `${doctorName} (Hair Care Lead Doctor)`,
           isLead: true,
-          text: `Hello ${patName}! I have reviewed your submission regarding Seborrheic Dermatitis & Hair Flaking. How long have you been experiencing scaling on your scalp?`,
+          text: `Hello ${patName}! I have reviewed your latest scalp scan showing Seborrheic Dermatitis flaking. I am prescribing Ketoconazole 2% Anti-Dandruff Cleanser.`,
           timestamp: '11:15 AM',
           type: 'text'
         },
@@ -221,17 +225,8 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
           id: 'msg-p2-2',
           sender: 'patient',
           senderName: patName,
-          text: `Hi Doctor! It started around 3 weeks ago. My scalp has stubborn white flakes and severe itching near the hair roots. OTC shampoos aren't helping.`,
+          text: `Thank you Dr. ${doctorName.split(' ')[1] || 'Doctor'}! Should I leave the shampoo on for 5 minutes before rinsing?`,
           timestamp: '11:18 AM',
-          type: 'text'
-        },
-        {
-          id: 'msg-p2-3',
-          sender: 'doctor',
-          senderName: `${doctorName} (Lead Primary Care Provider)`,
-          isLead: true,
-          text: `Understood, ${patName}. I am preparing a targeted Ketoconazole scalp routine & soothing gel prescription for you. Let me know if you have any questions.`,
-          timestamp: '11:22 AM',
           type: 'text'
         }
       ];
@@ -240,7 +235,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
         {
           id: 'msg-p3-1',
           sender: 'doctor',
-          senderName: `${doctorName} (Lead Primary Care Provider)`,
+          senderName: `${doctorName} (Skin Care Lead Doctor)`,
           isLead: true,
           text: `Hello ${patName}! I am reviewing your pre-consultation notes on facial inflammatory erythema and cheek flushing.`,
           timestamp: '12:00 PM',
@@ -255,71 +250,118 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
           type: 'text'
         }
       ];
-    } else if (norm === 'pat-4') {
+    }
+
+    // ── Dedicated Separate Channels for Aarav Sharma (pat-1) ──
+    if (category === 'SKIN_CARE') {
       return [
         {
-          id: 'msg-p4-1',
+          id: 'msg-skin-1',
           sender: 'doctor',
-          senderName: `${doctorName} (Lead Primary Care Provider)`,
+          senderName: `${doctorName} (✨ Skin Care Lead Doctor)`,
           isLead: true,
-          text: `Hello ${patName}! Welcome to your tele-consultation room. I am examining your triage note for scalp folliculitis.`,
-          timestamp: '01:30 PM',
+          text: `Hello ${patName}! I am your assigned Skin Care Lead Doctor. I oversee your facial dermatology treatments, acne protocols, barrier repair, and topical prescriptions. How is your facial skin feeling today?`,
+          timestamp: '10:00 AM',
           type: 'text'
         },
         {
-          id: 'msg-p4-2',
+          id: 'msg-skin-2',
           sender: 'patient',
           senderName: patName,
-          text: `Hi Doctor! I have small tender bumps along my hairline that hurt when touched.`,
-          timestamp: '01:35 PM',
+          text: `Hi Dr. ${doctorName.split(' ')[1] || 'Doctor'}! The malar cheek redness has subsided, but I have a few inflammatory breakouts on the forehead. The gentle moisturizer has helped with dryness.`,
+          timestamp: '10:04 AM',
+          type: 'text'
+        },
+        {
+          id: 'msg-skin-3',
+          sender: 'doctor',
+          senderName: `${doctorName} (✨ Skin Care Lead Doctor)`,
+          isLead: true,
+          text: `Great progress. Continue applying the SPF 50+ Sunscreen every morning and use the barrier repair cream at night. Let me know if you experience any purging.`,
+          timestamp: '10:07 AM',
+          type: 'text'
+        }
+      ];
+    } else if (category === 'HAIR_CARE') {
+      return [
+        {
+          id: 'msg-hair-1',
+          sender: 'doctor',
+          senderName: `${doctorName} (💇 Hair Care Lead Doctor)`,
+          isLead: true,
+          text: `Hello ${patName}! I am your Hair & Scalp Lead Specialist. I oversee your trichology consultations, scalp dermatitis protocols, and follicle regrowth therapy.`,
+          timestamp: '10:15 AM',
+          type: 'text'
+        },
+        {
+          id: 'msg-hair-2',
+          sender: 'patient',
+          senderName: patName,
+          text: `Hello Dr. ${doctorName.split(' ')[1] || 'Doctor'}! I am noticing some mild hair thinning around the vertex crown area. Is it safe to start topical Minoxidil?`,
+          timestamp: '10:18 AM',
+          type: 'text'
+        },
+        {
+          id: 'msg-hair-3',
+          sender: 'doctor',
+          senderName: `${doctorName} (💇 Hair Care Lead Doctor)`,
+          isLead: true,
+          text: `PROPOSED SCALP REGIMEN: Minoxidil 5% Scalp Solution (1ml once daily at night). Approved for your vertex profile.`,
+          timestamp: '10:22 AM',
+          type: 'proposed_rx',
+          rxProposalData: {
+            id: 'rx-prop-hair-881',
+            medicineName: 'Minoxidil 5% Scalp Solution',
+            dosage: '1ml once daily to vertex scalp',
+            duration: '60 Days',
+            specialistName: doctorName,
+            specialistRole: 'Hair Care Lead Doctor',
+            status: 'APPROVED',
+            productId: 'p7',
+            rationale: 'Targeted scalp follicle revitalization for vertex thinning.'
+          }
+        }
+      ];
+    } else {
+      // GENERAL_HEALTH
+      return [
+        {
+          id: 'msg-gen-1',
+          sender: 'doctor',
+          senderName: `${doctorName} (🩺 General Health Gatekeeper)`,
+          isLead: true,
+          text: `Hello ${patName}! I am your General Health & Drug Safety Gatekeeper. I review systemic vitals, drug interactions between skin/hair treatments, and overall wellness.`,
+          timestamp: '10:30 AM',
+          type: 'text'
+        },
+        {
+          id: 'msg-gen-2',
+          sender: 'patient',
+          senderName: patName,
+          text: `Hello Dr. ${doctorName.split(' ')[1] || 'Doctor'}! My recent stress evaluation showed moderate fatigue. Are there any interactions with my topical acne gel?`,
+          timestamp: '10:33 AM',
+          type: 'text'
+        },
+        {
+          id: 'msg-gen-3',
+          sender: 'doctor',
+          senderName: `${doctorName} (🩺 General Health Gatekeeper)`,
+          isLead: true,
+          text: `I have cross-checked your active skin and hair prescriptions against your systemic medical profile. Zero adverse drug-drug interactions detected. Keep up good hydration and restful sleep!`,
+          timestamp: '10:37 AM',
           type: 'text'
         }
       ];
     }
-
-    // Default seed messages for Patient 1 (Aarav Sharma)
-    return [
-      {
-        id: 'msg-1',
-        sender: 'doctor',
-        senderName: `${doctorName} (Lead Primary Care Provider)`,
-        isLead: true,
-        text: `Hello ${patName}! I am your assigned Primary Care Doctor (Lead Gatekeeper). I oversee all your specialist consults, review incoming prescriptions for drug interactions, and coordinate your care.`,
-        timestamp: '10:00 AM',
-        type: 'text'
-      },
-      {
-        id: 'msg-2',
-        sender: 'patient',
-        senderName: patName,
-        text: `Hi ${doctorName.split(' ').slice(0, 2).join(' ')}! Dr. Vikramaditya (Trichology Specialist) recommended Minoxidil 5% for my scalp, but I wanted to make sure it is safe to use alongside my current acne gel.`,
-        timestamp: '10:04 AM',
-        type: 'text'
-      },
-      {
-        id: 'msg-3',
-        sender: 'doctor',
-        senderName: 'Dr. Vikramaditya Sen, MD (Referred Trichology Specialist)',
-        isLead: false,
-        text: `SPECIALIST PRESCRIPTION PROPOSAL: I have proposed Minoxidil 5% Solution (1ml twice daily) for ${patName}. Submitted to Lead Doctor ${doctorName} for safety check & final approval.`,
-        timestamp: '10:06 AM',
-        type: 'proposed_rx',
-        rxProposalData: {
-          id: 'rx-prop-881',
-          medicineName: 'Minoxidil 5% Scalp Solution',
-          dosage: '1ml twice daily to scalp',
-          duration: '60 Days',
-          specialistName: 'Dr. Vikramaditya Sen, MD',
-          specialistRole: 'Referred Specialist',
-          status: 'PROPOSED',
-          productId: 'p7',
-          rationale: 'Androgenetic alopecia stage II scalp hair loss.'
-        }
-      }
-    ];
   };
 
-  const [selectedDoctor, setSelectedDoctor] = useState(doctorsList[0]);
+  const [selectedDoctor, setSelectedDoctor] = useState(() => doctorsList[0] || {});
+
+  useEffect(() => {
+    if (!selectedDoctor?.channelId || !doctorsList.find((d) => d.channelId === selectedDoctor.channelId)) {
+      setSelectedDoctor(doctorsList[0] || {});
+    }
+  }, [doctorsList]);
 
   // Determine starting patient
   const targetInitId = initialPatientId ? normalizePatientId(initialPatientId) : 'pat-1';
@@ -353,25 +395,21 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     };
   }, []);
 
-  // Load messages specifically for a patient
-  const loadMessagesForPatient = (pat) => {
+  // Load messages specifically for a patient & doctor channel
+  const loadMessagesForChannel = (pat, doc) => {
     if (!pat) return [];
-    const key = getStorageKeyForPatient(pat.id);
+    const chanId = doc?.channelId || `${doc?.category || 'SKIN_CARE'}_${doc?.id || 'demo-doc-101'}`;
+    const key = getStorageKeyForChat(pat.id, chanId);
+
     try {
       const saved = localStorage.getItem(key);
       if (saved) return JSON.parse(saved);
-
-      // Fallback for pat-1 legacy key
-      if (pat.id === 'pat-1' || pat.id === 'p-101') {
-        const legacy = localStorage.getItem('dermaura_health_chatroom_messages');
-        if (legacy) return JSON.parse(legacy);
-      }
     } catch (e) {}
 
-    return getInitialSeedMessagesForPatient(pat.id, pat.name, leadDoctorName);
+    return getCategorySeedMessagesForPatient(pat.id, pat.name, doc);
   };
 
-  const [messages, setMessages] = useState(() => loadMessagesForPatient(initialPatientObj));
+  const [messages, setMessages] = useState(() => loadMessagesForChannel(initialPatientObj, doctorsList[0]));
 
   const [inputMessage, setInputMessage] = useState('');
   const [activeCallModal, setActiveCallModal] = useState(null);
@@ -386,16 +424,6 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
   const isInitialMountRef = useRef(true);
   const userJustSentRef = useRef(false);
 
-  // Sync selected doctor state when primary lead doctor changes
-  useEffect(() => {
-    setSelectedDoctor((prev) => {
-      if (!prev || prev.isLeadDoctor) {
-        return doctorsList[0];
-      }
-      return prev;
-    });
-  }, [resolvedUser.primaryLeadDoctorId, resolvedUser.primaryLeadDoctorName]);
-
   // Respond to initialPatientId prop changes
   useEffect(() => {
     if (initialPatientId) {
@@ -407,41 +435,37 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     }
   }, [initialPatientId]);
 
-  // Load patient-isolated chat messages when selectedPatient changes
+  // Load isolated chat messages when selectedPatient or selectedDoctor channel changes
   useEffect(() => {
-    if (!selectedPatient) return;
-    const loaded = loadMessagesForPatient(selectedPatient);
+    if (!selectedPatient || !selectedDoctor) return;
+    const loaded = loadMessagesForChannel(selectedPatient, selectedDoctor);
     setMessages(loaded);
     lastSavedStrRef.current = JSON.stringify(loaded);
-  }, [selectedPatient?.id]);
+  }, [selectedPatient?.id, selectedDoctor?.channelId]);
 
-  // Save messages isolated by patient ID
+  // Save messages isolated by patient ID and doctor channel
   const saveMessagesToStorage = (newMsgs) => {
     const str = JSON.stringify(newMsgs);
     lastSavedStrRef.current = str;
     setMessages(newMsgs);
 
-    const pat = selectedPatient || patientsList[0];
-    const key = getStorageKeyForPatient(pat.id);
+    const pat = selectedPatient || safePatientsList[0];
+    const chanId = selectedDoctor?.channelId || `${selectedDoctor?.category || 'SKIN_CARE'}_${selectedDoctor?.id || 'demo-doc-101'}`;
+    const key = getStorageKeyForChat(pat.id, chanId);
     try {
       localStorage.setItem(key, str);
-      if (pat.id === 'pat-1' || pat.id === 'p-101') {
-        localStorage.setItem('dermaura_health_chatroom_messages', str);
-      }
     } catch (e) {}
   };
 
-  // Sync state across tabs/portals for the currently selected patient
+  // Sync state across tabs/portals for the currently selected patient & doctor channel
   useEffect(() => {
     const syncChat = () => {
-      const pat = selectedPatient || patientsList[0];
-      if (!pat) return;
-      const key = getStorageKeyForPatient(pat.id);
+      const pat = selectedPatient || safePatientsList[0];
+      if (!pat || !selectedDoctor) return;
+      const chanId = selectedDoctor?.channelId || `${selectedDoctor?.category || 'SKIN_CARE'}_${selectedDoctor?.id || 'demo-doc-101'}`;
+      const key = getStorageKeyForChat(pat.id, chanId);
       try {
-        let saved = localStorage.getItem(key);
-        if (!saved && (pat.id === 'pat-1' || pat.id === 'p-101')) {
-          saved = localStorage.getItem('dermaura_health_chatroom_messages');
-        }
+        const saved = localStorage.getItem(key);
         if (saved && saved !== lastSavedStrRef.current) {
           lastSavedStrRef.current = saved;
           setMessages(JSON.parse(saved));
@@ -456,7 +480,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
       window.removeEventListener('storage', syncChat);
       clearInterval(interval);
     };
-  }, [selectedPatient?.id]);
+  }, [selectedPatient?.id, selectedDoctor?.channelId]);
 
   // Smart auto-scroll: only scroll to bottom if user just sent a message, initial load, or user is near bottom
   useEffect(() => {
@@ -481,16 +505,22 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     }
   }, [messages]);
 
-  // Update Chatroom status on doctor select
+  // Update Chatroom status and switch isolated conversation on doctor channel select
   const handleSelectDoctor = (doc) => {
     setSelectedDoctor(doc);
-    setChatroomStatus(doc.status);
+    setChatroomStatus(doc.status || 'ACTIVE_LEAD');
     userJustSentRef.current = true;
+    const loaded = loadMessagesForChannel(selectedPatient, doc);
+    setMessages(loaded);
+    lastSavedStrRef.current = JSON.stringify(loaded);
   };
 
   const handleSelectPatient = (pat) => {
     setSelectedPatient(pat);
     userJustSentRef.current = true;
+    const loaded = loadMessagesForChannel(pat, selectedDoctor);
+    setMessages(loaded);
+    lastSavedStrRef.current = JSON.stringify(loaded);
   };
 
   // Send Text Message
@@ -526,9 +556,10 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
     // Clear any previous error on successful send
     setD2dError(null);
 
-    const isDocLead = selectedDoctor.isLeadDoctor;
+    const isDocLead = selectedDoctor?.isLeadDoctor;
+    const docCatLabel = selectedDoctor?.categoryLabel || 'Lead Doctor';
     const senderTitle = role === 'doctor'
-      ? (isDocLead ? `${currentUser.fullName || 'Dr. Ananya Patel'} (Lead PCP)` : `${currentUser.fullName || 'Dr. Vikramaditya'} (Specialist)`)
+      ? (isDocLead ? `${currentUser.fullName || 'Dr. Sarah Jenkins'} (${docCatLabel})` : `${currentUser.fullName || 'Dr. Vikramaditya'} (Specialist)`)
       : (currentUser.fullName || 'Aarav Sharma');
 
     const newMsg = {
@@ -693,35 +724,47 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
           </span>
 
           {role === 'patient' ? (
-            doctorsList.map((doc) => (
-              <button
-                key={doc.id}
-                onClick={() => handleSelectDoctor(doc)}
-                className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center space-x-3 ${
-                  selectedDoctor.id === doc.id
-                    ? 'bg-slate-800 border-indigo-500/60 shadow-lg'
-                    : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-800/50'
-                }`}
-              >
-                <div className="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0 relative">
-                  {doc.photo}
-                  {doc.isLeadDoctor && (
-                    <Crown className="w-3.5 h-3.5 text-amber-400 absolute -top-1 -right-1 bg-slate-950 rounded-full p-0.5 border border-amber-500" />
-                  )}
-                </div>
-                <div className="truncate">
-                  <div className="flex items-center space-x-1">
-                    <h4 className="text-xs font-bold text-white truncate">{doc.name}</h4>
+            doctorsList.map((doc) => {
+              const isSelected = selectedDoctor?.channelId
+                ? selectedDoctor.channelId === doc.channelId
+                : (selectedDoctor?.id === doc.id && selectedDoctor?.category === doc.category);
+
+              return (
+                <button
+                  key={doc.channelId || `${doc.category}_${doc.id}`}
+                  onClick={() => handleSelectDoctor(doc)}
+                  className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center space-x-3 cursor-pointer ${
+                    isSelected
+                      ? 'bg-slate-800 border-teal-500/80 shadow-lg shadow-teal-950/40 ring-1 ring-teal-500/30'
+                      : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-800/50 hover:border-slate-700'
+                  }`}
+                >
+                  <div className="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0 relative">
+                    {doc.photo}
+                    {doc.isLeadDoctor && (
+                      <Crown className="w-3.5 h-3.5 text-amber-400 absolute -top-1 -right-1 bg-slate-950 rounded-full p-0.5 border border-amber-500" />
+                    )}
                   </div>
-                  <p className="text-[10px] text-slate-400 truncate">{doc.specialty}</p>
-                  <span className={`text-[9px] font-mono font-bold block mt-0.5 ${
-                    doc.isLeadDoctor ? 'text-amber-400' : doc.status === 'CLOSED_READ_ONLY' ? 'text-rose-400' : 'text-emerald-400'
-                  }`}>
-                    {doc.isLeadDoctor ? '👑 Lead Primary Doctor (PCP)' : doc.status === 'CLOSED_READ_ONLY' ? '🔒 Session Closed (Read-Only)' : '👨‍⚕️ Referred Specialist'}
-                  </span>
-                </div>
-              </button>
-            ))
+                  <div className="truncate flex-1">
+                    <div className="flex items-center space-x-1">
+                      <h4 className="text-xs font-bold text-white truncate">{doc.name}</h4>
+                    </div>
+                    <p className={`text-[10px] font-semibold truncate ${
+                      doc.category === 'SKIN_CARE'
+                        ? 'text-teal-400'
+                        : doc.category === 'HAIR_CARE'
+                        ? 'text-indigo-400'
+                        : 'text-amber-400'
+                    }`}>
+                      {doc.categoryLabel}
+                    </p>
+                    <span className="text-[9px] font-mono text-slate-400 block truncate">
+                      {doc.hospital}
+                    </span>
+                  </div>
+                </button>
+              );
+            })
           ) : (
             /* ── PATIENT QUEUE (Doctor portal view) ─────────────────────────
                Only renders entries from safePatientsList — all DOCTOR-role
@@ -772,23 +815,23 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
         <div className="p-4 bg-slate-900 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md z-10">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-xl relative">
-              {role === 'patient' ? selectedDoctor.photo : selectedPatient.photo}
-              {role === 'patient' && selectedDoctor.isLeadDoctor && (
+              {role === 'patient' ? (selectedDoctor?.photo || '👩‍⚕️') : (selectedPatient?.photo || '👨')}
+              {role === 'patient' && selectedDoctor?.isLeadDoctor && (
                 <Crown className="w-4 h-4 text-amber-400 absolute -top-1 -right-1" />
               )}
             </div>
             <div>
               <div className="flex items-center space-x-2">
                 <h3 className="text-sm font-bold text-white">
-                  {role === 'patient' ? selectedDoctor.name : selectedPatient.name}
+                  {role === 'patient' ? (selectedDoctor?.name || 'Lead Doctor') : (selectedPatient?.name || 'Patient')}
                 </h3>
                 
                 {/* ROLE BADGE */}
                 {role === 'patient' ? (
-                  selectedDoctor.isLeadDoctor ? (
+                  selectedDoctor?.isLeadDoctor ? (
                     <span className="px-2.5 py-0.5 bg-amber-950 text-amber-300 border border-amber-800 rounded-full text-[9px] font-mono font-bold flex items-center space-x-1">
                       <Crown className="w-3 h-3 text-amber-400 mr-1" />
-                      <span>Lead Primary Physician (PCP Gatekeeper)</span>
+                      <span>{selectedDoctor?.categoryLabel || 'Lead Primary Physician (PCP Gatekeeper)'}</span>
                     </span>
                   ) : (
                     <span className="px-2.5 py-0.5 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded-full text-[9px] font-mono font-bold">
@@ -803,7 +846,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
               </div>
 
               <div className="flex items-center space-x-3 text-[11px] text-slate-400 mt-0.5">
-                <span>{role === 'patient' ? selectedDoctor.specialty : `Primary Concern: ${selectedPatient.concern}`}</span>
+                <span>{role === 'patient' ? (selectedDoctor?.specialty || 'General Practice') : `Primary Concern: ${selectedPatient?.concern || 'Clinical consultation'}`}</span>
                 <span>•</span>
                 
                 {/* DOCTOR CLINICAL AVAILABILITY */}
@@ -1190,11 +1233,11 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
             <div className="w-full h-72 rounded-2xl bg-slate-950 border border-slate-800 relative overflow-hidden flex items-center justify-center">
               <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 text-center p-6 space-y-3">
                 <div className="w-24 h-24 rounded-full bg-indigo-600/30 border-2 border-indigo-400 flex items-center justify-center text-4xl shadow-2xl animate-pulse">
-                  {role === 'patient' ? selectedDoctor.photo : selectedPatient.photo}
+                  {role === 'patient' ? (selectedDoctor?.photo || '👩‍⚕️') : (selectedPatient?.photo || '👨')}
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-white">
-                    {role === 'patient' ? selectedDoctor.name : selectedPatient.name}
+                    {role === 'patient' ? (selectedDoctor?.name || 'Lead Doctor') : (selectedPatient?.name || 'Patient')}
                   </h4>
                   <p className="text-xs text-teal-400 font-mono">1080p Encrypted Medical Stream Active</p>
                 </div>

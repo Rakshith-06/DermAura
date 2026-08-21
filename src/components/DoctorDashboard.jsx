@@ -102,6 +102,7 @@ export default function DoctorDashboard({ user, onLogout }) {
       bloodGroup: 'O+',
       allergies: ['Penicillin'],
       aiTriage: 'Acne Vulgaris (95.4% AI Match)',
+      assignedCategories: ['SKIN_CARE', 'HAIR_CARE'],
       scansUploaded: 2,
     },
     {
@@ -119,6 +120,7 @@ export default function DoctorDashboard({ user, onLogout }) {
       bloodGroup: 'A+',
       allergies: ['None'],
       aiTriage: 'Seborrheic Dermatitis (96.2% AI Match)',
+      assignedCategories: ['HAIR_CARE'],
       scansUploaded: 1,
     },
     {
@@ -135,7 +137,8 @@ export default function DoctorDashboard({ user, onLogout }) {
       status: 'Scheduled',
       bloodGroup: 'B+',
       allergies: ['Sulfa Drugs'],
-      aiTriage: 'Erythematotelangiectatic Flare (93.8% AI Match)',
+      aiTriage: 'Rosacea Erythematotelangiectatic (94.1% Match)',
+      assignedCategories: ['SKIN_CARE', 'GENERAL_HEALTH'],
       scansUploaded: 1,
     },
     {
@@ -1245,6 +1248,15 @@ export default function DoctorDashboard({ user, onLogout }) {
                               <span className="text-[10px] text-slate-400">({pt.age} yrs • {pt.gender})</span>
                             </div>
                             <span className="text-[11px] text-indigo-300 font-medium block">{pt.concern}</span>
+                            {pt.assignedCategories && (
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {pt.assignedCategories.map((cat) => (
+                                  <span key={cat} className="px-2 py-0.2 text-[9px] font-bold rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300">
+                                    🏷️ {cat.replace('_', ' ')} Lead
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
 
