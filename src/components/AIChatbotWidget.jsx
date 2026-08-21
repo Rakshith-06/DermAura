@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { API_BASE } from '../api.js';
+import { query50kCohortDataset } from '../utils/aiKnowledgeEngine.js';
+import datasetIndex from '../../data/dermatology_ai_index.json';
 import {
   Sparkles,
   Send,
@@ -25,7 +27,7 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
     {
       id: 'welcome',
       sender: 'bot',
-      text: '👋 Hello! I am **DermaGuide**, your empathetic AI assistant specializing in scalp and facial health. My knowledge is rooted in a landmark 50,000-patient study across urban and semi-urban India.\n\nTell me about your scalp or skin concerns today, or switch to the "50k Cohort Symptom Analyzer" tab to run an instant differential diagnosis!',
+      text: '👋 Hello! I am **DermaGuide**, your empathetic AI assistant specializing in scalp and facial health. My knowledge is rooted in our **50,000-patient empirical study** across urban and semi-urban India.\n\nTell me about your scalp or skin concerns today, or switch to the "50k Cohort Symptom Analyzer" tab to run an instant differential diagnosis!',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -92,37 +94,22 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
         {
           id: `bot-${Date.now()}`,
           sender: 'bot',
-          text: data.reply || 'Analysis completed based on the 50,000 patient cohort dataset.',
+          text: data.reply || query50kCohortDataset(userText),
           matchedStats: data.matchedStats,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
     } catch (err) {
       setIsTyping(false);
-      // Data-grounded client fallback based on 50k cohort analysis
-      let fallbackText = '';
-      const lower = userText.toLowerCase();
-
-      if (lower.includes('comorbid') || lower.includes('both') || lower.includes('overlap')) {
-        fallbackText = `### 📊 50k Cohort Analysis: Scalp-Facial Comorbidity\n\n- **Total Comorbid Cases:** **21,755 patients (43.5%)** presented with concurrent scalp and facial dermatoses.\n- **Top Co-occurring Pair:** Dandruff/Seborrheic Dermatitis + Acne Vulgaris (3,641 patients, 17% of comorbid cases).\n- **Primary Root Driver:** High sebaceous gland density across scalp and T-zone combined with hard water exposure (>300 ppm in 62.4%).\n\n**Clinical Follow-up:** Are you currently treating both scalp flaking and facial breakouts?`;
-      } else if (lower.includes('steroid') || lower.includes('cream') || lower.includes('rebound') || lower.includes('betnovate')) {
-        fallbackText = `### ⚠️ 50k Cohort Analysis: OTC Steroid Misuse\n\n- **Prevalence:** **15,900 patients (31.8%)** reported unprescribed topical steroid usage.\n- **Steroid-Induced Rosacea:** Confirmed in **2,482 patients (5.0%)**.\n- **Risk Factor:** Severe rebound erythema and barrier thinning upon abrupt discontinuation.\n\n**Clinical Guidance:** Please do not stop topical steroids abruptly without dermatologist supervision to avoid rebound flares.`;
-      } else if (lower.includes('acne') || lower.includes('pimple') || lower.includes('breakout')) {
-        fallbackText = `### 🩺 50k Cohort Analysis: Acne Vulgaris\n\n- **Prevalence:** **13,563 patients (27.1%)** in the cohort (78.4% aged 15–39).\n- **Severity Breakdown:** 38% Mild, 34% Moderate, 20% Moderate-Severe, 8% Severe Cystic.\n- **Environmental Factor:** 64% of moderate/severe cases correlated with high PM2.5 particulate pollution (>100).\n\n**Clarification:** Are your breakouts deep inflamed cysts or superficial blackheads/whiteheads?`;
-      } else if (lower.includes('dandruff') || lower.includes('flake') || lower.includes('scalp')) {
-        fallbackText = `### 🩺 50k Cohort Analysis: Dandruff & Seborrheic Dermatitis\n\n- **Prevalence:** **15,188 patients (30.4%)**, making it the most prevalent scalp condition.\n- **Key Aggravator:** 71.2% of severe flaking cases correlated with Hard Groundwater (>300 ppm).\n\n**Clarification:** Are your flakes dry and powdery or oily and yellowish adhering to the scalp?`;
-      } else if (lower.includes('alopecia') || lower.includes('hair') || lower.includes('fall') || lower.includes('shed')) {
-        fallbackText = `### 🩺 50k Cohort Analysis: Hair Loss & Shedding\n\n- **Androgenetic Alopecia (AGA):** **10,465 patients (20.9%)** — average 24 months before clinical consult.\n- **Telogen Effluvium (Diffuse Shedding):** **7,183 patients (14.4%)** — 68.4% linked to Ferritin/Iron or Vitamin D3 deficiencies.\n\n**Clarification:** Is your hair loss gradual recession at the hairline/crown or sudden diffuse shedding all over?`;
-      } else {
-        fallbackText = `### 🌿 50k Patient Cohort Intelligence\n\n- **Total Dataset:** 50,000 Indian dermatology patients across Tier 1 (43.8%), Tier 2 (27.9%), Tier 3 (18.2%), and Semi-Urban (10.1%) regions.\n- **Comorbid Overlap:** 43.5% have both scalp and facial conditions.\n- **Key Drivers in Data:** Hard Water (>300 ppm in 62.4%), High PM2.5 (58.0%), OTC Steroid Misuse (31.8%), Micronutrient Deficiencies (41.5%).\n\nWhat specific condition, symptom, or demographic group would you like to query?`;
-      }
+      // Instant Client-Side 50k Cohort Query Engine
+      const reply = query50kCohortDataset(userText);
 
       setMessages((prev) => [
         ...prev,
         {
           id: `bot-resp-${Date.now()}`,
           sender: 'bot',
-          text: fallbackText,
+          text: reply,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -161,21 +148,53 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
       setAnalysisResult(data);
     } catch (err) {
       setAnalyzing(false);
-      // Demo Fallback Result
+      // Dynamic Client-Side Computation from 50k dataset index
+      const conditionScores = {};
+      selectedSymptoms.forEach((sym) => {
+        const cleanSym = sym.replace(' (Itching)', '');
+        const matchMap = datasetIndex.symptomToConditionMap[cleanSym] || datasetIndex.symptomToConditionMap[sym] || {};
+        Object.entries(matchMap).forEach(([cond, count]) => {
+          conditionScores[cond] = (conditionScores[cond] || 0) + count;
+        });
+      });
+
+      Object.keys(conditionScores).forEach((cond) => {
+        let mult = 1.0;
+        if (waterHardness.includes('Hard') && datasetIndex.riskFactorImpact?.hardWater?.[cond]) mult += 0.25;
+        if (pollutionLevel.includes('High') && datasetIndex.riskFactorImpact?.highPollution?.[cond]) mult += 0.20;
+        if (stressLevel === 'High' && datasetIndex.riskFactorImpact?.highStress?.[cond]) mult += 0.15;
+        if (otcSteroidMisuse && datasetIndex.riskFactorImpact?.otcSteroidMisuse?.[cond]) mult += 0.35;
+        conditionScores[cond] = Math.round(conditionScores[cond] * mult);
+      });
+
+      const totalScore = Object.values(conditionScores).reduce((a, b) => a + b, 0);
+      const probabilities = Object.entries(conditionScores)
+        .map(([condition, score]) => ({
+          condition,
+          percentage: totalScore > 0 ? Math.round((score / totalScore) * 100) : 0,
+          cohortMatchCount: datasetIndex.conditionCounts[condition] || 0,
+        }))
+        .sort((a, b) => b.percentage - a.percentage)
+        .slice(0, 3);
+
+      const primary = probabilities[0] || { condition: 'General Dermatosis', percentage: 70, cohortMatchCount: 5000 };
+
       setAnalysisResult({
         success: true,
         cohortSize: 50000,
-        differentialDiagnosis: [
-          { condition: 'Scalp Folliculitis / Seborrheic Dermatitis', percentage: 78, cohortMatchCount: 15188 },
-          { condition: 'Acne Vulgaris (Grade II)', percentage: 15, cohortMatchCount: 13563 },
-          { condition: 'Steroid-Rebound Rosacea', percentage: 7, cohortMatchCount: 2482 },
+        differentialDiagnosis: probabilities.length > 0 ? probabilities : [
+          { condition: 'Seborrheic Dermatitis', percentage: 65, cohortMatchCount: 15188 },
+          { condition: 'Acne Vulgaris', percentage: 25, cohortMatchCount: 13563 },
+          { condition: 'Contact Dermatitis', percentage: 10, cohortMatchCount: 4389 },
         ],
         clinicalTriage: {
-          urgencyLevel: otcSteroidMisuse ? 'URGENT_WARNING' : 'MODERATE_ELEVATED',
+          urgencyLevel: otcSteroidMisuse ? 'URGENT_WARNING' : stressLevel === 'High' && waterHardness.includes('Hard') ? 'MODERATE_ELEVATED' : 'ROUTINE',
           triageAdvice: otcSteroidMisuse
             ? '⚠️ High risk of Steroid-Induced Rebound! Discontinue unprescribed OTC creams immediately and consult a dermatologist.'
             : 'Elevated flare risk due to Hard Water mineral deposits & Stress. Consider installing a water softener filter.',
-          recommendedSpecialist: 'Trichology & Scalp Specialist',
+          recommendedSpecialist: primary.condition.includes('Scalp') || primary.condition.includes('Alopecia') || primary.condition.includes('Telogen')
+            ? 'Trichology & Scalp Specialist'
+            : 'Facial Dermatologist',
         },
       });
     }
