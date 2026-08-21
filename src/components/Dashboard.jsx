@@ -1137,16 +1137,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         {/* Top Header Bar */}
         <header className={`h-14 border-b ${darkMode ? 'border-slate-800/80 bg-slate-900/90' : 'border-slate-200 bg-white'} px-4 sm:px-6 flex items-center justify-between backdrop-blur-md relative z-50`}>
           <div className="flex items-center space-x-3">
-            {!sidebarOpen && (
-              <button
-                onClick={() => setSidebarOpen(true)}
-                title="Expand Sidebar"
-                className={`p-1.5 rounded-lg ${darkMode ? 'bg-teal-950/80 hover:bg-teal-900 border border-teal-700/80 text-teal-300' : 'bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-700'} transition-all shadow-sm cursor-pointer flex items-center space-x-1.5`}
-              >
-                <PanelLeft className="w-4 h-4 text-teal-400" />
-                <span className="text-xs font-semibold hidden sm:inline">Expand Menu</span>
-              </button>
-            )}
             <span className="text-xs font-semibold text-slate-400 hidden sm:inline">Model:</span>
             <span className="text-xs font-bold text-teal-300 px-2.5 py-1 rounded-full bg-teal-950 border border-teal-800 flex items-center space-x-1.5">
               <Sparkles className="w-3 h-3 text-teal-400" />
