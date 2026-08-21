@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import {
   User,
   ArrowLeft,
@@ -128,7 +129,10 @@ export default function IndividualPatientProfileView({
         <body>
           <div class="header">
             <div>
-              <div class="brand">✨ DermAura Tele-Health</div>
+              <div class="brand" style="display: flex; align-items: center; gap: 8px;">
+                <img src="${dermAuraLogo}" style="height: 24px; vertical-align: middle; margin-right: 6px;" alt="DermAura" />
+                DermAura Tele-Health
+              </div>
               <div class="subtitle">Official Patient AI DermScan & Stress Analyzer Quiz Report</div>
             </div>
             <div style="text-align: right;">

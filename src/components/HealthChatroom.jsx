@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import {
   MessageSquare,
   Send,
@@ -1178,7 +1179,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-2xl shadow-2xl space-y-6 relative flex flex-col items-center">
             <div className="w-full flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center space-x-2">
-                <Video className="w-5 h-5 text-indigo-400 animate-pulse" />
+                <img src={dermAuraLogo} alt="DermAura Logo" className="w-6 h-6 object-contain" />
                 <h3 className="text-base font-bold text-white">DermAura HD Tele-Consultation Call</h3>
               </div>
               <span className="px-3 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full text-xs font-mono font-bold">

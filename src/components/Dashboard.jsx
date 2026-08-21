@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { API_BASE } from '../api.js';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import HealthChatroom from './HealthChatroom';
 import QuickSessionPhotoUpload from './QuickSessionPhotoUpload';
 import DoctorSwitchModal from './DoctorSwitchModal';
@@ -789,7 +790,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         )}
 
         <div className="flex flex-col h-full justify-between overflow-y-auto custom-scrollbar">
-          {/* Top Logo & Name - Heartrate Icon Spikes on Hover */}
+          {/* Top Logo & Name */}
           <div className="p-3.5 flex items-center justify-between border-b border-slate-800/60 min-h-[57px]">
             {sidebarOpen ? (
               <>
@@ -798,9 +799,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   title="About DermAura Platform & Medical Team"
                   className="flex items-center space-x-2.5 text-left group hover:opacity-95 transition-all"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center font-bold text-slate-950 shadow-md group-hover:shadow-teal-500/40 group-hover:scale-105 transition-all">
-                    <Activity className="w-5 h-5 text-slate-950 transition-all group-hover:animate-heart-spike" />
-                  </div>
+                  <img
+                    src={dermAuraLogo}
+                    alt="DermAura Logo"
+                    className="w-8 h-8 object-contain drop-shadow-sm group-hover:scale-105 transition-transform flex-shrink-0"
+                  />
                   <div>
                     <span className={`font-extrabold text-base tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'} block group-hover:text-teal-300 transition-colors`}>
                       Derm<span className="text-teal-400">Aura</span>
@@ -823,12 +826,16 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <button
                     onClick={() => setCurrentPage('about')}
                     title="About DermAura Platform"
-                    className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center font-bold text-slate-950 group hover:scale-105 transition-transform flex-shrink-0"
+                    className="w-8 h-8 flex items-center justify-center group hover:scale-105 transition-transform flex-shrink-0"
                   >
-                    <Activity className="w-5 h-5 text-slate-950 transition-all group-hover:animate-heart-spike" />
+                    <img
+                      src={dermAuraLogo}
+                      alt="DermAura Logo"
+                      className="w-8 h-8 object-contain drop-shadow-sm"
+                    />
                   </button>
                   <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[80] whitespace-nowrap flex items-center space-x-1.5">
-                    <Activity className="w-3.5 h-3.5 text-teal-400" />
+                    <img src={dermAuraLogo} alt="Logo" className="w-3.5 h-3.5 object-contain inline-block" />
                     <span>About DermAura Platform</span>
                   </div>
                 </div>
@@ -1481,9 +1488,12 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 <span>Smart India Hackathon Healthcare Initiative</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">DermAura</span>
-              </h1>
+              <div className="flex items-center space-x-4">
+                <img src={dermAuraLogo} alt="DermAura Logo" className="w-14 h-14 object-contain drop-shadow-xl" />
+                <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
+                  About <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">DermAura</span>
+                </h1>
+              </div>
               
               <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
                 DermAura is an AI-driven, clinical-grade healthcare platform designed exclusively for **Facial Skin Lesions** and **Hair/Scalp Dermatology**. Built for the Smart India Hackathon (SIH), our system bridges intelligent AI triage with certified tele-dermatologists and doctor-gated e-commerce.

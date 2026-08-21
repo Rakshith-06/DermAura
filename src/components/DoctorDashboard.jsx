@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API_BASE } from '../api.js';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import HealthChatroom from './HealthChatroom';
 import DoctorProfilePage from './DoctorProfilePage';
 import IndividualPatientProfileView from './IndividualPatientProfileView';
@@ -368,7 +369,10 @@ export default function DoctorDashboard({ user, onLogout }) {
         <body>
           <div class="header">
             <div>
-              <div class="brand">✨ DermAura Tele-Health</div>
+              <div class="brand" style="display: flex; align-items: center; gap: 8px;">
+                <img src="${dermAuraLogo}" style="height: 24px; vertical-align: middle; margin-right: 6px;" alt="DermAura" />
+                DermAura Tele-Health
+              </div>
               <div class="subtitle">Official AI DermScan & Stress Analyzer Clinical Assessment Report</div>
             </div>
             <div style="text-align: right;">
@@ -752,9 +756,11 @@ export default function DoctorDashboard({ user, onLogout }) {
               {sidebarOpen ? (
                 <>
                   <div className="flex items-center space-x-2.5 text-left group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-teal-400 flex items-center justify-center font-bold text-white shadow-md group-hover:shadow-indigo-500/40 group-hover:scale-105 transition-all flex-shrink-0">
-                      <Stethoscope className="w-5 h-5 text-white" />
-                    </div>
+                    <img
+                      src={dermAuraLogo}
+                      alt="DermAura MD Logo"
+                      className="w-8 h-8 object-contain drop-shadow-sm group-hover:scale-105 transition-all flex-shrink-0"
+                    />
                     <div className="truncate">
                       <span className="font-extrabold text-base tracking-tight text-white block truncate">
                         Derm<span className="text-indigo-400">Aura</span> MD
@@ -774,11 +780,15 @@ export default function DoctorDashboard({ user, onLogout }) {
               ) : (
                 <div className="w-full flex items-center justify-center">
                   <div className="relative group">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-teal-400 flex items-center justify-center font-bold text-white shadow-md group-hover:scale-105 transition-transform flex-shrink-0">
-                      <Stethoscope className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 flex items-center justify-center group hover:scale-105 transition-transform flex-shrink-0">
+                      <img
+                        src={dermAuraLogo}
+                        alt="DermAura MD Logo"
+                        className="w-8 h-8 object-contain drop-shadow-sm"
+                      />
                     </div>
                     <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[80] whitespace-nowrap flex items-center space-x-1.5">
-                      <Stethoscope className="w-3.5 h-3.5 text-indigo-400" />
+                      <img src={dermAuraLogo} alt="Logo" className="w-3.5 h-3.5 object-contain inline-block" />
                       <span>DermAura MD Doctor Clinical Portal</span>
                     </div>
                   </div>

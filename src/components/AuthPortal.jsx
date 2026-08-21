@@ -3,6 +3,7 @@ import Dashboard from './Dashboard';
 import DoctorDashboard from './DoctorDashboard';
 import LeadDoctorSelection from './LeadDoctorSelection';
 import CyberMedicalWorkspace from './CyberMedicalWorkspace';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import { 
   User, 
   Stethoscope, 
@@ -310,9 +311,7 @@ export default function AuthPortal() {
         <div className="lg:col-span-5 bg-gradient-to-br from-teal-900/40 via-slate-900 to-indigo-950/60 p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800 relative">
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center shadow-lg shadow-teal-500/30">
-                <Activity className="w-6 h-6 text-slate-950 font-bold" />
-              </div>
+              <img src={dermAuraLogo} alt="DermAura Logo" className="w-12 h-12 object-contain drop-shadow-xl" />
               <div>
                 <h1 className="text-2xl font-black tracking-tight text-white">
                   Derm<span className="text-teal-400">Aura</span>

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import {
   Activity,
   Camera,
@@ -262,9 +263,7 @@ export default function CyberMedicalWorkspace({ onBack }) {
           )}
 
           <div className="flex items-center space-x-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00B4D8] to-[#90E0EF] flex items-center justify-center font-black text-[#0B132B] shadow-md shadow-[#00B4D8]/30">
-              <Activity className="w-5 h-5 text-[#0B132B]" />
-            </div>
+            <img src={dermAuraLogo} alt="DermAura Logo" className="w-9 h-9 object-contain drop-shadow-md" />
             <div>
               <h1 className="text-lg font-black tracking-tight text-white flex items-center space-x-2">
                 <span>Derm<span className="text-[#00B4D8]">Aura</span></span>

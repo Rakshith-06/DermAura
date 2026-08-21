@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import {
   Crown,
   Search,
@@ -251,6 +252,7 @@ export default function LeadDoctorSelection({ patientUser, onDoctorSelected }) {
 
         {/* ─── Header ─────────────────────────────────────────────────────── */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <img src={dermAuraLogo} alt="DermAura Logo" className="w-12 h-12 object-contain mx-auto drop-shadow-xl" />
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-amber-950/60 border border-amber-800/60 rounded-full text-amber-300 text-xs font-bold">
             <Crown className="w-4 h-4 text-amber-400" />
             <span>One-Time Onboarding • Step 1 of 1</span>
