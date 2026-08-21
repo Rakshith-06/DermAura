@@ -9,6 +9,7 @@ import doctorRoutes from './routes/doctorRoutes.js';
 import consultationRoutes from './routes/consultationRoutes.js';
 import medicationRoutes from './routes/medicationRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
+import aiChatbotRoutes from './routes/aiChatbotRoutes.js';
 import { startCronWorker } from './cronWorker.js';
 import { socketAuthMiddleware, guardSocketMessage } from './middleware/chatroomAuth.js';
 
@@ -119,6 +120,7 @@ app.use('/api/patients', doctorRoutes); // reuse same router for patient PATCH r
 app.use('/api/consultations', consultationRoutes);
 app.use('/api/medications', medicationRoutes);
 app.use('/api/reports', reportRoutes);           // ← Automated Health Report Routing
+app.use('/api/chatbot', aiChatbotRoutes);         // ← AI Chatbot powered by 50k Dataset Index
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {

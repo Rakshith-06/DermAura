@@ -7,6 +7,7 @@ import DoctorSwitchModal from './DoctorSwitchModal';
 import LeadDoctorApprovalPanel from './LeadDoctorApprovalPanel';
 import PatientRemindersDashboard from './PatientRemindersDashboard';
 import PatientProfilePage from './PatientProfilePage';
+import AIChatbotWidget from './AIChatbotWidget';
 import {
   MessageSquare,
   Scan,
@@ -64,6 +65,7 @@ import {
 
 export default function Dashboard({ user: initialUser, onLogout, onUpdateUser }) {
   const [patientUser, setPatientUser] = useState(() => initialUser || {});
+  const [isAiWidgetOpen, setIsAiWidgetOpen] = useState(false);
 
   useEffect(() => {
     if (initialUser) {
@@ -2512,6 +2514,22 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         dailyRate={300}
         onClose={() => setDoctorSwitchModalOpen(false)}
         onSwitchSuccess={handleDoctorSwitchSuccess}
+      />
+
+      {/* Floating 50k Cohort AI Clinical Assistant Launcher Button */}
+      <button
+        onClick={() => setIsAiWidgetOpen(true)}
+        className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white p-3.5 rounded-full shadow-2xl hover:scale-105 transition-all flex items-center space-x-2 border-2 border-emerald-300/30 group cursor-pointer"
+        title="Open 50k Cohort AI Assistant"
+      >
+        <Sparkles className="w-5 h-5 text-amber-300 animate-spin" style={{ animationDuration: '4s' }} />
+        <span className="text-xs font-bold pr-1">50k Cohort AI Chatbot</span>
+      </button>
+
+      {/* AI Chatbot Widget Modal */}
+      <AIChatbotWidget
+        isOpen={isAiWidgetOpen}
+        onClose={() => setIsAiWidgetOpen(false)}
       />
 
     </div>

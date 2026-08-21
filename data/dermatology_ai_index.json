@@ -1,0 +1,788 @@
+{
+  "meta": {
+    "totalCohortSize": 50000,
+    "generatedAt": "2026-08-21T18:52:43.412Z",
+    "sourceDataset": "synthetic_dermatology_cohort_50k.csv"
+  },
+  "demographics": {
+    "gender": {
+      "Female": 26574,
+      "Male": 23426
+    },
+    "ageBrackets": {
+      "15-24": 18226,
+      "25-39": 21383,
+      "40-59": 8185,
+      "60-80": 2206
+    },
+    "cityTiers": {
+      "Tier 1": 21892,
+      "Tier 2": 13967,
+      "Tier 3": 9102,
+      "Semi-Urban": 5039
+    },
+    "regions": {
+      "North": 15073,
+      "South": 12476,
+      "West": 11030,
+      "East": 6465,
+      "Central": 4956
+    }
+  },
+  "cohortOverview": {
+    "totalPatients": 50000,
+    "totalScalpAffected": 38354,
+    "totalScalpPercent": 76.7,
+    "totalFacialAffected": 31835,
+    "totalFacialPercent": 63.7,
+    "totalComorbid": 21755,
+    "comorbidPercent": 43.5
+  },
+  "conditionCounts": {
+    "Scalp Folliculitis": 3582,
+    "Dandruff/Seborrheic Dermatitis": 15188,
+    "Contact Dermatitis": 4389,
+    "Androgenetic Alopecia": 10465,
+    "Acne Vulgaris": 13563,
+    "Telogen Effluvium": 7183,
+    "Hyperpigmentation/Melasma": 9086,
+    "Steroid-Induced Rosacea": 2482,
+    "Tinea Faciei": 2315,
+    "Scalp Psoriasis/Tinea Capitis": 1936
+  },
+  "scalpConditionCounts": {
+    "Scalp Folliculitis": 3582,
+    "Dandruff/Seborrheic Dermatitis": 15188,
+    "Androgenetic Alopecia": 10465,
+    "Telogen Effluvium": 7183,
+    "Scalp Psoriasis/Tinea Capitis": 1936
+  },
+  "facialConditionCounts": {
+    "Contact Dermatitis": 4389,
+    "Acne Vulgaris": 13563,
+    "Hyperpigmentation/Melasma": 9086,
+    "Steroid-Induced Rosacea": 2482,
+    "Tinea Faciei": 2315
+  },
+  "topCoOccurrences": [
+    {
+      "pair": "Dandruff/Seborrheic Dermatitis + Acne Vulgaris",
+      "count": 3641,
+      "percentOfComorbid": 17
+    },
+    {
+      "pair": "Androgenetic Alopecia + Acne Vulgaris",
+      "count": 2576,
+      "percentOfComorbid": 12
+    },
+    {
+      "pair": "Dandruff/Seborrheic Dermatitis + Hyperpigmentation/Melasma",
+      "count": 2431,
+      "percentOfComorbid": 11
+    },
+    {
+      "pair": "Telogen Effluvium + Acne Vulgaris",
+      "count": 1721,
+      "percentOfComorbid": 8
+    },
+    {
+      "pair": "Androgenetic Alopecia + Hyperpigmentation/Melasma",
+      "count": 1701,
+      "percentOfComorbid": 8
+    },
+    {
+      "pair": "Dandruff/Seborrheic Dermatitis + Contact Dermatitis",
+      "count": 1218,
+      "percentOfComorbid": 6
+    },
+    {
+      "pair": "Telogen Effluvium + Hyperpigmentation/Melasma",
+      "count": 1178,
+      "percentOfComorbid": 5
+    },
+    {
+      "pair": "Scalp Folliculitis + Acne Vulgaris",
+      "count": 857,
+      "percentOfComorbid": 4
+    },
+    {
+      "pair": "Androgenetic Alopecia + Contact Dermatitis",
+      "count": 819,
+      "percentOfComorbid": 4
+    },
+    {
+      "pair": "Dandruff/Seborrheic Dermatitis + Steroid-Induced Rosacea",
+      "count": 687,
+      "percentOfComorbid": 3
+    }
+  ],
+  "symptomToConditionMap": {
+    "Pustules": {
+      "Scalp Folliculitis": 3582,
+      "Acne Vulgaris": 857,
+      "Hyperpigmentation/Melasma": 574,
+      "Contact Dermatitis": 285,
+      "Tinea Faciei": 152,
+      "Steroid-Induced Rosacea": 148
+    },
+    "Perifollicular Erythema": {
+      "Scalp Folliculitis": 3582,
+      "Acne Vulgaris": 857,
+      "Hyperpigmentation/Melasma": 574,
+      "Contact Dermatitis": 285,
+      "Tinea Faciei": 152,
+      "Steroid-Induced Rosacea": 148
+    },
+    "Tenderness": {
+      "Scalp Folliculitis": 3582,
+      "Acne Vulgaris": 857,
+      "Hyperpigmentation/Melasma": 574,
+      "Contact Dermatitis": 285,
+      "Tinea Faciei": 152,
+      "Steroid-Induced Rosacea": 148
+    },
+    "Flaking": {
+      "Dandruff/Seborrheic Dermatitis": 15188,
+      "Contact Dermatitis": 1218,
+      "Tinea Faciei": 627,
+      "Hyperpigmentation/Melasma": 2431,
+      "Steroid-Induced Rosacea": 687,
+      "Acne Vulgaris": 3641
+    },
+    "Erythema": {
+      "Dandruff/Seborrheic Dermatitis": 15188,
+      "Contact Dermatitis": 1218,
+      "Tinea Faciei": 627,
+      "Hyperpigmentation/Melasma": 2431,
+      "Steroid-Induced Rosacea": 687,
+      "Acne Vulgaris": 3641
+    },
+    "Pruritus": {
+      "Dandruff/Seborrheic Dermatitis": 15815,
+      "Contact Dermatitis": 1218,
+      "Tinea Faciei": 2942,
+      "Hyperpigmentation/Melasma": 2431,
+      "Androgenetic Alopecia": 427,
+      "Steroid-Induced Rosacea": 687,
+      "Acne Vulgaris": 3641,
+      "Scalp Folliculitis": 152,
+      "Scalp Psoriasis/Tinea Capitis": 83,
+      "Telogen Effluvium": 294
+    },
+    "Burning Sensation": {
+      "Dandruff/Seborrheic Dermatitis": 1218,
+      "Contact Dermatitis": 4389,
+      "Scalp Folliculitis": 285,
+      "Telogen Effluvium": 537,
+      "Scalp Psoriasis/Tinea Capitis": 169,
+      "Androgenetic Alopecia": 819
+    },
+    "Skin Peeling": {
+      "Dandruff/Seborrheic Dermatitis": 1218,
+      "Contact Dermatitis": 4389,
+      "Scalp Folliculitis": 285,
+      "Telogen Effluvium": 537,
+      "Scalp Psoriasis/Tinea Capitis": 169,
+      "Androgenetic Alopecia": 819
+    },
+    "Redness": {
+      "Dandruff/Seborrheic Dermatitis": 1218,
+      "Contact Dermatitis": 4389,
+      "Scalp Folliculitis": 285,
+      "Telogen Effluvium": 537,
+      "Scalp Psoriasis/Tinea Capitis": 169,
+      "Androgenetic Alopecia": 819
+    },
+    "Hairline Recession": {
+      "Androgenetic Alopecia": 10465,
+      "Acne Vulgaris": 2576,
+      "Hyperpigmentation/Melasma": 1701,
+      "Steroid-Induced Rosacea": 453,
+      "Tinea Faciei": 427,
+      "Contact Dermatitis": 819
+    },
+    "Crown Thinning": {
+      "Androgenetic Alopecia": 10465,
+      "Acne Vulgaris": 2576,
+      "Hyperpigmentation/Melasma": 1701,
+      "Steroid-Induced Rosacea": 453,
+      "Tinea Faciei": 427,
+      "Contact Dermatitis": 819
+    },
+    "Comedones": {
+      "Androgenetic Alopecia": 2576,
+      "Acne Vulgaris": 13563,
+      "Telogen Effluvium": 1721,
+      "Scalp Folliculitis": 857,
+      "Dandruff/Seborrheic Dermatitis": 3641,
+      "Scalp Psoriasis/Tinea Capitis": 445
+    },
+    "Papules": {
+      "Androgenetic Alopecia": 2576,
+      "Acne Vulgaris": 13563,
+      "Telogen Effluvium": 1721,
+      "Scalp Folliculitis": 857,
+      "Dandruff/Seborrheic Dermatitis": 3641,
+      "Scalp Psoriasis/Tinea Capitis": 445
+    },
+    "Inflammatory Cysts": {
+      "Androgenetic Alopecia": 2576,
+      "Acne Vulgaris": 13563,
+      "Telogen Effluvium": 1721,
+      "Scalp Folliculitis": 857,
+      "Dandruff/Seborrheic Dermatitis": 3641,
+      "Scalp Psoriasis/Tinea Capitis": 445
+    },
+    "Diffuse Thinning": {
+      "Telogen Effluvium": 7183,
+      "Hyperpigmentation/Melasma": 1178,
+      "Acne Vulgaris": 1721,
+      "Steroid-Induced Rosacea": 350,
+      "Contact Dermatitis": 537,
+      "Tinea Faciei": 294
+    },
+    "Excessive Shedding": {
+      "Telogen Effluvium": 7183,
+      "Hyperpigmentation/Melasma": 1178,
+      "Acne Vulgaris": 1721,
+      "Steroid-Induced Rosacea": 350,
+      "Contact Dermatitis": 537,
+      "Tinea Faciei": 294
+    },
+    "Melasma Patches": {
+      "Telogen Effluvium": 1178,
+      "Hyperpigmentation/Melasma": 9086,
+      "Androgenetic Alopecia": 1701,
+      "Scalp Folliculitis": 574,
+      "Dandruff/Seborrheic Dermatitis": 2431,
+      "Scalp Psoriasis/Tinea Capitis": 302
+    },
+    "Post-Inflammatory Hyperpigmentation": {
+      "Telogen Effluvium": 1178,
+      "Hyperpigmentation/Melasma": 9086,
+      "Androgenetic Alopecia": 1701,
+      "Scalp Folliculitis": 574,
+      "Dandruff/Seborrheic Dermatitis": 2431,
+      "Scalp Psoriasis/Tinea Capitis": 302
+    },
+    "Telangiectasia": {
+      "Telogen Effluvium": 350,
+      "Steroid-Induced Rosacea": 2482,
+      "Androgenetic Alopecia": 453,
+      "Dandruff/Seborrheic Dermatitis": 687,
+      "Scalp Folliculitis": 148,
+      "Scalp Psoriasis/Tinea Capitis": 80
+    },
+    "Facial Erythema": {
+      "Telogen Effluvium": 350,
+      "Steroid-Induced Rosacea": 2482,
+      "Androgenetic Alopecia": 453,
+      "Dandruff/Seborrheic Dermatitis": 687,
+      "Scalp Folliculitis": 148,
+      "Scalp Psoriasis/Tinea Capitis": 80
+    },
+    "Skin Thinning": {
+      "Telogen Effluvium": 350,
+      "Steroid-Induced Rosacea": 2482,
+      "Androgenetic Alopecia": 453,
+      "Dandruff/Seborrheic Dermatitis": 687,
+      "Scalp Folliculitis": 148,
+      "Scalp Psoriasis/Tinea Capitis": 80
+    },
+    "Annular Scaly Plaques": {
+      "Dandruff/Seborrheic Dermatitis": 627,
+      "Tinea Faciei": 2315,
+      "Androgenetic Alopecia": 427,
+      "Scalp Folliculitis": 152,
+      "Scalp Psoriasis/Tinea Capitis": 83,
+      "Telogen Effluvium": 294
+    },
+    "Silvery Plaques": {
+      "Scalp Psoriasis/Tinea Capitis": 1936,
+      "Contact Dermatitis": 169,
+      "Acne Vulgaris": 445,
+      "Hyperpigmentation/Melasma": 302,
+      "Tinea Faciei": 83,
+      "Steroid-Induced Rosacea": 80
+    },
+    "Scalp Scaling": {
+      "Scalp Psoriasis/Tinea Capitis": 1936,
+      "Contact Dermatitis": 169,
+      "Acne Vulgaris": 445,
+      "Hyperpigmentation/Melasma": 302,
+      "Tinea Faciei": 83,
+      "Steroid-Induced Rosacea": 80
+    },
+    "Itching": {
+      "Scalp Psoriasis/Tinea Capitis": 1936,
+      "Contact Dermatitis": 169,
+      "Acne Vulgaris": 445,
+      "Hyperpigmentation/Melasma": 302,
+      "Tinea Faciei": 83,
+      "Steroid-Induced Rosacea": 80
+    }
+  },
+  "conditionToSymptomsMap": {
+    "Scalp Folliculitis": {
+      "Pustules": 3582,
+      "Perifollicular Erythema": 3582,
+      "Tenderness": 3582,
+      "Comedones": 857,
+      "Papules": 857,
+      "Inflammatory Cysts": 857,
+      "Melasma Patches": 574,
+      "Post-Inflammatory Hyperpigmentation": 574,
+      "Burning Sensation": 285,
+      "Skin Peeling": 285,
+      "Redness": 285,
+      "Annular Scaly Plaques": 152,
+      "Pruritus": 152,
+      "Telangiectasia": 148,
+      "Facial Erythema": 148,
+      "Skin Thinning": 148
+    },
+    "Dandruff/Seborrheic Dermatitis": {
+      "Flaking": 15188,
+      "Erythema": 15188,
+      "Pruritus": 15815,
+      "Burning Sensation": 1218,
+      "Skin Peeling": 1218,
+      "Redness": 1218,
+      "Annular Scaly Plaques": 627,
+      "Melasma Patches": 2431,
+      "Post-Inflammatory Hyperpigmentation": 2431,
+      "Telangiectasia": 687,
+      "Facial Erythema": 687,
+      "Skin Thinning": 687,
+      "Comedones": 3641,
+      "Papules": 3641,
+      "Inflammatory Cysts": 3641
+    },
+    "Contact Dermatitis": {
+      "Flaking": 1218,
+      "Erythema": 1218,
+      "Pruritus": 1218,
+      "Burning Sensation": 4389,
+      "Skin Peeling": 4389,
+      "Redness": 4389,
+      "Pustules": 285,
+      "Perifollicular Erythema": 285,
+      "Tenderness": 285,
+      "Diffuse Thinning": 537,
+      "Excessive Shedding": 537,
+      "Silvery Plaques": 169,
+      "Scalp Scaling": 169,
+      "Itching": 169,
+      "Hairline Recession": 819,
+      "Crown Thinning": 819
+    },
+    "Androgenetic Alopecia": {
+      "Hairline Recession": 10465,
+      "Crown Thinning": 10465,
+      "Comedones": 2576,
+      "Papules": 2576,
+      "Inflammatory Cysts": 2576,
+      "Melasma Patches": 1701,
+      "Post-Inflammatory Hyperpigmentation": 1701,
+      "Telangiectasia": 453,
+      "Facial Erythema": 453,
+      "Skin Thinning": 453,
+      "Annular Scaly Plaques": 427,
+      "Pruritus": 427,
+      "Burning Sensation": 819,
+      "Skin Peeling": 819,
+      "Redness": 819
+    },
+    "Acne Vulgaris": {
+      "Hairline Recession": 2576,
+      "Crown Thinning": 2576,
+      "Comedones": 13563,
+      "Papules": 13563,
+      "Inflammatory Cysts": 13563,
+      "Diffuse Thinning": 1721,
+      "Excessive Shedding": 1721,
+      "Pustules": 857,
+      "Perifollicular Erythema": 857,
+      "Tenderness": 857,
+      "Flaking": 3641,
+      "Erythema": 3641,
+      "Pruritus": 3641,
+      "Silvery Plaques": 445,
+      "Scalp Scaling": 445,
+      "Itching": 445
+    },
+    "Telogen Effluvium": {
+      "Diffuse Thinning": 7183,
+      "Excessive Shedding": 7183,
+      "Melasma Patches": 1178,
+      "Post-Inflammatory Hyperpigmentation": 1178,
+      "Comedones": 1721,
+      "Papules": 1721,
+      "Inflammatory Cysts": 1721,
+      "Telangiectasia": 350,
+      "Facial Erythema": 350,
+      "Skin Thinning": 350,
+      "Burning Sensation": 537,
+      "Skin Peeling": 537,
+      "Redness": 537,
+      "Annular Scaly Plaques": 294,
+      "Pruritus": 294
+    },
+    "Hyperpigmentation/Melasma": {
+      "Diffuse Thinning": 1178,
+      "Excessive Shedding": 1178,
+      "Melasma Patches": 9086,
+      "Post-Inflammatory Hyperpigmentation": 9086,
+      "Hairline Recession": 1701,
+      "Crown Thinning": 1701,
+      "Pustules": 574,
+      "Perifollicular Erythema": 574,
+      "Tenderness": 574,
+      "Flaking": 2431,
+      "Erythema": 2431,
+      "Pruritus": 2431,
+      "Silvery Plaques": 302,
+      "Scalp Scaling": 302,
+      "Itching": 302
+    },
+    "Steroid-Induced Rosacea": {
+      "Diffuse Thinning": 350,
+      "Excessive Shedding": 350,
+      "Telangiectasia": 2482,
+      "Facial Erythema": 2482,
+      "Skin Thinning": 2482,
+      "Hairline Recession": 453,
+      "Crown Thinning": 453,
+      "Flaking": 687,
+      "Erythema": 687,
+      "Pruritus": 687,
+      "Pustules": 148,
+      "Perifollicular Erythema": 148,
+      "Tenderness": 148,
+      "Silvery Plaques": 80,
+      "Scalp Scaling": 80,
+      "Itching": 80
+    },
+    "Tinea Faciei": {
+      "Flaking": 627,
+      "Erythema": 627,
+      "Pruritus": 2942,
+      "Annular Scaly Plaques": 2315,
+      "Hairline Recession": 427,
+      "Crown Thinning": 427,
+      "Pustules": 152,
+      "Perifollicular Erythema": 152,
+      "Tenderness": 152,
+      "Silvery Plaques": 83,
+      "Scalp Scaling": 83,
+      "Itching": 83,
+      "Diffuse Thinning": 294,
+      "Excessive Shedding": 294
+    },
+    "Scalp Psoriasis/Tinea Capitis": {
+      "Silvery Plaques": 1936,
+      "Scalp Scaling": 1936,
+      "Itching": 1936,
+      "Burning Sensation": 169,
+      "Skin Peeling": 169,
+      "Redness": 169,
+      "Comedones": 445,
+      "Papules": 445,
+      "Inflammatory Cysts": 445,
+      "Melasma Patches": 302,
+      "Post-Inflammatory Hyperpigmentation": 302,
+      "Annular Scaly Plaques": 83,
+      "Pruritus": 83,
+      "Telangiectasia": 80,
+      "Facial Erythema": 80,
+      "Skin Thinning": 80
+    }
+  },
+  "environmental": {
+    "waterHardness": {
+      "Hard (>300 ppm)": 31193,
+      "Moderate (150-300 ppm)": 12755,
+      "Soft (<150 ppm)": 6052
+    },
+    "pollution": {
+      "High (PM2.5 > 100)": 28974,
+      "Moderate (PM2.5 50-100)": 14990,
+      "Low (PM2.5 < 50)": 6036
+    }
+  },
+  "metabolicAndNutritional": {
+    "hormonalFactors": {
+      "Thyroid Disruption": 7106,
+      "PCOS": 3176,
+      "Insulin Resistance": 6947,
+      "High DHT": 6845
+    },
+    "nutritionalDeficiencies": {
+      "Ferritin/Iron": 6425,
+      "Zinc": 6533,
+      "Vitamin B12": 6478,
+      "Vitamin D3": 6462
+    }
+  },
+  "clinicalCourse": {
+    "otcSteroidMisuseTotal": 15924,
+    "otcSteroidMisusePercent": 31.8,
+    "otcSteroidMisuseByCondition": {
+      "Telogen Effluvium": 2223,
+      "Acne Vulgaris": 4349,
+      "Scalp Folliculitis": 1187,
+      "Androgenetic Alopecia": 3346,
+      "Hyperpigmentation/Melasma": 2861,
+      "Steroid-Induced Rosacea": 798,
+      "Dandruff/Seborrheic Dermatitis": 4837,
+      "Tinea Faciei": 759,
+      "Contact Dermatitis": 1409,
+      "Scalp Psoriasis/Tinea Capitis": 621
+    },
+    "stressLevels": {
+      "High": 20846,
+      "Moderate": 21700,
+      "Low": 7454
+    },
+    "priorConsultations": {
+      "General Physician": 13649,
+      "AYUSH Practitioner": 5943,
+      "None (Self-medicated)": 20524,
+      "Certified Dermatologist": 9884
+    },
+    "avgDurationMonths": {
+      "Scalp Folliculitis": 14,
+      "Dandruff/Seborrheic Dermatitis": 14,
+      "Contact Dermatitis": 15,
+      "Androgenetic Alopecia": 15,
+      "Acne Vulgaris": 14,
+      "Telogen Effluvium": 15,
+      "Hyperpigmentation/Melasma": 14,
+      "Steroid-Induced Rosacea": 14,
+      "Tinea Faciei": 14,
+      "Scalp Psoriasis/Tinea Capitis": 15
+    }
+  },
+  "riskFactorImpact": {
+    "hardWater": {
+      "Scalp Folliculitis": 2237,
+      "Androgenetic Alopecia": 6532,
+      "Acne Vulgaris": 8567,
+      "Telogen Effluvium": 4437,
+      "Hyperpigmentation/Melasma": 5589,
+      "Dandruff/Seborrheic Dermatitis": 9495,
+      "Steroid-Induced Rosacea": 1558,
+      "Tinea Faciei": 1461,
+      "Contact Dermatitis": 2743,
+      "Scalp Psoriasis/Tinea Capitis": 1218
+    },
+    "highPollution": {
+      "Androgenetic Alopecia": 5971,
+      "Acne Vulgaris": 7828,
+      "Telogen Effluvium": 4175,
+      "Hyperpigmentation/Melasma": 5271,
+      "Dandruff/Seborrheic Dermatitis": 8934,
+      "Scalp Folliculitis": 1992,
+      "Contact Dermatitis": 2507,
+      "Steroid-Induced Rosacea": 1475,
+      "Tinea Faciei": 1281,
+      "Scalp Psoriasis/Tinea Capitis": 1120
+    },
+    "highStress": {
+      "Androgenetic Alopecia": 4391,
+      "Acne Vulgaris": 5602,
+      "Dandruff/Seborrheic Dermatitis": 6425,
+      "Steroid-Induced Rosacea": 1030,
+      "Scalp Psoriasis/Tinea Capitis": 791,
+      "Hyperpigmentation/Melasma": 3781,
+      "Tinea Faciei": 953,
+      "Scalp Folliculitis": 1490,
+      "Contact Dermatitis": 1865,
+      "Telogen Effluvium": 2926
+    },
+    "otcSteroidMisuse": {
+      "Telogen Effluvium": 2223,
+      "Acne Vulgaris": 4349,
+      "Scalp Folliculitis": 1187,
+      "Androgenetic Alopecia": 3346,
+      "Hyperpigmentation/Melasma": 2861,
+      "Steroid-Induced Rosacea": 798,
+      "Dandruff/Seborrheic Dermatitis": 4837,
+      "Tinea Faciei": 759,
+      "Contact Dermatitis": 1409,
+      "Scalp Psoriasis/Tinea Capitis": 621
+    },
+    "nutritionalDeficiencies": {
+      "Ferritin/Iron": {
+        "Androgenetic Alopecia": 1377,
+        "Acne Vulgaris": 1738,
+        "Telogen Effluvium": 933,
+        "Dandruff/Seborrheic Dermatitis": 1896,
+        "Scalp Folliculitis": 502,
+        "Hyperpigmentation/Melasma": 1227,
+        "Contact Dermatitis": 579,
+        "Tinea Faciei": 292,
+        "Scalp Psoriasis/Tinea Capitis": 256,
+        "Steroid-Induced Rosacea": 306
+      },
+      "Zinc": {
+        "Scalp Folliculitis": 449,
+        "Telogen Effluvium": 985,
+        "Steroid-Induced Rosacea": 326,
+        "Hyperpigmentation/Melasma": 1179,
+        "Contact Dermatitis": 572,
+        "Dandruff/Seborrheic Dermatitis": 2019,
+        "Acne Vulgaris": 1797,
+        "Androgenetic Alopecia": 1375,
+        "Scalp Psoriasis/Tinea Capitis": 230,
+        "Tinea Faciei": 278
+      },
+      "Vitamin B12": {
+        "Scalp Folliculitis": 483,
+        "Androgenetic Alopecia": 1317,
+        "Acne Vulgaris": 1639,
+        "Dandruff/Seborrheic Dermatitis": 1930,
+        "Hyperpigmentation/Melasma": 1220,
+        "Steroid-Induced Rosacea": 318,
+        "Scalp Psoriasis/Tinea Capitis": 238,
+        "Telogen Effluvium": 949,
+        "Tinea Faciei": 331,
+        "Contact Dermatitis": 608
+      },
+      "Vitamin D3": {
+        "Dandruff/Seborrheic Dermatitis": 1948,
+        "Tinea Faciei": 298,
+        "Contact Dermatitis": 563,
+        "Acne Vulgaris": 1735,
+        "Androgenetic Alopecia": 1323,
+        "Hyperpigmentation/Melasma": 1175,
+        "Telogen Effluvium": 945,
+        "Steroid-Induced Rosacea": 324,
+        "Scalp Folliculitis": 478,
+        "Scalp Psoriasis/Tinea Capitis": 239
+      }
+    },
+    "hormonalFactors": {
+      "Thyroid Disruption": {
+        "Androgenetic Alopecia": 1474,
+        "Acne Vulgaris": 1960,
+        "Dandruff/Seborrheic Dermatitis": 2057,
+        "Scalp Folliculitis": 504,
+        "Tinea Faciei": 327,
+        "Hyperpigmentation/Melasma": 1288,
+        "Contact Dermatitis": 650,
+        "Telogen Effluvium": 1083,
+        "Steroid-Induced Rosacea": 340,
+        "Scalp Psoriasis/Tinea Capitis": 271
+      },
+      "PCOS": {
+        "Androgenetic Alopecia": 690,
+        "Telogen Effluvium": 477,
+        "Steroid-Induced Rosacea": 171,
+        "Scalp Psoriasis/Tinea Capitis": 127,
+        "Contact Dermatitis": 256,
+        "Acne Vulgaris": 861,
+        "Dandruff/Seborrheic Dermatitis": 949,
+        "Hyperpigmentation/Melasma": 583,
+        "Tinea Faciei": 151,
+        "Scalp Folliculitis": 220
+      },
+      "Insulin Resistance": {
+        "Scalp Folliculitis": 516,
+        "Dandruff/Seborrheic Dermatitis": 2086,
+        "Telogen Effluvium": 1025,
+        "Acne Vulgaris": 1892,
+        "Hyperpigmentation/Melasma": 1201,
+        "Androgenetic Alopecia": 1498,
+        "Steroid-Induced Rosacea": 381,
+        "Contact Dermatitis": 611,
+        "Tinea Faciei": 316,
+        "Scalp Psoriasis/Tinea Capitis": 260
+      },
+      "High DHT": {
+        "Dandruff/Seborrheic Dermatitis": 2093,
+        "Contact Dermatitis": 626,
+        "Acne Vulgaris": 1821,
+        "Telogen Effluvium": 949,
+        "Androgenetic Alopecia": 1430,
+        "Scalp Folliculitis": 494,
+        "Hyperpigmentation/Melasma": 1247,
+        "Scalp Psoriasis/Tinea Capitis": 261,
+        "Tinea Faciei": 309,
+        "Steroid-Induced Rosacea": 312
+      }
+    }
+  },
+  "severityDistribution": {
+    "Scalp Folliculitis": {
+      "Moderate": 1365,
+      "Severe": 621,
+      "Mild": 1596
+    },
+    "Dandruff/Seborrheic Dermatitis": {
+      "Severe": 2582,
+      "Mild": 6832,
+      "Moderate": 5774
+    },
+    "Contact Dermatitis": {
+      "Severe": 498,
+      "Moderate": 1159,
+      "Grade II (Moderate)": 440,
+      "Mild": 1371,
+      "Grade I (Mild)": 526,
+      "Grade III (Moderate-Severe)": 288,
+      "Grade IV (Severe)": 107
+    },
+    "Androgenetic Alopecia": {
+      "Moderate": 3938,
+      "Severe": 1791,
+      "Mild": 4736
+    },
+    "Acne Vulgaris": {
+      "Moderate": 3518,
+      "Mild": 4167,
+      "Grade II (Moderate)": 1473,
+      "Severe": 1555,
+      "Grade IV (Severe)": 375,
+      "Grade I (Mild)": 1641,
+      "Grade III (Moderate-Severe)": 834
+    },
+    "Telogen Effluvium": {
+      "Moderate": 2742,
+      "Mild": 3242,
+      "Severe": 1199
+    },
+    "Hyperpigmentation/Melasma": {
+      "Moderate": 2359,
+      "Grade I (Mild)": 1100,
+      "Mild": 2770,
+      "Severe": 1057,
+      "Grade II (Moderate)": 998,
+      "Grade III (Moderate-Severe)": 564,
+      "Grade IV (Severe)": 238
+    },
+    "Steroid-Induced Rosacea": {
+      "Severe": 288,
+      "Mild": 786,
+      "Grade III (Moderate-Severe)": 165,
+      "Grade II (Moderate)": 244,
+      "Grade I (Mild)": 305,
+      "Moderate": 644,
+      "Grade IV (Severe)": 50
+    },
+    "Tinea Faciei": {
+      "Moderate": 597,
+      "Mild": 719,
+      "Severe": 267,
+      "Grade I (Mild)": 268,
+      "Grade III (Moderate-Severe)": 147,
+      "Grade II (Moderate)": 258,
+      "Grade IV (Severe)": 59
+    },
+    "Scalp Psoriasis/Tinea Capitis": {
+      "Severe": 324,
+      "Mild": 867,
+      "Moderate": 745
+    }
+  }
+}
