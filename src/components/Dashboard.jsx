@@ -957,25 +957,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             </div>
           )}
 
-          {/* Recent Consultations Container */}
-          {sidebarOpen && (
-            <div className="flex-1 overflow-y-auto custom-scrollbar px-3 py-2 border-t border-stone-200 space-y-1">
-              <span className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider block px-1 mb-1">
-                Recent Consultations
-              </span>
-              {chatHistory.map((chat) => (
-                <div
-                  key={chat.id}
-                  onClick={() => setCurrentPage('chat')}
-                  className="group flex items-center justify-between p-2 rounded-xl text-xs text-stone-600 hover:bg-stone-100 hover:text-stone-900 cursor-pointer transition-all"
-                >
-                  <span className="truncate pr-2">{chat.title}</span>
-                  <span className="text-[10px] text-stone-400 group-hover:text-stone-600">{chat.date}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* USER CARD & DIRECT WEBPAGE PROFILE TRIGGER */}
           <div className="p-3 border-t border-stone-200 bg-stone-50/80 relative group">
             <button
