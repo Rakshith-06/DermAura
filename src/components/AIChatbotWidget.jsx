@@ -21,7 +21,7 @@ import {
   Info
 } from 'lucide-react';
 
-export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) {
+export default function AIChatbotWidget({ isOpen = false, onClose = () => { } }) {
   const [activeTab, setActiveTab] = useState('chat'); // 'chat' | 'analyzer'
   const [messages, setMessages] = useState([
     {
@@ -215,10 +215,10 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
               <div className="flex items-center space-x-2">
                 <h3 className="font-bold text-base text-white tracking-wide">DermaGuide AI Assistant</h3>
                 <span className="bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 text-[10px] font-semibold px-2 py-0.5 rounded-full">
-                  50k Cohort Intelligence
+                  Cohort Intelligence
                 </span>
               </div>
-              <p className="text-xs text-emerald-100/80">Trained on 50,000 Indian Patient Records</p>
+              <p className="text-xs text-emerald-100/80">Trained on Indian Patient Records</p>
             </div>
           </div>
 
@@ -234,25 +234,23 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
         <div className="flex border-b border-stone-200 bg-stone-50">
           <button
             onClick={() => setActiveTab('chat')}
-            className={`flex-1 py-3 text-xs font-semibold flex items-center justify-center space-x-2 border-b-2 transition-all ${
-              activeTab === 'chat'
-                ? 'border-emerald-600 text-emerald-700 bg-white shadow-sm'
-                : 'border-transparent text-stone-500 hover:text-stone-700'
-            }`}
+            className={`flex-1 py-3 text-xs font-semibold flex items-center justify-center space-x-2 border-b-2 transition-all ${activeTab === 'chat'
+              ? 'border-emerald-600 text-emerald-700 bg-white shadow-sm'
+              : 'border-transparent text-stone-500 hover:text-stone-700'
+              }`}
           >
             <Bot className="w-4 h-4" />
             <span>Interactive AI Chat</span>
           </button>
           <button
             onClick={() => setActiveTab('analyzer')}
-            className={`flex-1 py-3 text-xs font-semibold flex items-center justify-center space-x-2 border-b-2 transition-all ${
-              activeTab === 'analyzer'
-                ? 'border-emerald-600 text-emerald-700 bg-white shadow-sm'
-                : 'border-transparent text-stone-500 hover:text-stone-700'
-            }`}
+            className={`flex-1 py-3 text-xs font-semibold flex items-center justify-center space-x-2 border-b-2 transition-all ${activeTab === 'analyzer'
+              ? 'border-emerald-600 text-emerald-700 bg-white shadow-sm'
+              : 'border-transparent text-stone-500 hover:text-stone-700'
+              }`}
           >
             <Brain className="w-4 h-4" />
-            <span>50k Cohort Symptom Analyzer</span>
+            <span>Cohort Symptom Analyzer</span>
           </button>
         </div>
 
@@ -264,26 +262,23 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
               {messages.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`flex items-start space-x-3 ${
-                    msg.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
-                  }`}
+                  className={`flex items-start space-x-3 ${msg.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
+                    }`}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                      msg.sender === 'user'
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-teal-700 text-white shadow-sm'
-                    }`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.sender === 'user'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-teal-700 text-white shadow-sm'
+                      }`}
                   >
                     {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                   </div>
 
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-xs leading-relaxed shadow-sm ${
-                      msg.sender === 'user'
-                        ? 'bg-emerald-600 text-white rounded-tr-none'
-                        : 'bg-white border border-stone-200 text-stone-800 rounded-tl-none'
-                    }`}
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-xs leading-relaxed shadow-sm ${msg.sender === 'user'
+                      ? 'bg-emerald-600 text-white rounded-tr-none'
+                      : 'bg-white border border-stone-200 text-stone-800 rounded-tl-none'
+                      }`}
                   >
                     <div className="whitespace-pre-wrap">
                       {msg.text ? msg.text.split(/(\*\*.*?\*\*)/g).map((part, idx) => {
@@ -295,9 +290,8 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
                     </div>
 
                     <span
-                      className={`block text-[9px] mt-1 text-right ${
-                        msg.sender === 'user' ? 'text-emerald-100' : 'text-stone-400'
-                      }`}
+                      className={`block text-[9px] mt-1 text-right ${msg.sender === 'user' ? 'text-emerald-100' : 'text-stone-400'
+                        }`}
                     >
                       {msg.timestamp}
                     </span>
@@ -391,11 +385,10 @@ export default function AIChatbotWidget({ isOpen = false, onClose = () => {} }) 
                     <button
                       key={sym}
                       onClick={() => toggleSymptom(sym)}
-                      className={`text-xs px-3 py-1.5 rounded-lg border font-medium transition-all ${
-                        isSelected
-                          ? 'bg-emerald-50 border-emerald-500 text-emerald-800 font-semibold shadow-sm'
-                          : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-stone-300'
-                      }`}
+                      className={`text-xs px-3 py-1.5 rounded-lg border font-medium transition-all ${isSelected
+                        ? 'bg-emerald-50 border-emerald-500 text-emerald-800 font-semibold shadow-sm'
+                        : 'bg-stone-50 border-stone-200 text-stone-600 hover:border-stone-300'
+                        }`}
                     >
                       {sym} {isSelected && '✓'}
                     </button>
