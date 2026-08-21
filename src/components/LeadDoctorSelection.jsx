@@ -29,7 +29,7 @@ export const CLINICAL_CATEGORIES = [
     title: 'Facial & Skin Care',
     shortLabel: 'Skin Care',
     icon: Sparkles,
-    badgeColor: 'teal',
+    badgeColor: 'emerald',
     desc: 'Facial Acne, Rosacea, Eczema, Dermatitis & Hyperpigmentation',
     matchDomains: ['SKIN', 'BOTH'],
   },
@@ -38,7 +38,7 @@ export const CLINICAL_CATEGORIES = [
     title: 'Hair & Scalp Health',
     shortLabel: 'Hair Care',
     icon: Scissors,
-    badgeColor: 'indigo',
+    badgeColor: 'emerald',
     desc: 'Alopecia, Scalp Psoriasis, Telogen Effluvium & Follicle Care',
     matchDomains: ['HAIR', 'BOTH'],
   },
@@ -47,7 +47,7 @@ export const CLINICAL_CATEGORIES = [
     title: 'General Health & Vitals',
     shortLabel: 'General Care',
     icon: HeartPulse,
-    badgeColor: 'amber',
+    badgeColor: 'emerald',
     desc: 'Prescription Safety Gatekeeper, Neuro-Stress & Interaction Checks',
     matchDomains: ['GENERAL', 'BOTH', 'SKIN', 'HAIR'],
   },
@@ -79,33 +79,17 @@ export const MOCK_PCP_DOCTORS = [
     gender: 'Female',
     specialization: 'Facial Dermatology & Barrier Specialist',
     specialtyDomain: 'SKIN',
-    specialtyLabel: '✨ Skin Care Specialist',
-    qualifications: 'MBBS, MD (Dermatology)',
+    specialtyLabel: '✨ Facial Skin Specialist',
+    qualifications: 'MBBS, MD Dermatology (KEM Mumbai)',
     yearsOfExperience: 12,
-    hospitalAffiliation: { name: 'DermAura Clinical Center of Excellence' },
+    hospitalAffiliation: { name: 'Apollo Hospitals Mumbai' },
     languagesSpoken: ['English', 'Hindi', 'Gujarati'],
     rating: 4.9,
     consultationFee: 500,
     isVerified: true,
+    isDemoDoctor: false,
     photo: '👩‍⚕️',
-    bio: 'Specializes in comprehensive facial skin acne, eczema, rosacea, and preventive dermatological care.',
-  },
-  {
-    id: 'doc-pcp-2',
-    fullName: 'Dr. Rajesh Kumar, MBBS, DNB',
-    gender: 'Male',
-    specialization: 'Internal Medicine & General Physician',
-    specialtyDomain: 'GENERAL',
-    specialtyLabel: '🩺 General Health Gatekeeper',
-    qualifications: 'MBBS, DNB (Internal Medicine)',
-    yearsOfExperience: 11,
-    hospitalAffiliation: { name: 'Apollo Hospitals, Delhi' },
-    languagesSpoken: ['English', 'Hindi', 'Bengali'],
-    rating: 4.7,
-    consultationFee: 400,
-    isVerified: true,
-    photo: '👨‍⚕️',
-    bio: 'Experienced in systemic health evaluations, drug interaction verification, and overall medical governance.',
+    bio: 'Senior Consultant Dermatologist with 12+ years expertise in acne vulgaris, rosacea, and skin barrier microbiome repair.',
   },
   {
     id: 'doc-pcp-3',
@@ -113,79 +97,97 @@ export const MOCK_PCP_DOCTORS = [
     gender: 'Female',
     specialization: 'Trichologist & Scalp Specialist',
     specialtyDomain: 'HAIR',
-    specialtyLabel: '💇 Hair Care Specialist',
-    qualifications: 'MBBS, MD (Trichology & Medicine)',
-    yearsOfExperience: 9,
+    specialtyLabel: '💇 Scalp & Hair Specialist',
+    qualifications: 'MBBS, MD (PGIMER Chandigarh)',
+    yearsOfExperience: 11,
     hospitalAffiliation: { name: 'AIIMS New Delhi' },
-    languagesSpoken: ['English', 'Tamil', 'Hindi'],
-    rating: 4.8,
-    consultationFee: 600,
+    languagesSpoken: ['English', 'Hindi', 'Malayalam'],
+    rating: 4.9,
+    consultationFee: 500,
     isVerified: true,
+    isDemoDoctor: false,
     photo: '👩‍⚕️',
-    bio: 'Focused on scalp disorders, androgenetic alopecia, and hair loss prevention protocols.',
+    bio: 'Dedicated trichology expert specializing in androgenic alopecia, telogen effluvium, and topical minoxidil management.',
+  },
+  {
+    id: 'doc-pcp-2',
+    fullName: 'Dr. Rajesh Kumar, MBBS, DNB',
+    gender: 'Male',
+    specialization: 'Internal Medicine & Drug Safety Gatekeeper',
+    specialtyDomain: 'GENERAL',
+    specialtyLabel: '🩺 General Physician Gatekeeper',
+    qualifications: 'MBBS, DNB Family Medicine (CMC Vellore)',
+    yearsOfExperience: 15,
+    hospitalAffiliation: { name: 'Apollo Hospitals & AIIMS Network' },
+    languagesSpoken: ['English', 'Hindi', 'Tamil'],
+    rating: 4.8,
+    consultationFee: 450,
+    isVerified: true,
+    isDemoDoctor: false,
+    photo: '👨‍⚕️',
+    bio: 'Primary Care Physician and pharmacovigilance lead. Oversees systemic medication safety and prevents adverse multi-specialist interactions.',
   },
   {
     id: 'doc-pcp-4',
-    fullName: 'Dr. Arjun Singh, MD',
+    fullName: 'Dr. Vikramaditya Sen, MD',
     gender: 'Male',
-    specialization: 'Hair Follicle & Scalp Pathologist',
+    specialization: 'Advanced Trichology & Hair Restoration',
     specialtyDomain: 'HAIR',
-    specialtyLabel: '💇 Hair Care Specialist',
-    qualifications: 'MBBS, MD',
-    yearsOfExperience: 8,
-    hospitalAffiliation: { name: 'Fortis Hospitals, Mumbai' },
-    languagesSpoken: ['English', 'Punjabi', 'Hindi'],
-    rating: 4.6,
-    consultationFee: 350,
+    specialtyLabel: '💇 Hair Restoration Specialist',
+    qualifications: 'MBBS, MD, Fellowship in Trichology',
+    yearsOfExperience: 16,
+    hospitalAffiliation: { name: 'Apollo Dermatological Institute' },
+    languagesSpoken: ['English', 'Hindi', 'Bengali'],
+    rating: 4.9,
+    consultationFee: 550,
     isVerified: true,
+    isDemoDoctor: false,
     photo: '👨‍⚕️',
-    bio: 'Evidence-based trichology physician focused on hair regrowth protocols, telogen effluvium, and scalp health.',
+    bio: 'Specialist in complex scalp disorders, vertex thinning restoration, and dual-action peptide protocols.',
   },
   {
     id: 'doc-pcp-5',
-    fullName: 'Dr. Vikramaditya Sen, MD',
-    gender: 'Male',
-    specialization: 'Dermatologist & General Physician',
-    specialtyDomain: 'BOTH',
-    specialtyLabel: '✨💇 Dual Skin & Hair Specialist',
-    qualifications: 'MBBS, MD (AIIMS)',
-    yearsOfExperience: 16,
-    hospitalAffiliation: { name: 'Max Healthcare & DermAura Panel' },
-    languagesSpoken: ['English', 'Hindi', 'Bengali'],
-    rating: 4.9,
-    consultationFee: 700,
+    fullName: 'Dr. Meera Reddy, MD',
+    gender: 'Female',
+    specialization: 'Dermatopathology & Skin Barrier Specialist',
+    specialtyDomain: 'SKIN',
+    specialtyLabel: '✨ Skin Barrier Specialist',
+    qualifications: 'MBBS, MD (NIMHANS & Manipal)',
+    yearsOfExperience: 9,
+    hospitalAffiliation: { name: 'Fortis Skin & Laser Center' },
+    languagesSpoken: ['English', 'Hindi', 'Telugu'],
+    rating: 4.8,
+    consultationFee: 500,
     isVerified: true,
-    photo: '👨‍⚕️',
-    bio: 'Senior consultant specializing in complex facial dermatoses, hair restoration therapies, and medication approvals.',
+    isDemoDoctor: false,
+    photo: '👩‍⚕️',
+    bio: 'Focused on holistic dermatology, retinoid tolerance ramping, and sensitive skin barrier restoration.',
   },
 ];
 
 const GENDER_FILTERS = ['All', 'Female', 'Male'];
 const EXP_FILTERS = [
-  { label: 'Any Exp', value: 0 },
-  { label: '8+ Yrs', value: 8 },
-  { label: '12+ Yrs', value: 12 },
+  { label: 'All Experience', value: 0 },
+  { label: '10+ Years', value: 10 },
+  { label: '15+ Years', value: 15 },
 ];
-const LANGUAGE_OPTIONS = ['Hindi', 'English', 'Tamil', 'Punjabi', 'Bengali', 'Gujarati'];
+const LANGUAGE_OPTIONS = ['English', 'Hindi', 'Punjabi', 'Gujarati', 'Malayalam', 'Tamil', 'Bengali', 'Telugu'];
 
 export default function LeadDoctorSelection({
   patientUser,
-  onDoctorSelected = () => {},
+  onDoctorSelected,
+  onCancel,
 }) {
-  // Pre-seed default assignments (Dr. Sarah Jenkins pre-selected for Skin & Hair, Dr. Rajesh for General)
-  const [categoryAssignments, setCategoryAssignments] = useState(() => {
-    const existingLeadDocs = patientUser?.leadDoctors || [];
-    const findCat = (cat) => existingLeadDocs.find((ld) => ld.category === cat && ld.status === 'ACTIVE')?.doctorId;
-    const legacyDocId = patientUser?.primaryLeadDoctorId || 'demo-doc-101';
+  const [activeCategoryTab, setActiveCategoryTab] = useState('SKIN_CARE');
 
+  const [categoryAssignments, setCategoryAssignments] = useState(() => {
     return {
-      SKIN_CARE: findCat('SKIN_CARE') || legacyDocId,
-      HAIR_CARE: findCat('HAIR_CARE') || legacyDocId,
-      GENERAL_HEALTH: findCat('GENERAL_HEALTH') || 'doc-pcp-2',
+      SKIN_CARE: 'demo-doc-101',      // Dr. Sarah Jenkins (Facial Skin)
+      HAIR_CARE: 'doc-pcp-3',         // Dr. Priya Menon (Hair & Scalp)
+      GENERAL_HEALTH: 'doc-pcp-2',    // Dr. Rajesh Kumar (General Health)
     };
   });
 
-  const [activeCategoryTab, setActiveCategoryTab] = useState('SKIN_CARE');
   const [searchQuery, setSearchQuery] = useState('');
   const [genderFilter, setGenderFilter] = useState('All');
   const [expFilter, setExpFilter] = useState(0);
@@ -193,40 +195,36 @@ export default function LeadDoctorSelection({
   const [showFilters, setShowFilters] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
-  // Filter doctors for the currently active category tab
+  const getDoctorById = (id) => MOCK_PCP_DOCTORS.find((d) => d.id === id) || MOCK_PCP_DOCTORS[0];
+
   const currentCategoryObj = CLINICAL_CATEGORIES.find((c) => c.id === activeCategoryTab);
 
   const filteredDoctors = useMemo(() => {
     return MOCK_PCP_DOCTORS.filter((doc) => {
-      // Domain matching for the active category
-      const matchCategory = currentCategoryObj
-        ? currentCategoryObj.matchDomains.includes(doc.specialtyDomain)
-        : true;
+      const matchCat = currentCategoryObj?.matchDomains.includes(doc.specialtyDomain) || doc.specialtyDomain === 'BOTH' || currentCategoryObj?.id === 'GENERAL_HEALTH';
 
       const matchSearch =
-        !searchQuery ||
+        searchQuery === '' ||
         doc.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        doc.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.hospitalAffiliation.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         doc.languagesSpoken.some((l) => l.toLowerCase().includes(searchQuery.toLowerCase()));
 
       const matchGender = genderFilter === 'All' || doc.gender === genderFilter;
       const matchExp = doc.yearsOfExperience >= expFilter;
-      const matchLang =
-        !langFilter || doc.languagesSpoken.some((l) => l.toLowerCase().includes(langFilter.toLowerCase()));
+      const matchLang = !langFilter || doc.languagesSpoken.includes(langFilter);
 
-      return matchCategory && matchSearch && matchGender && matchExp && matchLang;
+      return matchCat && matchSearch && matchGender && matchExp && matchLang;
     });
   }, [currentCategoryObj, searchQuery, genderFilter, expFilter, langFilter]);
 
-  // Assign a doctor to a specific category
-  const handleAssignCategory = (category, doctorId) => {
+  const handleAssignCategory = (categoryId, doctorId) => {
     setCategoryAssignments((prev) => ({
       ...prev,
-      [category]: doctorId,
+      [categoryId]: doctorId,
     }));
   };
 
-  // 1-Click: Appoint doctor for BOTH Skin & Hair Care
   const handleAssignBothSkinAndHair = (doctorId) => {
     setCategoryAssignments((prev) => ({
       ...prev,
@@ -235,7 +233,6 @@ export default function LeadDoctorSelection({
     }));
   };
 
-  // 1-Click: Appoint doctor for ALL 3 Categories
   const handleAssignAllCategories = (doctorId) => {
     setCategoryAssignments({
       SKIN_CARE: doctorId,
@@ -244,90 +241,95 @@ export default function LeadDoctorSelection({
     });
   };
 
-  const getDoctorById = (id) => MOCK_PCP_DOCTORS.find((d) => d.id === id);
-
   const handleConfirmAll = async () => {
     setIsConfirming(true);
 
-    const leadDoctorsArray = CLINICAL_CATEGORIES.map((cat) => {
-      const docId = categoryAssignments[cat.id];
-      const doc = getDoctorById(docId);
-      return {
-        category: cat.id,
-        doctorId: docId,
-        doctorName: doc?.fullName || 'Dr. Sarah Jenkins',
-        specialization: doc?.specialization || 'Dermatology',
-        hospitalName: doc?.hospitalAffiliation?.name || 'AIIMS Hospital',
-        assignedAt: new Date().toISOString(),
-        status: 'ACTIVE',
-      };
-    });
+    const skinDoc = getDoctorById(categoryAssignments.SKIN_CARE);
+    const hairDoc = getDoctorById(categoryAssignments.HAIR_CARE);
+    const generalDoc = getDoctorById(categoryAssignments.GENERAL_HEALTH);
 
-    const skinLead = getDoctorById(categoryAssignments.SKIN_CARE);
+    const leadDoctorsArray = [
+      {
+        category: 'SKIN_CARE',
+        doctorId: skinDoc.id,
+        doctorName: skinDoc.fullName,
+        specialization: skinDoc.specialization,
+        status: 'ACTIVE',
+      },
+      {
+        category: 'HAIR_CARE',
+        doctorId: hairDoc.id,
+        doctorName: hairDoc.fullName,
+        specialization: hairDoc.specialization,
+        status: 'ACTIVE',
+      },
+      {
+        category: 'GENERAL_HEALTH',
+        doctorId: generalDoc.id,
+        doctorName: generalDoc.fullName,
+        specialization: generalDoc.specialization,
+        status: 'ACTIVE',
+      },
+    ];
 
     const updatedUser = {
       ...patientUser,
       leadDoctors: leadDoctorsArray,
-      primaryLeadDoctorId: categoryAssignments.SKIN_CARE || 'demo-doc-101',
-      primaryLeadDoctorName: skinLead?.fullName || 'Dr. Sarah Jenkins',
+      primaryLeadDoctorId: skinDoc.id,
+      primaryLeadDoctorName: skinDoc.fullName,
       isFirstLogin: false,
     };
+
+    try {
+      localStorage.setItem('dermaura_user', JSON.stringify(updatedUser));
+    } catch (_) {}
 
     try {
       await fetch('/api/patients/assign-category-lead-doctors', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          patientId: patientUser?.id,
-          assignments: leadDoctorsArray.map((ld) => ({
-            category: ld.category,
-            doctorId: ld.doctorId,
-          })),
+          patientId: patientUser?.id || patientUser?._id,
+          assignments: leadDoctorsArray,
         }),
       });
-    } catch (_) {
-      console.warn('Backend API not reachable — persisted in client state.');
-    }
+    } catch (_) {}
 
-    localStorage.setItem('dermaura_user', JSON.stringify(updatedUser));
     setIsConfirming(false);
     onDoctorSelected(updatedUser);
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 relative overflow-hidden font-sans pb-16">
+    <div className="min-h-screen bg-stone-50 text-stone-900 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 font-sans relative overflow-x-hidden">
       {/* Background Glows */}
-      <div className="absolute top-[-15%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-teal-500/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-100/50 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-100/50 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-
-        {/* ─── Header ─────────────────────────────────────────────────────── */}
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <img src={dermAuraLogo} alt="DermAura Logo" className="w-12 h-12 object-contain mx-auto drop-shadow-xl" />
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-amber-950/60 border border-amber-800/60 rounded-full text-amber-300 text-xs font-bold">
-            <Crown className="w-4 h-4 text-amber-400" />
-            <span>Multi-Category Clinical Onboarding</span>
+      <div className="w-full max-w-5xl space-y-6 relative z-10 animate-in fade-in duration-300">
+        
+        {/* Top Header Card */}
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-8 text-center space-y-3 shadow-sm relative overflow-hidden">
+          <div className="flex items-center justify-center space-x-2">
+            <img src={dermAuraLogo} alt="DermAura" className="w-9 h-9 object-contain drop-shadow-sm" />
+            <h1 className="text-2xl sm:text-3xl font-black text-stone-900">
+              Derm<span className="text-emerald-600">Aura</span> Multi-Specialist Team Setup
+            </h1>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-            Choose Your{' '}
-            <span className="bg-gradient-to-r from-teal-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent">
-              Category Lead Doctors
-            </span>
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            DermAura allows you to appoint specialized Lead Doctors for each domain. You can appoint the same specialist for multiple treatments (e.g. Skin & Hair), or select independent experts for each category.
+
+          <p className="text-xs sm:text-sm text-stone-600 max-w-2xl mx-auto leading-relaxed">
+            DermAura pairs you with <strong className="text-stone-900">Category-Specific Lead Doctors</strong>. 
+            You can appoint dedicated specialists for each area, or assign a dual-certified specialist for both skin and hair.
           </p>
 
           {patientUser?.fullName && (
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-full text-xs text-slate-300">
-              <User className="w-3.5 h-3.5 text-teal-400" />
-              <span>Welcome, <strong className="text-white">{patientUser.fullName}</strong></span>
+            <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-full text-xs text-stone-700">
+              <User className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Welcome, <strong className="text-stone-900">{patientUser.fullName}</strong></span>
             </div>
           )}
         </div>
 
-        {/* ─── 3 Category Assignment Status Cards ─────────────────────────── */}
+        {/* 3 Category Assignment Status Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {CLINICAL_CATEGORIES.map((cat) => {
             const Icon = cat.icon;
@@ -341,39 +343,33 @@ export default function LeadDoctorSelection({
                 onClick={() => setActiveCategoryTab(cat.id)}
                 className={`p-4 rounded-3xl border text-left cursor-pointer transition-all duration-200 relative ${
                   isTabActive
-                    ? 'bg-slate-900/90 border-teal-500/80 ring-2 ring-teal-500/20 shadow-xl shadow-teal-950/30'
-                    : 'bg-slate-900/50 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/70'
+                    ? 'bg-white border-emerald-600 ring-2 ring-emerald-500/20 shadow-md'
+                    : 'bg-white/80 border-stone-200 hover:border-stone-300 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2.5">
-                  <div className={`p-2 rounded-2xl flex items-center space-x-2 ${
-                    cat.id === 'SKIN_CARE'
-                      ? 'bg-teal-500/15 text-teal-400'
-                      : cat.id === 'HAIR_CARE'
-                      ? 'bg-indigo-500/15 text-indigo-400'
-                      : 'bg-amber-500/15 text-amber-400'
-                  }`}>
-                    <Icon className="w-4 h-4" />
+                  <div className="p-2 rounded-2xl flex items-center space-x-2 bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    <Icon className="w-4 h-4 text-emerald-600" />
                     <span className="text-xs font-bold">{cat.shortLabel}</span>
                   </div>
 
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 flex items-center space-x-1">
-                    <Check className="w-3 h-3" />
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center space-x-1">
+                    <Check className="w-3 h-3 text-emerald-700" />
                     <span>Assigned</span>
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-white truncate">{cat.title}</h3>
-                <p className="text-[10px] text-slate-400 line-clamp-1 mb-3">{cat.desc}</p>
+                <h3 className="text-sm font-bold text-stone-900 truncate">{cat.title}</h3>
+                <p className="text-[10px] text-stone-500 line-clamp-1 mb-3">{cat.desc}</p>
 
                 {/* Assigned Doctor Mini Preview */}
-                <div className="p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800/90 flex items-center space-x-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 flex items-center justify-center text-base flex-shrink-0">
+                <div className="p-2.5 rounded-2xl bg-stone-50 border border-stone-200 flex items-center space-x-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-base flex-shrink-0 shadow-2xs">
                     {assignedDoc?.photo || '👨‍⚕️'}
                   </div>
                   <div className="truncate flex-1">
-                    <p className="text-xs font-bold text-slate-100 truncate">{assignedDoc?.fullName || 'Select Doctor'}</p>
-                    <p className="text-[10px] text-teal-400 font-mono truncate">{assignedDoc?.specialization || 'Clinical Specialist'}</p>
+                    <p className="text-xs font-bold text-stone-900 truncate">{assignedDoc?.fullName || 'Select Doctor'}</p>
+                    <p className="text-[10px] text-emerald-700 font-mono truncate">{assignedDoc?.specialization || 'Clinical Specialist'}</p>
                   </div>
                 </div>
               </div>
@@ -381,30 +377,30 @@ export default function LeadDoctorSelection({
           })}
         </div>
 
-        {/* ─── Active Category Selector & Doctor Roster ─────────────────────── */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 sm:p-6 space-y-5 backdrop-blur-md">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        {/* Active Category Selector & Doctor Roster */}
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-6 space-y-5 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-200 pb-4">
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-mono uppercase tracking-wider text-teal-400 font-bold">Step 2 • Select Specialist</span>
-                <span className="text-slate-500">•</span>
-                <span className="text-xs font-bold text-white">{currentCategoryObj?.title}</span>
+                <span className="text-xs font-mono uppercase tracking-wider text-emerald-700 font-bold">Step 2 • Select Specialist</span>
+                <span className="text-stone-400">•</span>
+                <span className="text-xs font-bold text-stone-900">{currentCategoryObj?.title}</span>
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-stone-500 mt-0.5">
                 Choose the attending lead doctor who will oversee your {currentCategoryObj?.shortLabel.toLowerCase()} treatments.
               </p>
             </div>
 
             {/* Category Switcher Pills */}
-            <div className="flex bg-slate-950 p-1 rounded-2xl border border-slate-800 self-start">
+            <div className="flex bg-stone-100 p-1 rounded-2xl border border-stone-200 self-start">
               {CLINICAL_CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategoryTab(cat.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     activeCategoryTab === cat.id
-                      ? 'bg-teal-500 text-slate-950 shadow-md font-bold'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-emerald-600 text-white shadow-xs font-bold'
+                      : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
                   {cat.shortLabel}
@@ -416,20 +412,20 @@ export default function LeadDoctorSelection({
           {/* Search & Filter Bar */}
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
               <input
                 type="text"
                 placeholder="Search specialists by name, hospital, or language…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-all"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl pl-10 pr-4 py-2.5 text-xs text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:border-emerald-600 transition-all"
               />
             </div>
 
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all ${
-                showFilters ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-300 hover:text-white'
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                showFilters ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-stone-50 border-stone-300 text-stone-700 hover:bg-stone-100'
               }`}
             >
               <Filter className="w-3.5 h-3.5" />
@@ -439,16 +435,16 @@ export default function LeadDoctorSelection({
 
           {/* Expanded Filter Panel */}
           {showFilters && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-stone-200">
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase">Gender</label>
+                <label className="text-[10px] font-bold text-stone-500 uppercase">Gender</label>
                 <div className="flex gap-1.5">
                   {GENDER_FILTERS.map((g) => (
                     <button
                       key={g}
                       onClick={() => setGenderFilter(g)}
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold ${
-                        genderFilter === g ? 'bg-teal-500 text-slate-950' : 'bg-slate-950 text-slate-400 hover:text-white'
+                      className={`px-3 py-1 rounded-lg text-xs font-semibold cursor-pointer ${
+                        genderFilter === g ? 'bg-emerald-600 text-white' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                       }`}
                     >
                       {g}
@@ -458,14 +454,14 @@ export default function LeadDoctorSelection({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase">Experience</label>
+                <label className="text-[10px] font-bold text-stone-500 uppercase">Experience</label>
                 <div className="flex gap-1.5">
                   {EXP_FILTERS.map((ef) => (
                     <button
                       key={ef.value}
                       onClick={() => setExpFilter(ef.value)}
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold ${
-                        expFilter === ef.value ? 'bg-indigo-500 text-white' : 'bg-slate-950 text-slate-400 hover:text-white'
+                      className={`px-3 py-1 rounded-lg text-xs font-semibold cursor-pointer ${
+                        expFilter === ef.value ? 'bg-emerald-600 text-white' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                       }`}
                     >
                       {ef.label}
@@ -475,11 +471,11 @@ export default function LeadDoctorSelection({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase">Language</label>
+                <label className="text-[10px] font-bold text-stone-500 uppercase">Language</label>
                 <select
                   value={langFilter}
                   onChange={(e) => setLangFilter(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-stone-50 border border-stone-300 rounded-lg px-2.5 py-1 text-xs text-stone-900 focus:bg-white focus:outline-none focus:border-emerald-600"
                 >
                   <option value="">Any Language</option>
                   {LANGUAGE_OPTIONS.map((l) => (
@@ -501,58 +497,58 @@ export default function LeadDoctorSelection({
                   key={doc.id}
                   className={`rounded-3xl border p-4 sm:p-5 space-y-3.5 transition-all duration-200 flex flex-col justify-between ${
                     isAssignedToThisCategory
-                      ? 'bg-gradient-to-br from-teal-950/60 via-slate-900 to-indigo-950/60 border-teal-500/80 shadow-xl shadow-teal-950/40 ring-1 ring-teal-500/40'
-                      : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700'
+                      ? 'bg-emerald-50/60 border-emerald-500 shadow-md ring-1 ring-emerald-500/30'
+                      : 'bg-white border-stone-200 hover:border-stone-300 hover:shadow-2xs'
                   }`}
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-2xl shadow-inner">
+                        <div className="w-12 h-12 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-2xl shadow-2xs">
                           {doc.photo}
                         </div>
                         <div>
                           <div className="flex items-center space-x-1.5">
-                            <h4 className="text-sm font-bold text-white">{doc.fullName}</h4>
-                            {doc.isVerified && <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />}
+                            <h4 className="text-sm font-bold text-stone-900">{doc.fullName}</h4>
+                            {doc.isVerified && <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />}
                           </div>
-                          <p className="text-xs text-teal-400 font-mono font-medium">{doc.specialization}</p>
+                          <p className="text-xs text-emerald-700 font-mono font-medium">{doc.specialization}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-amber-500/10 text-amber-300 text-[11px] font-bold font-mono">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <div className="flex items-center space-x-1 px-2 py-0.5 rounded-lg bg-amber-50 text-amber-800 text-[11px] font-bold font-mono border border-amber-200">
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
                         <span>{doc.rating}</span>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap gap-1.5 text-[10px]">
-                      <span className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300 flex items-center space-x-1">
-                        <Building2 className="w-3 h-3 text-slate-400" />
+                      <span className="px-2 py-0.5 rounded-md bg-stone-50 border border-stone-200 text-stone-700 flex items-center space-x-1">
+                        <Building2 className="w-3 h-3 text-stone-400" />
                         <span className="truncate max-w-[140px]">{doc.hospitalAffiliation.name}</span>
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-emerald-400 font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono font-bold">
                         {doc.yearsOfExperience} Yrs Exp
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-400">
+                      <span className="px-2 py-0.5 rounded-md bg-stone-50 border border-stone-200 text-stone-600">
                         {doc.languagesSpoken.slice(0, 2).join(', ')}
                       </span>
                     </div>
 
-                    <p className="text-[11px] text-slate-400 leading-relaxed line-clamp-2">
+                    <p className="text-[11px] text-stone-600 leading-relaxed line-clamp-2">
                       {doc.bio}
                     </p>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="space-y-2 pt-2 border-t border-slate-800/80">
+                  <div className="space-y-2 pt-2 border-t border-stone-200">
                     <button
                       type="button"
                       onClick={() => handleAssignCategory(activeCategoryTab, doc.id)}
-                      className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-all ${
+                      className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
                         isAssignedToThisCategory
-                          ? 'bg-teal-500 text-slate-950 shadow-md shadow-teal-500/20'
-                          : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'bg-stone-50 hover:bg-stone-100 text-stone-800 border border-stone-300'
                       }`}
                     >
                       {isAssignedToThisCategory ? (
@@ -571,17 +567,17 @@ export default function LeadDoctorSelection({
                         <button
                           type="button"
                           onClick={() => handleAssignBothSkinAndHair(doc.id)}
-                          className="py-1.5 px-2 rounded-lg bg-indigo-950/60 hover:bg-indigo-900/80 border border-indigo-800 text-[10px] font-bold text-indigo-300 transition-all flex items-center justify-center space-x-1"
+                          className="py-1.5 px-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-[10px] font-bold text-emerald-800 transition-all flex items-center justify-center space-x-1 cursor-pointer"
                         >
-                          <Zap className="w-3 h-3 text-indigo-400" />
+                          <Zap className="w-3 h-3 text-emerald-600" />
                           <span>Both Skin & Hair</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => handleAssignAllCategories(doc.id)}
-                          className="py-1.5 px-2 rounded-lg bg-amber-950/60 hover:bg-amber-900/80 border border-amber-800 text-[10px] font-bold text-amber-300 transition-all flex items-center justify-center space-x-1"
+                          className="py-1.5 px-2 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-200 text-[10px] font-bold text-amber-800 transition-all flex items-center justify-center space-x-1 cursor-pointer"
                         >
-                          <Crown className="w-3 h-3 text-amber-400" />
+                          <Crown className="w-3 h-3 text-amber-600" />
                           <span>All 3 Categories</span>
                         </button>
                       </div>
@@ -593,14 +589,14 @@ export default function LeadDoctorSelection({
           </div>
         </div>
 
-        {/* ─── Final Confirmation Bottom Bar ───────────────────────────────── */}
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl backdrop-blur-xl">
+        {/* Final Confirmation Bottom Bar */}
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
           <div className="space-y-1 text-center sm:text-left">
-            <h4 className="text-sm font-bold text-white">Review & Confirm Your Healthcare Team</h4>
-            <p className="text-xs text-slate-400">
-              Skin: <strong className="text-teal-300">{getDoctorById(categoryAssignments.SKIN_CARE)?.fullName}</strong> • 
-              Hair: <strong className="text-indigo-300">{getDoctorById(categoryAssignments.HAIR_CARE)?.fullName}</strong> • 
-              General: <strong className="text-amber-300">{getDoctorById(categoryAssignments.GENERAL_HEALTH)?.fullName}</strong>
+            <h4 className="text-sm font-bold text-stone-900">Review & Confirm Your Healthcare Team</h4>
+            <p className="text-xs text-stone-500">
+              Skin: <strong className="text-emerald-800">{getDoctorById(categoryAssignments.SKIN_CARE)?.fullName}</strong> • 
+              Hair: <strong className="text-emerald-800">{getDoctorById(categoryAssignments.HAIR_CARE)?.fullName}</strong> • 
+              General: <strong className="text-emerald-800">{getDoctorById(categoryAssignments.GENERAL_HEALTH)?.fullName}</strong>
             </p>
           </div>
 
@@ -608,7 +604,7 @@ export default function LeadDoctorSelection({
             type="button"
             disabled={isConfirming}
             onClick={handleConfirmAll}
-            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-teal-500 via-emerald-400 to-teal-500 hover:from-teal-400 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl shadow-teal-500/25 flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider rounded-2xl shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 transition-all cursor-pointer"
           >
             {isConfirming ? (
               <span>Saving Medical Team...</span>

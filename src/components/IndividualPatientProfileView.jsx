@@ -227,47 +227,47 @@ export default function IndividualPatientProfileView({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-2xl flex items-center space-x-2 border border-slate-700 transition-all shadow"
+          className="px-4 py-2 bg-white hover:bg-stone-100 text-stone-700 text-xs font-bold rounded-2xl flex items-center space-x-2 border border-stone-200 transition-all shadow-xs cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Patient Queue</span>
         </button>
 
-        <span className="px-3 py-1 bg-teal-950 text-teal-300 border border-teal-800 text-xs font-mono font-bold rounded-full">
+        <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-mono font-bold rounded-full">
           PATIENT ID: {patient.id || 'PAT-101'}
         </span>
       </div>
 
       {/* PATIENT PROFILE HEADER BANNER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border border-indigo-900/60 p-6 md:p-8 shadow-2xl">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-800 via-teal-800 to-emerald-900 border border-emerald-700/60 p-6 md:p-8 shadow-xl text-white">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center space-x-5">
-            <div className="w-20 h-20 rounded-3xl bg-slate-950 border-2 border-teal-500/50 flex items-center justify-center text-4xl shadow-xl">
+            <div className="w-20 h-20 rounded-3xl bg-white border-2 border-emerald-300 flex items-center justify-center text-4xl shadow-md">
               {patient.photo || '👨‍💼'}
             </div>
 
             <div>
               <div className="flex items-center space-x-2">
                 <h1 className="text-2xl font-black text-white">{patient.name || 'Aarav Sharma'}</h1>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center space-x-1">
-                  <Crown className="w-3 h-3 text-amber-400" />
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-white/20 border border-white/30 text-white flex items-center space-x-1">
+                  <Crown className="w-3 h-3 text-amber-300" />
                   <span>DermAura Verified Patient</span>
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-300 mt-2">
-                <span className="font-mono text-emerald-400 font-bold">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-emerald-100 mt-2">
+                <span className="font-mono text-white font-bold">
                   {patient.age || 26} Yrs ({patient.gender || 'Male'})
                 </span>
                 <span>•</span>
-                <span className="flex items-center space-x-1 text-slate-300">
-                  <Mail className="w-3.5 h-3.5 text-indigo-400" />
+                <span className="flex items-center space-x-1 text-emerald-100">
+                  <Mail className="w-3.5 h-3.5 text-emerald-200" />
                   <span>{patient.email || 'patient@dermaura.com'}</span>
                 </span>
                 <span>•</span>
-                <span className="font-mono text-teal-300">Blood Group: {patient.bloodGroup || 'O+'}</span>
+                <span className="font-mono text-white font-bold">Blood Group: {patient.bloodGroup || 'O+'}</span>
               </div>
             </div>
           </div>
@@ -275,15 +275,15 @@ export default function IndividualPatientProfileView({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => onStartVideo(patient)}
-              className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-2xl flex items-center space-x-2 transition-all shadow-lg"
+              className="px-4 py-2.5 bg-white hover:bg-emerald-50 text-emerald-900 font-bold text-xs rounded-2xl flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
             >
-              <Video className="w-4 h-4" />
+              <Video className="w-4 h-4 text-emerald-700" />
               <span>Start Video Call 📹</span>
             </button>
 
             <button
               onClick={() => onIssueRx(patient)}
-              className="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-2xl flex items-center space-x-2 transition-all shadow-lg"
+              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-2xl flex items-center space-x-2 transition-all shadow-sm cursor-pointer"
             >
               <FileText className="w-4 h-4" />
               <span>Issue E-Prescription 📝</span>
@@ -293,40 +293,40 @@ export default function IndividualPatientProfileView({
       </div>
 
       {/* SUB-TABS NAVIGATION */}
-      <div className="flex items-center space-x-3 border-b border-slate-800 pb-3">
+      <div className="flex items-center space-x-3 border-b border-stone-200 pb-3">
         <button
           onClick={() => setActiveSubTab('clinical')}
-          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all ${
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all cursor-pointer ${
             activeSubTab === 'clinical'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200'
           }`}
         >
-          <HeartPulse className="w-4 h-4 text-rose-400" />
+          <HeartPulse className="w-4 h-4 text-rose-500" />
           <span>Clinical Profile & Baseline</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('scans')}
-          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all ${
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all cursor-pointer ${
             activeSubTab === 'scans'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200'
           }`}
         >
-          <Scan className="w-4 h-4 text-teal-400" />
+          <Scan className="w-4 h-4 text-emerald-600" />
           <span>Uploaded DermScans & AI Triage</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('notifications')}
-          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all ${
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all cursor-pointer ${
             activeSubTab === 'notifications'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200'
           }`}
         >
-          <Clock className="w-4 h-4 text-amber-400" />
+          <Clock className="w-4 h-4 text-amber-500" />
           <span>Consultation History & Alerts</span>
         </button>
       </div>
@@ -337,47 +337,47 @@ export default function IndividualPatientProfileView({
           <div className="lg:col-span-2 space-y-6">
             
             {/* Primary Dermatological Baseline */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <Stethoscope className="w-5 h-5 text-indigo-400" />
+            <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-4 shadow-xs">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                <Stethoscope className="w-5 h-5 text-emerald-600" />
                 <span>Primary Chief Concern & Diagnosis</span>
               </h3>
 
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                <span className="text-slate-500 font-mono text-[10px] uppercase block">Patient Stated Complaint</span>
-                <p className="font-bold text-white text-sm">{patient.concern || 'Severe Facial Acne Vulgaris & Inflammatory Papules'}</p>
-                <p className="text-xs text-indigo-300">Anatomic Region: <span className="font-semibold text-slate-200">{patient.anatomicRegion || 'Malar Cheeks & T-Zone'}</span></p>
+              <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                <span className="text-stone-500 font-mono text-[10px] uppercase font-bold block">Patient Stated Complaint</span>
+                <p className="font-bold text-stone-900 text-sm">{patient.concern || 'Severe Facial Acne Vulgaris & Inflammatory Papules'}</p>
+                <p className="text-xs text-stone-600">Anatomic Region: <span className="font-bold text-stone-800">{patient.anatomicRegion || 'Malar Cheeks & T-Zone'}</span></p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-slate-500 font-mono text-[10px] uppercase">AI Lesion Triage Match</span>
-                  <p className="font-bold text-teal-300 text-sm">{patient.aiTriage || 'Acne Vulgaris (95.4% Match)'}</p>
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-stone-500 font-mono text-[10px] uppercase font-bold">AI Lesion Triage Match</span>
+                  <p className="font-bold text-emerald-700 text-sm">{patient.aiTriage || 'Acne Vulgaris (95.4% Match)'}</p>
                 </div>
 
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-slate-500 font-mono text-[10px] uppercase">Consultation Urgency</span>
-                  <p className="font-bold text-amber-400 text-sm">{patient.urgency || 'High'}</p>
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-stone-500 font-mono text-[10px] uppercase font-bold">Consultation Urgency</span>
+                  <p className="font-bold text-amber-700 text-sm">{patient.urgency || 'High'}</p>
                 </div>
               </div>
             </div>
 
             {/* Allergies & Active Meds */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <Pill className="w-5 h-5 text-amber-400" />
+            <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-4 shadow-xs">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                <Pill className="w-5 h-5 text-amber-600" />
                 <span>Known Allergies & Active Regimen</span>
               </h3>
 
               <div className="space-y-3 text-xs">
-                <div className="p-4 bg-rose-950/30 border border-rose-900/50 rounded-2xl space-y-1">
-                  <span className="text-rose-400 font-bold text-[11px] uppercase block">Recorded Drug Allergies:</span>
-                  <p className="text-rose-200 font-semibold">{patient.allergies ? patient.allergies.join(', ') : 'Penicillin, Sulfa Drugs'}</p>
+                <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl space-y-1">
+                  <span className="text-rose-700 font-bold text-[11px] uppercase block">Recorded Drug Allergies:</span>
+                  <p className="text-rose-800 font-semibold">{patient.allergies ? (Array.isArray(patient.allergies) ? patient.allergies.join(', ') : patient.allergies) : 'Penicillin, Sulfa Drugs'}</p>
                 </div>
 
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-1">
-                  <span className="text-slate-400 font-bold text-[11px] uppercase block">Current Skincare & Rx:</span>
-                  <p className="text-slate-200">Salicylic Acid 2% Cleanser, Gentle Hydrating Moisturizer</p>
+                <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl space-y-1">
+                  <span className="text-stone-700 font-bold text-[11px] uppercase block">Current Skincare & Rx:</span>
+                  <p className="text-stone-600">Salicylic Acid 2% Cleanser, Gentle Hydrating Moisturizer</p>
                 </div>
               </div>
             </div>
@@ -386,9 +386,9 @@ export default function IndividualPatientProfileView({
 
           {/* RIGHT COLUMN: DOCTOR CLINICAL NOTES */}
           <div className="space-y-6">
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <FileText className="w-5 h-5 text-teal-400" />
+            <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-4 shadow-xs">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                <FileText className="w-5 h-5 text-emerald-600" />
                 <span>Doctor Clinical Notes</span>
               </h3>
 
@@ -398,12 +398,12 @@ export default function IndividualPatientProfileView({
                   value={noteInput}
                   onChange={(e) => setNoteInput(e.target.value)}
                   placeholder="Add clinical observation or advice for this patient..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-stone-50 border border-stone-300 rounded-xl p-3 text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-emerald-600 focus:bg-white"
                 />
                 <button
                   type="submit"
                   disabled={!noteInput.trim()}
-                  className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-30 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 shadow"
+                  className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 shadow-xs cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Save Clinical Note</span>
@@ -412,12 +412,12 @@ export default function IndividualPatientProfileView({
 
               <div className="space-y-3 pt-2">
                 {clinicalNotes.map((n) => (
-                  <div key={n.id} className="p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-1 text-xs">
+                  <div key={n.id} className="p-3.5 bg-stone-50 border border-stone-200 rounded-xl space-y-1 text-xs">
                     <div className="flex items-center justify-between text-[10px]">
-                      <span className="font-bold text-teal-400">{n.author}</span>
-                      <span className="text-slate-500">{n.date}</span>
+                      <span className="font-bold text-emerald-700">{n.author}</span>
+                      <span className="text-stone-500">{n.date}</span>
                     </div>
-                    <p className="text-slate-300 leading-relaxed">{n.note}</p>
+                    <p className="text-stone-700 leading-relaxed">{n.note}</p>
                   </div>
                 ))}
               </div>
@@ -428,68 +428,68 @@ export default function IndividualPatientProfileView({
 
       {/* TAB 2: SCANS, AI TRIAGE & STRESS ANALYZER QUIZ REPORT */}
       {activeSubTab === 'scans' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6 shadow-xl">
-          <div className="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-2">
-            <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-              <Scan className="w-5 h-5 text-teal-400" />
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 space-y-6 shadow-xs">
+          <div className="flex flex-wrap items-center justify-between border-b border-stone-200 pb-3 gap-2">
+            <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+              <Scan className="w-5 h-5 text-emerald-600" />
               <span>Uploaded DermScans, AI Triage & Stress Quiz Report for {patient.name}</span>
             </h3>
 
             <button
               onClick={handleDownloadReportPDF}
-              className="px-3.5 py-1.5 bg-teal-950 hover:bg-teal-900 text-teal-300 border border-teal-800 text-xs font-bold rounded-xl transition-all flex items-center space-x-1.5 shadow"
+              className="px-3.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 text-xs font-bold rounded-xl transition-all flex items-center space-x-1.5 shadow-2xs"
             >
-              <Download className="w-4 h-4 text-teal-400" />
+              <Download className="w-4 h-4 text-emerald-600" />
               <span>Download PDF Report</span>
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
             {/* DermScan Visual Photo */}
-            <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
+            <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl space-y-3">
               <img
                 src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&auto=format&fit=crop&q=60"
                 alt="Facial Lesion Scan"
-                className="w-full h-48 rounded-xl object-cover border border-slate-800"
+                className="w-full h-48 rounded-xl object-cover border border-stone-200"
               />
               <div className="flex items-center justify-between">
-                <span className="font-bold text-white">Facial Acne Lesion Scan</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold">
+                <span className="font-bold text-stone-900">Facial Acne Lesion Scan</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold">
                   95.4% AI Match
                 </span>
               </div>
-              <p className="text-slate-400 text-[11px]">Uploaded Today, 09:45 AM • Moderate Inflammatory Severity</p>
+              <p className="text-stone-500 text-[11px]">Uploaded Today, 09:45 AM • Moderate Inflammatory Severity</p>
             </div>
 
             {/* Patient Stress Analyzer Quiz Soft Report Card */}
-            <div className="p-5 bg-indigo-950/30 border border-indigo-800/60 rounded-2xl space-y-4 shadow-inner flex flex-col justify-between">
+            <div className="p-5 bg-emerald-50/70 border border-emerald-200 rounded-2xl space-y-4 shadow-2xs flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-indigo-300 font-bold uppercase flex items-center">
-                    <Brain className="w-4 h-4 text-indigo-400 mr-1.5" />
+                  <span className="text-[10px] font-mono text-emerald-800 font-bold uppercase flex items-center">
+                    <Brain className="w-4 h-4 text-emerald-600 mr-1.5" />
                     <span>Stress Analyzer Quiz Soft Report</span>
                   </span>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${defaultPatientStressReport.badgeColor}`}>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${defaultPatientStressReport.badgeColor?.includes('rose') ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-emerald-50 text-emerald-800 border-emerald-200'}`}>
                     {defaultPatientStressReport.category}
                   </span>
                 </div>
 
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block">Cortisol Stress Impact Score</span>
-                  <p className="text-sm font-bold text-rose-300">
+                <div className="p-3 bg-white rounded-xl border border-stone-200 space-y-1">
+                  <span className="text-[10px] font-mono text-stone-500 uppercase font-bold block">Cortisol Stress Impact Score</span>
+                  <p className="text-sm font-bold text-rose-700">
                     {defaultPatientStressReport.score} / {defaultPatientStressReport.maxPts} ({defaultPatientStressReport.percentage}% Systemic Impact)
                   </p>
                 </div>
 
-                <p className="text-xs text-slate-300 italic leading-relaxed">
+                <p className="text-xs text-stone-700 italic leading-relaxed">
                   "{defaultPatientStressReport.summary}"
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-indigo-900/60 flex items-center justify-between">
+              <div className="pt-3 border-t border-emerald-200 flex items-center justify-between">
                 <button
                   onClick={() => setShowStressReportModal(true)}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all shadow flex items-center space-x-1.5"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>View Itemized Quiz Answers</span>
@@ -497,9 +497,9 @@ export default function IndividualPatientProfileView({
 
                 <button
                   onClick={handleDownloadReportPDF}
-                  className="px-3.5 py-2 bg-teal-950 hover:bg-teal-900 text-teal-300 border border-teal-800 text-xs font-bold rounded-xl transition-all flex items-center space-x-1.5"
+                  className="px-3.5 py-2 bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 text-xs font-bold rounded-xl transition-all flex items-center space-x-1.5 shadow-2xs"
                 >
-                  <Download className="w-3.5 h-3.5 text-teal-400" />
+                  <Download className="w-3.5 h-3.5 text-emerald-600" />
                   <span>PDF Report</span>
                 </button>
               </div>
@@ -580,42 +580,42 @@ export default function IndividualPatientProfileView({
           <div className="space-y-6">
             
             {/* CLINICAL ALERTS & ALLERGY WARNING BANNER */}
-            <div className="p-5 bg-amber-950/40 border border-amber-800/60 rounded-3xl space-y-3 shadow-xl">
+            <div className="p-5 bg-amber-50 border border-amber-200 rounded-3xl space-y-3 shadow-xs">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2.5">
-                  <ShieldAlert className="w-5 h-5 text-amber-400" />
-                  <h4 className="text-sm font-bold text-white">Active Patient Clinical Alerts & Drug Warnings</h4>
+                  <ShieldAlert className="w-5 h-5 text-amber-600" />
+                  <h4 className="text-sm font-bold text-stone-900">Active Patient Clinical Alerts & Drug Warnings</h4>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-800">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-100 text-amber-800 border border-amber-300">
                   Patient Safety Protocol
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div className="p-3.5 bg-slate-950/80 rounded-2xl border border-rose-900/50 space-y-1">
-                  <span className="text-rose-400 font-bold text-[10px] uppercase block">Recorded Drug Allergies</span>
-                  <p className="text-rose-200 font-semibold">{patient.allergies ? (Array.isArray(patient.allergies) ? patient.allergies.join(', ') : patient.allergies) : 'Penicillin, Sulfa Drugs'}</p>
+                <div className="p-3.5 bg-white rounded-2xl border border-rose-200 space-y-1">
+                  <span className="text-rose-700 font-bold text-[10px] uppercase block">Recorded Drug Allergies</span>
+                  <p className="text-rose-800 font-semibold">{patient.allergies ? (Array.isArray(patient.allergies) ? patient.allergies.join(', ') : patient.allergies) : 'Penicillin, Sulfa Drugs'}</p>
                 </div>
-                <div className="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-amber-300 font-bold text-[10px] uppercase block">PCP Gatekeeper Scope</span>
-                  <p className="text-slate-200">Primary Lead Doctor: <strong className="text-white">Dr. Sarah Jenkins</strong></p>
+                <div className="p-3.5 bg-white rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-amber-800 font-bold text-[10px] uppercase block">PCP Gatekeeper Scope</span>
+                  <p className="text-stone-700">Primary Lead Doctor: <strong className="text-stone-900">Dr. Sarah Jenkins</strong></p>
                 </div>
               </div>
             </div>
 
             {/* SECTION 1: PAST TELE-CONSULTATION SESSIONS LOG WITH DATE & TIME */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-4 shadow-xs">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                 <div className="flex items-center space-x-2.5">
-                  <Clock className="w-5 h-5 text-teal-400" />
+                  <Clock className="w-5 h-5 text-emerald-600" />
                   <div>
-                    <h3 className="text-sm font-bold text-white">Past Tele-Consultation Sessions Log</h3>
-                    <p className="text-[11px] text-slate-400">Historical sessions held with {patient.name} including date, time, and clinical outcomes.</p>
+                    <h3 className="text-sm font-bold text-stone-900">Past Tele-Consultation Sessions Log</h3>
+                    <p className="text-[11px] text-stone-500">Historical sessions held with {patient.name} including date, time, and clinical outcomes.</p>
                   </div>
                 </div>
                 <button
                   onClick={() => onStartVideo(patient)}
-                  className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow flex items-center space-x-1.5 transition-all"
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-1.5 transition-all cursor-pointer"
                 >
                   <Video className="w-3.5 h-3.5" />
                   <span>Start New Session</span>
@@ -624,31 +624,31 @@ export default function IndividualPatientProfileView({
 
               <div className="space-y-3 text-xs">
                 {displaySessions.map((sess) => (
-                  <div key={sess.id} className="p-4 bg-slate-950 border border-slate-800/90 rounded-2xl space-y-2.5 hover:border-slate-700 transition-all">
+                  <div key={sess.id} className="p-4 bg-stone-50 border border-stone-200 rounded-2xl space-y-2.5 hover:border-emerald-300 transition-all">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <span className="w-2 h-2 rounded-full bg-teal-400" />
-                        <h4 className="font-bold text-white text-xs">{sess.title}</h4>
+                        <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                        <h4 className="font-bold text-stone-900 text-xs">{sess.title}</h4>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="px-2.5 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-slate-700 font-mono text-[10px] font-bold flex items-center space-x-1">
-                          <Calendar className="w-3 h-3 text-amber-400 mr-1" />
+                        <span className="px-2.5 py-0.5 rounded-full bg-white text-stone-700 border border-stone-200 font-mono text-[10px] font-bold flex items-center space-x-1">
+                          <Calendar className="w-3 h-3 text-amber-500 mr-1" />
                           <span>{sess.date}</span>
-                          <span className="text-slate-500">|</span>
-                          <span className="text-teal-300">{sess.time}</span>
+                          <span className="text-stone-400">|</span>
+                          <span className="text-emerald-700">{sess.time}</span>
                         </span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-mono font-bold">
+                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold">
                           {sess.status}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 text-slate-300 space-y-1">
-                      <div className="flex justify-between text-[10px] text-slate-400">
-                        <span>Attending Doctor: <strong className="text-indigo-300">{sess.doctor}</strong></span>
-                        {sess.rxIssued && <span className="text-amber-400 font-bold">📝 E-Prescription Issued</span>}
+                    <div className="p-3 bg-white rounded-xl border border-stone-200 text-stone-700 space-y-1">
+                      <div className="flex justify-between text-[10px] text-stone-500">
+                        <span>Attending Doctor: <strong className="text-stone-900">{sess.doctor}</strong></span>
+                        {sess.rxIssued && <span className="text-emerald-700 font-bold">📝 E-Prescription Issued</span>}
                       </div>
-                      <p className="text-xs text-slate-200">{sess.notes}</p>
+                      <p className="text-xs text-stone-800">{sess.notes}</p>
                     </div>
                   </div>
                 ))}
@@ -656,18 +656,18 @@ export default function IndividualPatientProfileView({
             </div>
 
             {/* SECTION 2: PAST E-PRESCRIPTIONS FOR THIS PATIENT */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-4 shadow-xs">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                 <div className="flex items-center space-x-2.5">
-                  <FileText className="w-5 h-5 text-amber-400" />
+                  <FileText className="w-5 h-5 text-emerald-600" />
                   <div>
-                    <h3 className="text-sm font-bold text-white">Past E-Prescriptions ({displayRxList.length})</h3>
-                    <p className="text-[11px] text-slate-400">All digital prescriptions signed and unlocked during clinical sessions for {patient.name}.</p>
+                    <h3 className="text-sm font-bold text-stone-900">Past E-Prescriptions ({displayRxList.length})</h3>
+                    <p className="text-[11px] text-stone-500">All digital prescriptions signed and unlocked during clinical sessions for {patient.name}.</p>
                   </div>
                 </div>
                 <button
                   onClick={() => onIssueRx(patient)}
-                  className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow flex items-center space-x-1.5 transition-all"
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-1.5 transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Issue New E-Prescription</span>
@@ -676,36 +676,36 @@ export default function IndividualPatientProfileView({
 
               <div className="space-y-4 text-xs">
                 {displayRxList.map((rx) => (
-                  <div key={rx.id} className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 shadow-md">
-                    <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+                  <div key={rx.id} className="p-5 bg-stone-50 border border-stone-200 rounded-2xl space-y-3 shadow-2xs">
+                    <div className="flex items-center justify-between border-b border-stone-200 pb-2.5">
                       <div className="flex items-center space-x-2.5">
-                        <div className="w-8 h-8 rounded-xl bg-amber-950/80 border border-amber-800/60 flex items-center justify-center">
-                          <FileText className="w-4 h-4 text-amber-400" />
+                        <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                          <FileText className="w-4 h-4 text-emerald-600" />
                         </div>
                         <div>
-                          <span className="font-bold text-white text-xs">Prescription #{rx.id}</span>
-                          <div className="flex items-center space-x-2 text-[10px] text-slate-400 font-mono">
+                          <span className="font-bold text-stone-900 text-xs">Prescription #{rx.id}</span>
+                          <div className="flex items-center space-x-2 text-[10px] text-stone-500 font-mono">
                             <span>Issued: {rx.date} {rx.time ? `at ${rx.time}` : ''}</span>
                             <span>•</span>
-                            <span className="text-slate-400">Target: {rx.patientName}</span>
+                            <span className="text-stone-600">Target: {rx.patientName}</span>
                           </div>
                         </div>
                       </div>
 
-                      <span className="px-2.5 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full font-mono font-bold text-[10px]">
+                      <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full font-mono font-bold text-[10px]">
                         {rx.status || 'Issued & Unlocked 🔓'}
                       </span>
                     </div>
 
                     {/* Prescribed Items */}
                     <div className="space-y-2">
-                      <span className="text-[10px] font-mono text-slate-500 uppercase block font-bold">Prescribed Medicines & Regimen:</span>
+                      <span className="text-[10px] font-mono text-stone-500 uppercase block font-bold">Prescribed Medicines & Regimen:</span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {rx.medicines && rx.medicines.map((med, i) => (
-                          <div key={i} className="p-3 bg-slate-900 rounded-xl border border-slate-800/90 space-y-0.5">
-                            <p className="font-bold text-teal-300 text-xs">{med.name}</p>
-                            <p className="text-[11px] text-slate-300">Dosage: {med.dosage}</p>
-                            <span className="text-[10px] font-mono text-indigo-400 block">Duration: {med.duration}</span>
+                          <div key={i} className="p-3 bg-white rounded-xl border border-stone-200 space-y-0.5">
+                            <p className="font-bold text-stone-900 text-xs">{med.name}</p>
+                            <p className="text-[11px] text-stone-600">Dosage: {med.dosage}</p>
+                            <span className="text-[10px] font-mono text-emerald-700 block font-semibold">Duration: {med.duration}</span>
                           </div>
                         ))}
                       </div>
@@ -713,9 +713,9 @@ export default function IndividualPatientProfileView({
 
                     {/* Clinical Warnings & Instructions */}
                     {rx.notes && (
-                      <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800 text-xs space-y-1">
-                        <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">Doctor Clinical Instructions:</span>
-                        <p className="text-slate-300 italic">"{rx.notes}"</p>
+                      <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs space-y-1">
+                        <span className="text-[10px] font-mono text-amber-800 uppercase font-bold block">Doctor Clinical Instructions:</span>
+                        <p className="text-stone-700 italic">"{rx.notes}"</p>
                       </div>
                     )}
                   </div>
@@ -729,60 +729,60 @@ export default function IndividualPatientProfileView({
 
       {/* PATIENT STRESS ANALYZER QUIZ SOFT REPORT MODAL */}
       {showStressReportModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-3xl p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 w-full max-w-2xl rounded-3xl p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar animate-in zoom-in-95">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-4">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-2xl bg-indigo-950 border border-indigo-800 flex items-center justify-center text-indigo-400">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700">
                   <Brain className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                  <h3 className="text-base font-bold text-stone-900 flex items-center space-x-2">
                     <span>Stress Analyzer Quiz Report</span>
                   </h3>
-                  <p className="text-xs text-slate-400 font-mono">Patient: {patient.name} • Shared Today</p>
+                  <p className="text-xs text-stone-500 font-mono">Patient: {patient.name} • Shared Today</p>
                 </div>
               </div>
 
               <button
                 onClick={() => setShowStressReportModal(false)}
-                className="p-2 text-slate-400 hover:text-white rounded-xl bg-slate-800 hover:bg-slate-700 transition-all"
+                className="p-2 text-stone-400 hover:text-stone-700 rounded-xl bg-stone-100 hover:bg-stone-200 transition-all"
               >
                 ✕
               </button>
             </div>
 
             {/* Cortisol Impact Summary */}
-            <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
+            <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-indigo-400 uppercase font-bold">Cortisol Impact Rating</span>
-                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${defaultPatientStressReport.badgeColor}`}>
+                <span className="text-[10px] font-mono text-emerald-800 uppercase font-bold">Cortisol Impact Rating</span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${defaultPatientStressReport.badgeColor?.includes('rose') ? 'bg-rose-50 text-rose-800 border-rose-200' : 'bg-emerald-50 text-emerald-800 border-emerald-200'}`}>
                   {defaultPatientStressReport.category}
                 </span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">{defaultPatientStressReport.summary}</p>
+              <p className="text-xs text-stone-700 leading-relaxed">{defaultPatientStressReport.summary}</p>
             </div>
 
             {/* Itemized Quiz Questions & Answers */}
-            <div className="space-y-3 pt-2 border-t border-slate-800">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center space-x-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="space-y-3 pt-2 border-t border-stone-200">
+              <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-mono flex items-center space-x-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Itemized Patient Quiz Answers ({defaultPatientStressReport.detailedAnswers.length} Questions)</span>
               </h4>
 
               <div className="space-y-2.5">
                 {defaultPatientStressReport.detailedAnswers.map((item, idx) => (
-                  <div key={idx} className="p-3.5 bg-slate-950 rounded-2xl border border-slate-800/80 space-y-2">
+                  <div key={idx} className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
                     <div className="flex items-start justify-between gap-2">
-                      <span className="text-xs font-bold text-slate-200">{item.question}</span>
-                      <span className="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 text-[10px] font-mono font-bold flex-shrink-0">
+                      <span className="text-xs font-bold text-stone-900">{item.question}</span>
+                      <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold flex-shrink-0">
                         +{item.pts} Pts
                       </span>
                     </div>
-                    <div className="p-2.5 bg-slate-900/90 rounded-xl border border-indigo-900/40 flex items-center space-x-2 text-xs text-indigo-200">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
-                      <span>Selected Option: <strong className="text-white">{item.selectedOption}</strong></span>
+                    <div className="p-2.5 bg-white rounded-xl border border-stone-200 flex items-center space-x-2 text-xs text-stone-800">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                      <span>Selected Option: <strong className="text-stone-900">{item.selectedOption}</strong></span>
                     </div>
                   </div>
                 ))}
@@ -790,18 +790,18 @@ export default function IndividualPatientProfileView({
             </div>
 
             {/* Modal Bottom Action Bar */}
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-4 border-t border-stone-200 flex items-center justify-between">
               <button
                 onClick={handleDownloadReportPDF}
-                className="px-5 py-2.5 bg-teal-950 hover:bg-teal-900 text-teal-300 border border-teal-800 font-bold text-xs rounded-xl shadow flex items-center space-x-2 transition-all"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-2 transition-all cursor-pointer"
               >
-                <Download className="w-4 h-4 text-teal-400" />
+                <Download className="w-4 h-4" />
                 <span>Download PDF Clinical Report</span>
               </button>
 
               <button
                 onClick={() => setShowStressReportModal(false)}
-                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl transition-all"
+                className="px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-all"
               >
                 Close Report
               </button>

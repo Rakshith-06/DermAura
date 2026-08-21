@@ -36,7 +36,7 @@ export default function PatientProfilePage({
   onNavigateToChat = () => {},
   onNavigateToSwitchDoctor = () => {}
 }) {
-  const [activeSubTab, setActiveSubTab] = useState('notifications'); // 'notifications' | 'health-profile' | 'reminders'
+  const [activeSubTab, setActiveSubTab] = useState('notifications'); // 'notifications' | 'health-profile'
   const [isEditing, setIsEditing] = useState(false);
 
   // Editable Profile Form State
@@ -120,40 +120,42 @@ export default function PatientProfilePage({
   const leadDoctorName = resolvedUser.primaryLeadDoctorName || user.primaryLeadDoctorName || 'Dr. Sarah Jenkins';
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-12 animate-in fade-in">
+    <div className="max-w-6xl mx-auto space-y-6 pb-12 animate-in fade-in font-sans text-stone-900">
       
-      {/* PAGE HEADER BANNER */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border border-indigo-900/60 p-6 md:p-8 shadow-2xl">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* PAGE HEADER BANNER (Warm Light Botanical) */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-50/90 via-stone-50 to-amber-50/60 border border-stone-200/90 p-6 md:p-8 shadow-sm">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center space-x-5">
-            <div className="w-20 h-20 rounded-3xl bg-slate-950 border-2 border-indigo-500/50 flex items-center justify-center text-4xl shadow-xl relative">
+            <div className="w-20 h-20 rounded-3xl bg-white border-2 border-emerald-500/40 flex items-center justify-center text-4xl shadow-sm relative flex-shrink-0">
               👨‍💼
-              <span className="w-4.5 h-4.5 rounded-full bg-emerald-400 border-2 border-slate-950 absolute -bottom-1 -right-1" />
+              <span className="w-4.5 h-4.5 rounded-full bg-emerald-500 border-2 border-white absolute -bottom-1 -right-1 shadow-2xs" />
             </div>
 
             <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="text-2xl font-black text-white">{formData.fullName}</h1>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center space-x-1">
-                  <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-2xl font-black text-stone-900">{formData.fullName}</h1>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-100/80 border border-emerald-300 text-emerald-900 flex items-center space-x-1">
+                  <Crown className="w-3.5 h-3.5 text-emerald-700" />
                   <span>DermAura Verified Patient</span>
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-300 mt-2">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-stone-600 mt-2 font-medium">
                 <span className="flex items-center space-x-1">
-                  <Mail className="w-3.5 h-3.5 text-indigo-400" />
+                  <Mail className="w-3.5 h-3.5 text-emerald-700" />
                   <span>{formData.email}</span>
                 </span>
                 <span>•</span>
                 <span className="flex items-center space-x-1">
-                  <Phone className="w-3.5 h-3.5 text-teal-400" />
+                  <Phone className="w-3.5 h-3.5 text-emerald-700" />
                   <span>{formData.phone}</span>
                 </span>
                 <span>•</span>
-                <span className="font-mono text-emerald-400 font-bold">Age: {formData.age} Yrs ({formData.gender})</span>
+                <span className="font-mono text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  Age: {formData.age} Yrs ({formData.gender})
+                </span>
               </div>
             </div>
           </div>
@@ -161,19 +163,19 @@ export default function PatientProfilePage({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={() => setIsEditing(!isEditing)}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow cursor-pointer"
+              className="px-4 py-2.5 bg-white hover:bg-stone-50 border border-stone-200 text-stone-800 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow-xs cursor-pointer"
             >
-              <Edit className="w-4 h-4 text-amber-400" />
+              <Edit className="w-4 h-4 text-emerald-600" />
               <span>{isEditing ? 'Cancel Edit' : 'Edit Profile Webpage'}</span>
             </button>
 
             {onLogout && (
               <button
                 onClick={onLogout}
-                className="px-4 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow cursor-pointer"
+                className="px-4 py-2.5 bg-rose-50 hover:bg-rose-100/80 text-rose-700 border border-rose-200 text-xs font-bold rounded-2xl flex items-center space-x-2 transition-all shadow-xs cursor-pointer"
                 title="Log Out of Patient Account"
               >
-                <LogOut className="w-4 h-4 text-rose-400" />
+                <LogOut className="w-4 h-4 text-rose-600" />
                 <span>Log Out</span>
               </button>
             )}
@@ -183,54 +185,54 @@ export default function PatientProfilePage({
 
       {/* QUICK STATUS SUMMARY BAR */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1 shadow-lg">
-          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Session Alerts</span>
+        <div className="p-4 bg-white border border-stone-200/90 rounded-2xl space-y-1 shadow-xs">
+          <span className="text-stone-500 font-mono uppercase text-[10px] font-bold">Session Alerts</span>
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-black text-amber-400">{sessionRequests.length}</span>
-            <Bell className="w-5 h-5 text-amber-400/60" />
+            <span className="text-2xl font-black text-amber-700">{sessionRequests.length}</span>
+            <Bell className="w-5 h-5 text-amber-600/70" />
           </div>
         </div>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1 shadow-lg">
-          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Unlocked Rx Items</span>
+        <div className="p-4 bg-white border border-stone-200/90 rounded-2xl space-y-1 shadow-xs">
+          <span className="text-stone-500 font-mono uppercase text-[10px] font-bold">Unlocked Rx Items</span>
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-black text-emerald-400">{unlockedProducts.length}</span>
-            <Unlock className="w-5 h-5 text-emerald-400/60" />
+            <span className="text-2xl font-black text-emerald-700">{unlockedProducts.length}</span>
+            <Unlock className="w-5 h-5 text-emerald-600/70" />
           </div>
         </div>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1 shadow-lg">
-          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Clinical Care Team</span>
+        <div className="p-4 bg-white border border-stone-200/90 rounded-2xl space-y-1 shadow-xs">
+          <span className="text-stone-500 font-mono uppercase text-[10px] font-bold">Clinical Care Team</span>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-teal-300 truncate">3 Domain Leads</span>
-            <Stethoscope className="w-5 h-5 text-teal-400/60" />
+            <span className="text-xs font-bold text-emerald-800 truncate">3 Domain Leads</span>
+            <Stethoscope className="w-5 h-5 text-emerald-600/70" />
           </div>
         </div>
 
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl space-y-1 shadow-lg">
-          <span className="text-slate-500 font-mono uppercase text-[10px] font-bold">Skin & Scalp Type</span>
+        <div className="p-4 bg-white border border-stone-200/90 rounded-2xl space-y-1 shadow-xs">
+          <span className="text-stone-500 font-mono uppercase text-[10px] font-bold">Skin & Scalp Type</span>
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-indigo-300 truncate">{formData.skinType}</span>
-            <Activity className="w-5 h-5 text-indigo-400/60" />
+            <span className="text-xs font-bold text-stone-800 truncate">{formData.skinType}</span>
+            <Activity className="w-5 h-5 text-emerald-600/70" />
           </div>
         </div>
       </div>
 
-      {/* CATEGORY LEAD DOCTORS GRID */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-4 shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+      {/* CATEGORY LEAD DOCTORS GRID (Multi-Specialist Care Team) */}
+      <div className="bg-white border border-stone-200/90 rounded-3xl p-5 md:p-6 space-y-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-3">
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
-              <Stethoscope className="w-4 h-4 text-teal-400" />
+            <h3 className="text-sm sm:text-base font-bold text-stone-900 flex items-center space-x-2">
+              <Stethoscope className="w-4 h-4 text-emerald-600" />
               <span>Assigned Category Lead Doctors (Multi-Specialist Team)</span>
             </h3>
-            <p className="text-xs text-slate-400">
-              Dedicated clinical gatekeepers for each of your treatment domains.
+            <p className="text-xs text-stone-500">
+              Each clinical category is governed by a dedicated board-certified lead physician.
             </p>
           </div>
           <button
             onClick={onNavigateToSwitchDoctor}
-            className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 rounded-xl text-xs font-semibold self-start sm:self-auto transition-all cursor-pointer"
+            className="px-3.5 py-1.5 bg-stone-50 hover:bg-emerald-50/60 text-emerald-800 border border-stone-200 hover:border-emerald-300 rounded-xl text-xs font-semibold self-start sm:self-auto transition-all cursor-pointer shadow-2xs"
           >
             Manage / Switch Doctors 🔄
           </button>
@@ -238,64 +240,64 @@ export default function PatientProfilePage({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {/* 1. Skin Care Lead */}
-          <div className="p-4 bg-slate-950/80 border border-teal-500/30 rounded-2xl space-y-2">
+          <div className="p-4 bg-emerald-50/50 border border-emerald-200 rounded-2xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-teal-500/15 text-teal-300 border border-teal-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white text-emerald-800 border border-emerald-300 shadow-2xs">
                 ✨ Skin Care Lead
               </span>
-              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+              <span className="text-[10px] text-emerald-700 font-mono font-bold">● Active</span>
             </div>
             <div className="flex items-center space-x-3 pt-1">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
                 👩‍⚕️
               </div>
               <div className="truncate">
-                <h4 className="text-xs font-bold text-white truncate">
+                <h4 className="text-xs font-bold text-stone-900 truncate">
                   {resolvedUser.leadDoctors?.find(l => l.category === 'SKIN_CARE')?.doctorName || 'Dr. Sarah Jenkins, MD'}
                 </h4>
-                <p className="text-[10px] text-teal-400 font-mono truncate">AIIMS Hospital • Facial Acne & Barrier</p>
+                <p className="text-[10px] text-emerald-700 font-mono truncate">AIIMS Hospital • Facial Acne & Barrier</p>
               </div>
             </div>
           </div>
 
           {/* 2. Hair Care Lead */}
-          <div className="p-4 bg-slate-950/80 border border-indigo-500/30 rounded-2xl space-y-2">
+          <div className="p-4 bg-emerald-50/50 border border-emerald-200 rounded-2xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white text-emerald-800 border border-emerald-300 shadow-2xs">
                 💇 Hair Care Lead
               </span>
-              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+              <span className="text-[10px] text-emerald-700 font-mono font-bold">● Active</span>
             </div>
             <div className="flex items-center space-x-3 pt-1">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
                 👩‍⚕️
               </div>
               <div className="truncate">
-                <h4 className="text-xs font-bold text-white truncate">
+                <h4 className="text-xs font-bold text-stone-900 truncate">
                   {resolvedUser.leadDoctors?.find(l => l.category === 'HAIR_CARE')?.doctorName || 'Dr. Priya Menon, MD'}
                 </h4>
-                <p className="text-[10px] text-indigo-400 font-mono truncate">AIIMS New Delhi • Trichology & Scalp</p>
+                <p className="text-[10px] text-emerald-700 font-mono truncate">AIIMS New Delhi • Trichology & Scalp</p>
               </div>
             </div>
           </div>
 
           {/* 3. General Health Lead */}
-          <div className="p-4 bg-slate-950/80 border border-amber-500/30 rounded-2xl space-y-2">
+          <div className="p-4 bg-emerald-50/50 border border-emerald-200 rounded-2xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white text-emerald-800 border border-emerald-300 shadow-2xs">
                 🩺 General Health Gatekeeper
               </span>
-              <span className="text-[10px] text-emerald-400 font-mono font-bold">● Active</span>
+              <span className="text-[10px] text-emerald-700 font-mono font-bold">● Active</span>
             </div>
             <div className="flex items-center space-x-3 pt-1">
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
                 👨‍⚕️
               </div>
               <div className="truncate">
-                <h4 className="text-xs font-bold text-white truncate">
+                <h4 className="text-xs font-bold text-stone-900 truncate">
                   {resolvedUser.leadDoctors?.find(l => l.category === 'GENERAL_HEALTH')?.doctorName || 'Dr. Rajesh Kumar, MBBS'}
                 </h4>
-                <p className="text-[10px] text-amber-400 font-mono truncate">Apollo Hospitals • Drug Safety & Vitals</p>
+                <p className="text-[10px] text-emerald-700 font-mono truncate">Apollo Hospitals • Drug Safety & Vitals</p>
               </div>
             </div>
           </div>
@@ -303,19 +305,19 @@ export default function PatientProfilePage({
       </div>
 
       {/* TABS NAVIGATION */}
-      <div className="flex items-center space-x-3 border-b border-slate-800 pb-3">
+      <div className="flex items-center space-x-3 border-b border-stone-200 pb-3">
         <button
           onClick={() => setActiveSubTab('notifications')}
-          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all ${
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all cursor-pointer ${
             activeSubTab === 'notifications'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200 shadow-xs'
           }`}
         >
-          <Bell className="w-4 h-4 text-amber-400" />
+          <Bell className="w-4 h-4 text-amber-300" />
           <span>Notifications & Session Alerts Center</span>
           {sessionRequests.length > 0 && (
-            <span className="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black">
+            <span className="px-2 py-0.5 rounded-full bg-amber-400 text-stone-900 text-[10px] font-black">
               {sessionRequests.length}
             </span>
           )}
@@ -323,98 +325,98 @@ export default function PatientProfilePage({
 
         <button
           onClick={() => setActiveSubTab('health-profile')}
-          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all ${
+          className={`px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2 transition-all cursor-pointer ${
             activeSubTab === 'health-profile'
-              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30'
-              : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+              ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+              : 'bg-white text-stone-600 hover:text-stone-900 border border-stone-200 shadow-xs'
           }`}
         >
-          <User className="w-4 h-4 text-teal-400" />
+          <User className="w-4 h-4 text-emerald-500" />
           <span>Patient Medical Profile & Baseline</span>
         </button>
       </div>
 
       {/* EDIT PROFILE FORM MODAL / PANEL */}
       {isEditing && (
-        <form onSubmit={handleSaveProfile} className="bg-slate-900 border border-amber-500/40 rounded-3xl p-6 space-y-4 shadow-2xl animate-in fade-in">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-            <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-              <Edit className="w-4 h-4 text-amber-400" />
-              <span>Update Patient Profile Webpage Information</span>
+        <form onSubmit={handleSaveProfile} className="bg-white border border-emerald-300 rounded-3xl p-6 space-y-4 shadow-lg animate-in fade-in">
+          <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+            <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+              <Edit className="w-4 h-4 text-emerald-600" />
+              <span>Update Patient Profile Information</span>
             </h3>
-            <button type="button" onClick={() => setIsEditing(false)} className="text-slate-400 hover:text-white">
+            <button type="button" onClick={() => setIsEditing(false)} className="text-stone-400 hover:text-stone-700 cursor-pointer">
               <X className="w-4 h-4" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Full Name</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Full Name</label>
               <input
                 type="text"
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Email Address</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Email Address</label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Phone Number</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Phone Number</label>
               <input
                 type="text"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Age</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Age</label>
               <input
                 type="number"
                 value={formData.age}
                 onChange={(e) => setFormData({ ...formData, age: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Blood Group</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Blood Group</label>
               <input
                 type="text"
                 value={formData.bloodGroup}
                 onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-semibold">Skin Type</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Skin Type</label>
               <input
                 type="text"
                 value={formData.skinType}
                 onChange={(e) => setFormData({ ...formData, skinType: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
 
             <div className="md:col-span-3">
-              <label className="block text-slate-400 mb-1 font-semibold">Known Allergies</label>
+              <label className="block text-stone-700 mb-1 font-semibold">Known Allergies</label>
               <input
                 type="text"
                 value={formData.allergies}
                 onChange={(e) => setFormData({ ...formData, allergies: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-stone-900 focus:bg-white focus:border-emerald-600 focus:outline-none"
               />
             </div>
           </div>
@@ -423,13 +425,13 @@ export default function PatientProfilePage({
             <button
               type="button"
               onClick={() => setIsEditing(false)}
-              className="px-4 py-2 bg-slate-800 text-slate-300 font-bold text-xs rounded-xl"
+              className="px-4 py-2 bg-stone-100 text-stone-700 font-bold text-xs rounded-xl hover:bg-stone-200"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl flex items-center space-x-1.5 shadow"
+              className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center space-x-1.5 shadow-xs cursor-pointer"
             >
               <Save className="w-4 h-4" />
               <span>Save Profile Changes</span>
@@ -441,68 +443,70 @@ export default function PatientProfilePage({
       {/* TAB CONTENT 1: NOTIFICATIONS & SESSION REQUESTS CENTER */}
       {activeSubTab === 'notifications' && (
         <div className="space-y-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-5 shadow-xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 space-y-5 shadow-sm">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-4">
               <div>
-                <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                  <Bell className="w-5 h-5 text-amber-400" />
+                <h3 className="text-base font-bold text-stone-900 flex items-center space-x-2">
+                  <Bell className="w-5 h-5 text-emerald-600" />
                   <span>24-Hour Assessment & Tele-Consult Notifications</span>
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-stone-500">
                   Track requested 24-hr sessions, doctor acceptance status, and join video meets.
                 </p>
               </div>
 
-              <span className="px-3 py-1 bg-amber-950 text-amber-300 border border-amber-800 text-xs font-mono font-bold rounded-full">
+              <span className="px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 text-xs font-mono font-bold rounded-full">
                 {sessionRequests.length} Active Alerts
               </span>
             </div>
 
             {sessionRequests.length === 0 ? (
-              <div className="p-8 text-center bg-slate-950/60 rounded-2xl border border-slate-800/80 space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto opacity-70" />
-                <h4 className="text-sm font-bold text-white">No Pending Consultation Notifications</h4>
-                <p className="text-xs text-slate-400">All session requests and doctor meets have been processed.</p>
+              <div className="p-8 text-center bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto opacity-70" />
+                <h4 className="text-sm font-bold text-stone-900">No Pending Consultation Notifications</h4>
+                <p className="text-xs text-stone-500">All session requests and doctor meets have been processed.</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {sessionRequests.map((req) => (
                   <div
                     key={req.id}
-                    className="p-5 bg-slate-950/90 border border-slate-800 hover:border-indigo-500/40 rounded-2xl space-y-4 transition-all shadow-md"
+                    className="p-5 bg-stone-50/70 border border-stone-200 hover:border-emerald-300 rounded-2xl space-y-4 transition-all shadow-2xs"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl flex-shrink-0">
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-100/70 border border-emerald-200 flex items-center justify-center text-emerald-800 text-xl flex-shrink-0">
                           🩺
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
-                            <h4 className="text-sm font-bold text-white">24-Hour Assessment Request</h4>
-                            <span className="text-xs text-emerald-400 font-mono font-bold">₹{req.amountPaid || 300} Fee</span>
+                            <h4 className="text-sm font-bold text-stone-900">24-Hour Assessment Request</h4>
+                            <span className="text-xs text-emerald-700 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                              ₹{req.amountPaid || 300} Fee
+                            </span>
                           </div>
-                          <span className="text-xs text-slate-400">
-                            Submitted to Lead PCP: <strong className="text-slate-200">{leadDoctorName}</strong>
+                          <span className="text-xs text-stone-600">
+                            Submitted to Lead PCP: <strong className="text-stone-800">{leadDoctorName}</strong>
                           </span>
                         </div>
                       </div>
 
                       <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
                         req.status === 'ACCEPTED'
-                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                          : 'bg-amber-950 text-amber-300 border border-amber-800 animate-pulse'
+                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                          : 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse'
                       }`}>
                         {req.status === 'ACCEPTED' ? '🟢 DOCTOR ACCEPTED & MEET READY' : '⏳ PENDING DOCTOR ACCEPTANCE'}
                       </span>
                     </div>
 
-                    <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs space-y-1">
-                      <p className="text-slate-300">
-                        <strong className="text-slate-400">Assessment Scope: </strong>
-                        <span className="text-teal-300 font-bold">{req.skinType || 'Facial Skin + Hair'}</span>
+                    <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs space-y-1">
+                      <p className="text-stone-700">
+                        <strong className="text-stone-900">Assessment Scope: </strong>
+                        <span className="text-emerald-700 font-bold">{req.skinType || 'Facial Skin + Hair'}</span>
                       </p>
-                      <p className="text-slate-400">
-                        <strong className="text-slate-400">Chief Concern: </strong>
+                      <p className="text-stone-600">
+                        <strong className="text-stone-900">Chief Concern: </strong>
                         {req.chiefComplaint}
                       </p>
                     </div>
@@ -511,20 +515,20 @@ export default function PatientProfilePage({
                       {req.status === 'ACCEPTED' ? (
                         <button
                           onClick={onNavigateToChat}
-                          className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-2 transition-all"
+                          className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 transition-all cursor-pointer"
                         >
                           <Video className="w-4 h-4" />
                           <span>Join Meet & Start Live Tele-Consultation 📹</span>
                         </button>
                       ) : (
-                        <div className="w-full p-3 bg-amber-950/30 border border-amber-900/50 rounded-xl text-xs text-amber-300 flex items-center justify-between">
+                        <div className="w-full p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between">
                           <span className="flex items-center space-x-2">
-                            <Clock className="w-4 h-4 text-amber-400 animate-spin" />
+                            <Clock className="w-4 h-4 text-amber-600 animate-spin" />
                             <span>Sitting in Notifications: Waiting for Doctor to accept request...</span>
                           </span>
                           <button
                             onClick={onNavigateToChat}
-                            className="px-3 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold rounded-lg"
+                            className="px-3 py-1 bg-white hover:bg-stone-50 border border-stone-300 text-stone-800 text-xs font-semibold rounded-lg cursor-pointer"
                           >
                             Open Chatroom
                           </button>
@@ -538,40 +542,40 @@ export default function PatientProfilePage({
           </div>
 
           {/* DERMPHARMACY UNLOCKED PRODUCTS NOTIFICATIONS */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-xl">
-            <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-              <Unlock className="w-4.5 h-4.5 text-indigo-400" />
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-6 space-y-4 shadow-sm">
+            <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+              <Unlock className="w-4.5 h-4.5 text-emerald-600" />
               <span>DermPharmacy Clinical Unlock Status</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-between">
+              <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-white block">Tretinoin 0.05% Acne Gel</span>
-                  <span className="text-[11px] text-slate-400">Prescription Retinoid Product</span>
+                  <span className="font-bold text-stone-900 block">Tretinoin 0.05% Acne Gel</span>
+                  <span className="text-[11px] text-stone-500">Prescription Retinoid Product</span>
                 </div>
                 {unlockedProducts.includes('p6') ? (
-                  <span className="px-2.5 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full font-mono text-[10px] font-bold">
+                  <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full font-mono text-[10px] font-bold">
                     Unlocked 🔓
                   </span>
                 ) : (
-                  <span className="px-2.5 py-1 bg-amber-950 text-amber-300 border border-amber-800 rounded-full font-mono text-[10px] font-bold">
+                  <span className="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full font-mono text-[10px] font-bold">
                     Requires Doctor Unlock 🔒
                   </span>
                 )}
               </div>
 
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-between">
+              <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-white block">Minoxidil 5% Scalp Solution</span>
-                  <span className="text-[11px] text-slate-400">Gated Hair Regrowth Item</span>
+                  <span className="font-bold text-stone-900 block">Minoxidil 5% Scalp Solution</span>
+                  <span className="text-[11px] text-stone-500">Gated Hair Regrowth Item</span>
                 </div>
                 {unlockedProducts.includes('p7') ? (
-                  <span className="px-2.5 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full font-mono text-[10px] font-bold">
+                  <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full font-mono text-[10px] font-bold">
                     Unlocked 🔓
                   </span>
                 ) : (
-                  <span className="px-2.5 py-1 bg-amber-950 text-amber-300 border border-amber-800 rounded-full font-mono text-[10px] font-bold">
+                  <span className="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full font-mono text-[10px] font-bold">
                     Requires Doctor Unlock 🔒
                   </span>
                 )}
@@ -587,46 +591,46 @@ export default function PatientProfilePage({
           <div className="lg:col-span-2 space-y-6">
             
             {/* Health Record Card */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <HeartPulse className="w-5 h-5 text-rose-400" />
+            <div className="p-6 bg-white border border-stone-200/90 rounded-3xl space-y-4 shadow-sm">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                <HeartPulse className="w-5 h-5 text-emerald-600" />
                 <span>Clinical Profile & Dermatological Baseline</span>
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-slate-500 font-mono text-[10px] uppercase">Skin Classification</span>
-                  <p className="font-bold text-teal-300 text-sm">{formData.skinType}</p>
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-stone-500 font-mono text-[10px] uppercase">Skin Classification</span>
+                  <p className="font-bold text-emerald-800 text-sm">{formData.skinType}</p>
                 </div>
 
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-slate-500 font-mono text-[10px] uppercase">Hair & Scalp Type</span>
-                  <p className="font-bold text-indigo-300 text-sm">{formData.scalpType}</p>
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-stone-500 font-mono text-[10px] uppercase">Hair & Scalp Type</span>
+                  <p className="font-bold text-emerald-800 text-sm">{formData.scalpType}</p>
                 </div>
 
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-1 sm:col-span-2">
-                  <span className="text-slate-500 font-mono text-[10px] uppercase">Primary Chief Concern</span>
-                  <p className="font-bold text-white">{formData.primaryConcern}</p>
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-1 sm:col-span-2">
+                  <span className="text-stone-500 font-mono text-[10px] uppercase">Primary Chief Concern</span>
+                  <p className="font-bold text-stone-900">{formData.primaryConcern}</p>
                 </div>
               </div>
             </div>
 
             {/* Allergies & Active Medications */}
-            <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-4 shadow-xl">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <Pill className="w-5 h-5 text-amber-400" />
+            <div className="p-6 bg-white border border-stone-200/90 rounded-3xl space-y-4 shadow-sm">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                <Pill className="w-5 h-5 text-emerald-600" />
                 <span>Allergies & Current Daily Regimen</span>
               </h3>
 
               <div className="space-y-3 text-xs">
-                <div className="p-4 bg-rose-950/30 border border-rose-900/50 rounded-2xl space-y-1">
-                  <span className="text-rose-400 font-bold text-[11px] uppercase block">Recorded Drug Allergies:</span>
-                  <p className="text-rose-200 font-semibold">{formData.allergies}</p>
+                <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl space-y-1">
+                  <span className="text-rose-800 font-bold text-[11px] uppercase block">Recorded Drug Allergies:</span>
+                  <p className="text-rose-900 font-semibold">{formData.allergies}</p>
                 </div>
 
-                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-1">
-                  <span className="text-slate-400 font-bold text-[11px] uppercase block">Active Medications & Skincare:</span>
-                  <p className="text-slate-200">{formData.activeMeds}</p>
+                <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl space-y-1">
+                  <span className="text-stone-700 font-bold text-[11px] uppercase block">Active Medications & Skincare:</span>
+                  <p className="text-stone-800">{formData.activeMeds}</p>
                 </div>
               </div>
             </div>
@@ -635,31 +639,31 @@ export default function PatientProfilePage({
 
           {/* RIGHT COLUMN: LEAD PCP CARD */}
           <div className="space-y-6">
-            <div className="p-6 bg-slate-900 border border-indigo-900/60 rounded-3xl space-y-4 shadow-xl relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <div className="inline-flex items-center space-x-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold">
-                  <Crown className="w-3.5 h-3.5 text-amber-400" />
+            <div className="p-6 bg-white border border-emerald-200/80 rounded-3xl space-y-4 shadow-sm relative overflow-hidden">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                <div className="inline-flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-xs font-semibold">
+                  <Crown className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Assigned Lead PCP</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-mono font-bold">🟢 Active Gatekeeper</span>
+                <span className="text-[10px] text-emerald-700 font-mono font-bold">🟢 Active Gatekeeper</span>
               </div>
 
               <div className="text-center space-y-2">
-                <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-3xl mx-auto">
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-3xl mx-auto shadow-2xs">
                   👩‍⚕️
                 </div>
-                <h4 className="text-base font-bold text-white">{leadDoctorName}</h4>
-                <p className="text-xs text-indigo-300">Chief Primary Care Physician & Gatekeeper</p>
-                <p className="text-[11px] text-slate-400 font-mono">AIIMS New Delhi • MCI-98421-B</p>
+                <h4 className="text-base font-bold text-stone-900">{leadDoctorName}</h4>
+                <p className="text-xs text-emerald-800 font-medium">Chief Primary Care Physician & Gatekeeper</p>
+                <p className="text-[11px] text-stone-500 font-mono">AIIMS New Delhi • MCI-98421-B</p>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={onNavigateToSwitchDoctor}
-                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg flex items-center justify-center space-x-1.5 transition-all"
+                  className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-1.5 transition-all cursor-pointer"
                 >
                   <Stethoscope className="w-4 h-4" />
-                  <span>View PCP Safety Portal</span>
+                  <span>Manage Category Leads</span>
                 </button>
               </div>
             </div>

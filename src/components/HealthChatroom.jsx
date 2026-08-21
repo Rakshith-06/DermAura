@@ -701,25 +701,25 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
   };
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row h-full w-full bg-slate-950 text-slate-100 overflow-hidden">
+    <div className="flex-1 flex flex-col md:flex-row h-full w-full bg-stone-50 text-stone-900 overflow-hidden font-sans">
       
       {/* LEFT SIDEBAR: CONTACT SELECTION WITH LEAD VS SPECIALIST TAGS */}
-      <div className="w-full md:w-72 bg-slate-900 border-r border-slate-800 flex flex-col justify-between flex-shrink-0">
-        <div className="p-4 border-b border-slate-800 space-y-2">
+      <div className="w-full md:w-72 bg-stone-50/90 border-r border-stone-200 flex flex-col justify-between flex-shrink-0">
+        <div className="p-4 border-b border-stone-200 space-y-2 bg-white/50">
           <div className="flex items-center space-x-2">
-            <div className="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-              <Crown className="w-5 h-5 text-amber-400" />
+            <div className="p-2 rounded-xl bg-emerald-100/70 text-emerald-800 border border-emerald-200">
+              <Crown className="w-5 h-5 text-emerald-600" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-white">Lead Doctor Architecture</h2>
-              <span className="text-[10px] text-amber-400 font-mono font-bold">PCP Gatekeeper Model</span>
+              <h2 className="text-sm font-bold text-stone-900">Lead Doctor Architecture</h2>
+              <span className="text-[10px] text-emerald-700 font-mono font-bold">PCP Gatekeeper Model</span>
             </div>
           </div>
         </div>
 
         {/* Contact List */}
         <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2">
-          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider px-2 block font-bold">
+          <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider px-2 block font-bold">
             {role === 'patient' ? 'Care Team (PCP & Specialists)' : 'Assigned Patients Queue'}
           </span>
 
@@ -735,30 +735,30 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                   onClick={() => handleSelectDoctor(doc)}
                   className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center space-x-3 cursor-pointer ${
                     isSelected
-                      ? 'bg-slate-800 border-teal-500/80 shadow-lg shadow-teal-950/40 ring-1 ring-teal-500/30'
-                      : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-800/50 hover:border-slate-700'
+                      ? 'bg-white border-emerald-600 shadow-sm ring-1 ring-emerald-500/30'
+                      : 'bg-white/60 border-stone-200 hover:bg-white hover:border-stone-300'
                   }`}
                 >
-                  <div className="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0 relative">
+                  <div className="w-10 h-10 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-xl flex-shrink-0 relative shadow-2xs">
                     {doc.photo}
                     {doc.isLeadDoctor && (
-                      <Crown className="w-3.5 h-3.5 text-amber-400 absolute -top-1 -right-1 bg-slate-950 rounded-full p-0.5 border border-amber-500" />
+                      <Crown className="w-3.5 h-3.5 text-emerald-600 absolute -top-1 -right-1 bg-white rounded-full p-0.5 border border-emerald-400" />
                     )}
                   </div>
                   <div className="truncate flex-1">
                     <div className="flex items-center space-x-1">
-                      <h4 className="text-xs font-bold text-white truncate">{doc.name}</h4>
+                      <h4 className="text-xs font-bold text-stone-900 truncate">{doc.name}</h4>
                     </div>
                     <p className={`text-[10px] font-semibold truncate ${
                       doc.category === 'SKIN_CARE'
-                        ? 'text-teal-400'
+                        ? 'text-emerald-700'
                         : doc.category === 'HAIR_CARE'
-                        ? 'text-indigo-400'
-                        : 'text-amber-400'
+                        ? 'text-emerald-800'
+                        : 'text-amber-700'
                     }`}>
                       {doc.categoryLabel}
                     </p>
-                    <span className="text-[9px] font-mono text-slate-400 block truncate">
+                    <span className="text-[9px] font-mono text-stone-500 block truncate">
                       {doc.hospital}
                     </span>
                   </div>
@@ -766,30 +766,26 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
               );
             })
           ) : (
-            /* ── PATIENT QUEUE (Doctor portal view) ─────────────────────────
-               Only renders entries from safePatientsList — all DOCTOR-role
-               accounts have already been stripped at the filter stage above.
-               This is the final client-side render guard.                   */
             safePatientsList.map((pat) => (
               <button
                 key={pat.id}
                 onClick={() => handleSelectPatient(pat)}
-                className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center space-x-3 ${
+                className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center space-x-3 cursor-pointer ${
                   selectedPatient.id === pat.id
-                    ? 'bg-slate-800 border-indigo-500/60 shadow-lg'
-                    : 'bg-slate-950/60 border-slate-800/80 hover:bg-slate-800/50'
+                    ? 'bg-white border-emerald-600 shadow-sm ring-1 ring-emerald-500/30'
+                    : 'bg-white/60 border-stone-200 hover:bg-white'
                 }`}
               >
-                <div className="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-xl flex-shrink-0">
+                <div className="w-10 h-10 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
                   {pat.photo}
                 </div>
                 <div className="truncate">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-bold text-white truncate">{pat.name}</h4>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <h4 className="text-xs font-bold text-stone-900 truncate">{pat.name}</h4>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
-                  <p className="text-[10px] text-slate-400 truncate">{pat.concern}</p>
-                  <span className="text-[9px] font-mono text-amber-400">PCP: {pat.leadDoctorName}</span>
+                  <p className="text-[10px] text-stone-500 truncate">{pat.concern}</p>
+                  <span className="text-[9px] font-mono text-emerald-700">PCP: {pat.leadDoctorName}</span>
                 </div>
               </button>
             ))
@@ -797,55 +793,55 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
         </div>
 
         {/* Lead Doctor Model Badge */}
-        <div className="p-3 bg-slate-950 border-t border-slate-800 text-[10px] text-slate-400 space-y-1">
-          <div className="flex items-center space-x-1 text-amber-400 font-semibold">
-            <ShieldCheck className="w-3.5 h-3.5" />
+        <div className="p-3 bg-stone-100 border-t border-stone-200 text-[10px] text-stone-600 space-y-1">
+          <div className="flex items-center space-x-1 text-emerald-800 font-semibold">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             <span>PCP Gatekeeper Security</span>
           </div>
-          <p className="text-[9.5px] leading-tight text-slate-500">
+          <p className="text-[9.5px] leading-tight text-stone-500">
             Specialist prescriptions require Lead PCP approval to prevent adverse drug interactions.
           </p>
         </div>
       </div>
 
       {/* MAIN CHAT CANVAS */}
-      <div className="flex-1 flex flex-col h-full bg-slate-950 relative overflow-hidden">
+      <div className="flex-1 flex flex-col h-full bg-stone-50 relative overflow-hidden">
         
-        {/* DYNAMIC CHAT HEADER BANNER (REQUIREMENT 3: LEAD VS SPECIALIST BADGES) */}
-        <div className="p-4 bg-slate-900 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md z-10">
+        {/* DYNAMIC CHAT HEADER BANNER */}
+        <div className="p-4 bg-white border-b border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs z-10">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-xl relative">
+            <div className="w-10 h-10 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-xl relative shadow-2xs">
               {role === 'patient' ? (selectedDoctor?.photo || '👩‍⚕️') : (selectedPatient?.photo || '👨')}
               {role === 'patient' && selectedDoctor?.isLeadDoctor && (
-                <Crown className="w-4 h-4 text-amber-400 absolute -top-1 -right-1" />
+                <Crown className="w-4 h-4 text-emerald-600 absolute -top-1 -right-1" />
               )}
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-bold text-stone-900">
                   {role === 'patient' ? (selectedDoctor?.name || 'Lead Doctor') : (selectedPatient?.name || 'Patient')}
                 </h3>
                 
                 {/* ROLE BADGE */}
                 {role === 'patient' ? (
                   selectedDoctor?.isLeadDoctor ? (
-                    <span className="px-2.5 py-0.5 bg-amber-950 text-amber-300 border border-amber-800 rounded-full text-[9px] font-mono font-bold flex items-center space-x-1">
-                      <Crown className="w-3 h-3 text-amber-400 mr-1" />
+                    <span className="px-2.5 py-0.5 bg-emerald-100/80 text-emerald-900 border border-emerald-300 rounded-full text-[9px] font-mono font-bold flex items-center space-x-1">
+                      <Crown className="w-3 h-3 text-emerald-700 mr-1" />
                       <span>{selectedDoctor?.categoryLabel || 'Lead Primary Physician (PCP Gatekeeper)'}</span>
                     </span>
                   ) : (
-                    <span className="px-2.5 py-0.5 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded-full text-[9px] font-mono font-bold">
+                    <span className="px-2.5 py-0.5 bg-stone-100 text-stone-700 border border-stone-300 rounded-full text-[9px] font-mono font-bold">
                       Referred Specialist (Consultant)
                     </span>
                   )
                 ) : (
-                  <span className="px-2.5 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full text-[9px] font-mono font-bold">
+                  <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-[9px] font-mono font-bold">
                     Assigned Patient
                   </span>
                 )}
               </div>
 
-              <div className="flex items-center space-x-3 text-[11px] text-slate-400 mt-0.5">
+              <div className="flex items-center space-x-3 text-[11px] text-stone-500 mt-0.5">
                 <span>{role === 'patient' ? (selectedDoctor?.specialty || 'General Practice') : `Primary Concern: ${selectedPatient?.concern || 'Clinical consultation'}`}</span>
                 <span>•</span>
                 
@@ -853,13 +849,13 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                 {role === 'patient' && (
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 ${
                     doctorDutyStatus === 'online'
-                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                       : doctorDutyStatus === 'busy'
-                      ? 'bg-amber-950 text-amber-300 border border-amber-800'
-                      : 'bg-rose-950 text-rose-300 border border-rose-800'
+                      ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                      : 'bg-rose-50 text-rose-800 border border-rose-200'
                   }`}>
                     <span className={`w-1.5 h-1.5 rounded-full mr-1 ${
-                      doctorDutyStatus === 'online' ? 'bg-emerald-400 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-400' : 'bg-rose-500'
+                      doctorDutyStatus === 'online' ? 'bg-emerald-500 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-500' : 'bg-rose-500'
                     }`} />
                     <span>{doctorDutyStatus === 'online' ? '🟢 Online & Available' : doctorDutyStatus === 'busy' ? '🟡 Busy in Consultation' : '🔴 Off-Duty'}</span>
                   </span>
@@ -868,7 +864,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
 
                 {/* CONSULTATION STATUS */}
                 <span className={`font-mono font-bold ${
-                  chatroomStatus === 'CLOSED_READ_ONLY' ? 'text-rose-400' : 'text-emerald-400'
+                  chatroomStatus === 'CLOSED_READ_ONLY' ? 'text-rose-600' : 'text-emerald-700'
                 }`}>
                   Status: {chatroomStatus}
                 </span>
@@ -882,7 +878,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
               <button
                 onClick={handleCloseChatroom}
                 title="End Consultation & Archive Chatroom"
-                className="px-3 py-1.5 bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800/80 rounded-xl text-xs font-bold transition-all flex items-center space-x-1"
+                className="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 cursor-pointer"
               >
                 <Archive className="w-3.5 h-3.5" />
                 <span>Close Consult Session</span>
@@ -891,7 +887,7 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
 
             <button
               onClick={() => setActiveCallModal('video')}
-              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg flex items-center space-x-1.5 transition-all"
+              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-1.5 transition-all cursor-pointer"
             >
               <Video className="w-3.5 h-3.5" />
               <span>Video Tele-Call</span>
@@ -901,33 +897,33 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
 
         {/* CLOSED CHAT READ-ONLY ARCHIVE BANNER */}
         {chatroomStatus === 'CLOSED_READ_ONLY' && (
-          <div className="bg-amber-950/80 border-b border-amber-800 p-2.5 px-4 text-center text-xs text-amber-200 font-semibold flex items-center justify-center space-x-2">
-            <Lock className="w-4 h-4 text-amber-400" />
-            <span>This specialist consultation episode is officially CLOSED. Chat history is preserved in READ-ONLY mode to prevent outdated medical advice.</span>
+          <div className="bg-amber-50 border-b border-amber-200 p-2.5 px-4 text-center text-xs text-amber-900 font-semibold flex items-center justify-center space-x-2">
+            <Lock className="w-4 h-4 text-amber-600" />
+            <span>This specialist consultation episode is officially CLOSED. Chat history is preserved in READ-ONLY mode.</span>
           </div>
         )}
 
-        {/* SPECIALIST VS LEAD ACTION BAR (REQUIREMENT 3) */}
+        {/* SPECIALIST VS LEAD ACTION BAR */}
         {chatroomStatus !== 'CLOSED_READ_ONLY' && (
-          <div className="px-4 py-2 bg-slate-900/80 border-b border-slate-800 flex items-center space-x-2 overflow-x-auto no-scrollbar">
-            <span className="text-[10px] font-mono text-amber-400 uppercase font-bold flex-shrink-0 flex items-center">
-              <ShieldAlert className="w-3.5 h-3.5 mr-1" />
+          <div className="px-4 py-2 bg-stone-100 border-b border-stone-200 flex items-center space-x-2 overflow-x-auto no-scrollbar">
+            <span className="text-[10px] font-mono text-emerald-800 uppercase font-bold flex-shrink-0 flex items-center">
+              <ShieldAlert className="w-3.5 h-3.5 mr-1 text-emerald-600" />
               <span>Clinical Actions:</span>
             </span>
 
             {role === 'doctor' && !selectedDoctor.isLeadDoctor && (
               <button
                 onClick={() => handleSpecialistProposeRx('Minoxidil 5% Scalp Solution', '1ml twice daily', '60 Days', 'p7', 'Trichology alopecia scalp regrowth treatment.')}
-                className="px-3 py-1 bg-amber-950/80 hover:bg-amber-900 border border-amber-700 text-amber-300 text-xs font-bold rounded-full flex items-center space-x-1 flex-shrink-0 transition-all shadow"
+                className="px-3 py-1 bg-white hover:bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold rounded-full flex items-center space-x-1 flex-shrink-0 transition-all shadow-2xs cursor-pointer"
               >
-                <Plus className="w-3 h-3 text-amber-400" />
+                <Plus className="w-3 h-3 text-emerald-600" />
                 <span>Propose Specialist Rx (Minoxidil 5%) 📝</span>
               </button>
             )}
 
             {role === 'doctor' && selectedDoctor.isLeadDoctor && (
-              <span className="text-xs text-emerald-300 font-semibold flex items-center space-x-1">
-                <Crown className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-xs text-emerald-800 font-semibold flex items-center space-x-1">
+                <Crown className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Lead PCP Authorization Active — Review Specialist Proposals Below</span>
               </span>
             )}
@@ -946,8 +942,8 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                   isMe ? 'ml-auto' : 'mr-auto'
                 }`}
               >
-                <div className="flex items-center space-x-2 text-[10px] text-slate-400 px-1">
-                  <span className={`font-bold ${msg.isLead ? 'text-amber-300' : 'text-slate-300'}`}>
+                <div className="flex items-center space-x-2 text-[10px] text-stone-500 px-1">
+                  <span className={`font-bold ${msg.isLead ? 'text-emerald-800' : 'text-stone-700'}`}>
                     {msg.senderName}
                   </span>
                   <span>•</span>
@@ -957,38 +953,37 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                 {/* TEXT MESSAGE */}
                 {msg.type === 'text' && (
                   <div
-                    className={`p-4 rounded-3xl text-xs leading-relaxed shadow-lg ${
+                    className={`p-4 rounded-3xl text-xs leading-relaxed shadow-xs ${
                       isMe
-                        ? 'bg-gradient-to-r from-teal-600 to-indigo-600 text-white rounded-tr-none'
-                        : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'
+                        ? 'bg-emerald-600 text-white rounded-tr-none font-medium'
+                        : 'bg-white border border-stone-200 text-stone-800 rounded-tl-none shadow-2xs'
                     }`}
                   >
                     {msg.text}
                   </div>
                 )}
 
-                {/* PROPOSED PRESCRIPTION CARD (SPECIALIST VS LEAD DOCTOR WORKFLOW) */}
+                {/* PROPOSED PRESCRIPTION CARD */}
                 {msg.type === 'proposed_rx' && msg.rxProposalData && (
-                  <div className={`p-5 rounded-3xl space-y-3 shadow-2xl w-full max-w-md border ${
+                  <div className={`p-5 rounded-3xl space-y-3 shadow-sm w-full max-w-md border ${
                     msg.rxProposalData.status === 'APPROVED'
-                      ? 'bg-gradient-to-br from-slate-900 to-emerald-950/70 border-emerald-800'
+                      ? 'bg-emerald-50/70 border-emerald-300'
                       : msg.rxProposalData.status === 'REJECTED'
-                        ? 'bg-gradient-to-br from-slate-900 to-rose-950/70 border-rose-800'
-                        : 'bg-slate-900 border-amber-800/80'
+                        ? 'bg-rose-50/70 border-rose-300'
+                        : 'bg-white border-amber-300'
                   }`}>
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                       <div className="flex items-center space-x-2">
-                        <FileText className="w-5 h-5 text-amber-400" />
-                        <span className="text-xs font-bold text-white">Specialist Prescription Proposal</span>
+                        <FileText className="w-5 h-5 text-emerald-600" />
+                        <span className="text-xs font-bold text-stone-900">Specialist Prescription Proposal</span>
                       </div>
 
-                      {/* STATUS BADGE */}
                       <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold ${
                         msg.rxProposalData.status === 'APPROVED'
-                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                           : msg.rxProposalData.status === 'REJECTED'
-                            ? 'bg-rose-950 text-rose-300 border border-rose-800'
-                            : 'bg-amber-950 text-amber-300 border border-amber-800 animate-pulse'
+                            ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                            : 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse'
                       }`}>
                         {msg.rxProposalData.status === 'APPROVED'
                           ? 'APPROVED BY LEAD PCP 🟢'
@@ -999,48 +994,36 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                     </div>
 
                     <div className="space-y-1 text-xs">
-                      <span className="text-[10px] font-mono text-slate-400 block">
+                      <span className="text-[10px] font-mono text-stone-500 block">
                         Prescribed by Specialist: {msg.rxProposalData.specialistName}
                       </span>
-                      <h4 className="font-bold text-amber-300 text-sm">{msg.rxProposalData.medicineName}</h4>
-                      <p className="text-slate-300 text-[11px] font-mono">Dosage: {msg.rxProposalData.dosage} ({msg.rxProposalData.duration})</p>
-                      <p className="text-slate-400 text-[11px] italic">Rationale: {msg.rxProposalData.rationale}</p>
+                      <h4 className="font-bold text-emerald-900 text-sm">{msg.rxProposalData.medicineName}</h4>
+                      <p className="text-stone-700 text-[11px] font-mono">Dosage: {msg.rxProposalData.dosage} ({msg.rxProposalData.duration})</p>
+                      <p className="text-stone-600 text-[11px] italic">Rationale: {msg.rxProposalData.rationale}</p>
                     </div>
 
-                    {/* LEAD DOCTOR APPROVAL / REJECTION DESK (REQUIREMENT 2) */}
                     {msg.rxProposalData.status === 'PROPOSED' && (
-                      <div className="pt-2 border-t border-slate-800 space-y-2">
+                      <div className="pt-2 border-t border-stone-200 space-y-2">
                         {role === 'doctor' && (
-                          <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                            <span className="text-[10px] font-mono text-amber-400 font-bold uppercase block flex items-center">
-                              <Crown className="w-3.5 h-3.5 text-amber-400 mr-1" />
+                          <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                            <span className="text-[10px] font-mono text-emerald-800 font-bold uppercase block flex items-center">
+                              <Crown className="w-3.5 h-3.5 text-emerald-600 mr-1" />
                               <span>Lead Primary Physician Gatekeeper Desk:</span>
                             </span>
-
-                            <div className="text-[11px] text-slate-300 space-y-1">
-                              <p className="text-[10px] font-mono text-slate-500">Patient Active Medications Check:</p>
-                              <div className="flex flex-wrap gap-1">
-                                {selectedPatient.activeMedications.map((m, i) => (
-                                  <span key={i} className="px-2 py-0.5 bg-slate-900 border border-slate-800 rounded text-[9.5px] text-teal-300 font-mono">
-                                    ✓ {m}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
 
                             <div className="flex items-center space-x-2 pt-1">
                               <button
                                 onClick={() => handleLeadApproveRx(msg.id, msg.rxProposalData.productId, msg.rxProposalData.medicineName)}
-                                className="flex-1 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center space-x-1"
+                                className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center space-x-1 cursor-pointer"
                               >
                                 <Check className="w-4 h-4" />
                                 <span>Approve Rx 🟢</span>
                               </button>
                               <button
                                 onClick={() => setRejectionModalRx({ msgId: msg.id, medicineName: msg.rxProposalData.medicineName })}
-                                className="flex-1 py-2 bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-800 font-bold text-xs rounded-xl transition-all flex items-center justify-center space-x-1"
+                                className="flex-1 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs rounded-xl transition-all flex items-center justify-center space-x-1 cursor-pointer"
                               >
-                                <Ban className="w-4 h-4 text-rose-400" />
+                                <Ban className="w-4 h-4 text-rose-600" />
                                 <span>Reject Rx 🔴</span>
                               </button>
                             </div>
@@ -1048,60 +1031,52 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
                         )}
 
                         {role === 'patient' && (
-                          <div className="p-2.5 bg-amber-950/30 border border-amber-900/40 rounded-xl text-[11px] text-amber-200/90">
+                          <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900">
                             ⏳ Submitted to Lead Primary Doctor ({selectedPatient.leadDoctorName}) for drug interaction check before pharmacy unlock.
                           </div>
                         )}
                       </div>
                     )}
-
-                    {/* REJECTION REASON DISPLAY */}
-                    {msg.rxProposalData.status === 'REJECTED' && msg.rxProposalData.rejectionReason && (
-                      <div className="p-2.5 bg-rose-950/50 border border-rose-900 rounded-xl text-[11px] text-rose-200">
-                        <span className="font-bold block">Lead Doctor Clinical Rejection Note:</span>
-                        <p>{msg.rxProposalData.rejectionReason}</p>
-                      </div>
-                    )}
                   </div>
                 )}
 
-                {/* RX PRODUCT UNLOCK REQUEST CARD (ROUTED TO LEAD DOCTOR BY DEFAULT) */}
+                {/* RX PRODUCT UNLOCK REQUEST CARD */}
                 {msg.type === 'unlock_request' && msg.productData && (
-                  <div className="p-5 bg-slate-900 border border-amber-800/80 rounded-3xl space-y-3 shadow-2xl w-full max-w-md">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                  <div className="p-5 bg-white border border-emerald-200 rounded-3xl space-y-3 shadow-sm w-full max-w-md">
+                    <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                       <div className="flex items-center space-x-2">
-                        <Lock className="w-5 h-5 text-amber-400" />
-                        <span className="text-xs font-bold text-white">Locked Product Purchase Request</span>
+                        <Lock className="w-5 h-5 text-emerald-600" />
+                        <span className="text-xs font-bold text-stone-900">Locked Product Purchase Request</span>
                       </div>
-                      <span className="px-2.5 py-0.5 bg-amber-950 text-amber-300 border border-amber-800 rounded-full text-[9px] font-mono font-bold animate-pulse">
+                      <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[9px] font-mono font-bold">
                         Target: Lead PCP 👑
                       </span>
                     </div>
 
-                    <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                    <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex items-center space-x-3">
                       <span className="text-2xl">{msg.productData.image}</span>
                       <div className="flex-1 truncate">
-                        <span className="text-[9px] font-mono text-amber-400 uppercase font-bold block">
+                        <span className="text-[9px] font-mono text-emerald-700 uppercase font-bold block">
                           {msg.productData.category}
                         </span>
-                        <h4 className="text-xs font-bold text-white truncate">{msg.productData.name}</h4>
-                        <span className="text-[10px] font-mono text-emerald-400 font-bold">₹{msg.productData.price}</span>
+                        <h4 className="text-xs font-bold text-stone-900 truncate">{msg.productData.name}</h4>
+                        <span className="text-[10px] font-mono text-emerald-700 font-bold">₹{msg.productData.price}</span>
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-300 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 leading-relaxed">
+                    <p className="text-xs text-stone-700 bg-stone-50 p-2.5 rounded-xl border border-stone-200 leading-relaxed">
                       "{msg.text}"
                     </p>
 
-                    <div className="p-2 bg-amber-950/30 border border-amber-900/40 rounded-xl text-[10px] text-amber-300 flex items-center space-x-1.5">
-                      <Crown className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
-                      <span>Sent by Default to Lead Primary Doctor (Dr. Ananya Patel) for Gatekeeper Approval</span>
+                    <div className="p-2 bg-emerald-50/70 border border-emerald-200 rounded-xl text-[10px] text-emerald-800 flex items-center space-x-1.5">
+                      <Crown className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                      <span>Sent by Default to Lead Primary Doctor for Gatekeeper Approval</span>
                     </div>
 
                     {role === 'doctor' && (
                       <button
                         onClick={() => handleLeadApproveRx(msg.id, msg.productData.id, msg.productData.name)}
-                        className="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center space-x-1.5"
+                        className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
                       >
                         <Unlock className="w-4 h-4" />
                         <span>Approve & Unlock Product for Patient 🔓</span>
@@ -1115,36 +1090,32 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
           <div ref={messagesEndRef} />
         </div>
 
-        {/* D2D ERROR BANNER – Doctor-to-Doctor block notification */}
+        {/* D2D ERROR BANNER */}
         {d2dError && (
-          <div className="mx-4 mt-2 p-3 bg-rose-950/90 border border-rose-700 rounded-2xl flex items-start space-x-2 text-xs text-rose-200 animate-pulse shadow-lg">
-            <ShieldX className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
+          <div className="mx-4 mt-2 p-3 bg-rose-50 border border-rose-200 rounded-2xl flex items-start space-x-2 text-xs text-rose-800 shadow-sm">
+            <ShieldX className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <span className="font-bold text-rose-300 block">🚫 Access Denied (403 Forbidden)</span>
+              <span className="font-bold text-rose-900 block">🚫 Access Denied (403 Forbidden)</span>
               <span>{d2dError}</span>
             </div>
-            <button onClick={() => setD2dError(null)} className="text-rose-400 hover:text-rose-200 flex-shrink-0">
+            <button onClick={() => setD2dError(null)} className="text-rose-600 hover:text-rose-800 flex-shrink-0 cursor-pointer">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
-        {/* INPUT BAR (DISABLED WHEN CLOSED_READ_ONLY or no valid patient context) */}
-        {/* ── VALID-PATIENT CONTEXT GUARD ──────────────────────────────────────
-             When the doctor portal has no valid selected patient (e.g., the queue
-             is empty or the selection is invalid), replace the input bar with a
-             clear directive banner and disable the send button entirely.        */}
+        {/* INPUT BAR */}
         {role === 'doctor' && !selectedPatient?.id ? (
-          <div className="p-4 bg-slate-900 border-t border-slate-800">
-            <div className="flex items-center space-x-3 p-3 bg-amber-950/60 border border-amber-700/80 rounded-2xl">
-              <UserX className="w-5 h-5 text-amber-400 flex-shrink-0" />
-              <span className="text-xs text-amber-200 font-semibold">
+          <div className="p-4 bg-white border-t border-stone-200">
+            <div className="flex items-center space-x-3 p-3 bg-amber-50 border border-amber-200 rounded-2xl">
+              <UserX className="w-5 h-5 text-amber-600 flex-shrink-0" />
+              <span className="text-xs text-amber-900 font-semibold">
                 Select a valid patient to start messaging.
               </span>
             </div>
           </div>
         ) : (
-          <div className="p-4 bg-slate-900 border-t border-slate-800 flex items-center space-x-3">
+          <div className="p-4 bg-white border-t border-stone-200 flex items-center space-x-3">
             <input
               type="text"
               id="chatroom-message-input"
@@ -1159,12 +1130,12 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-              className="flex-1 bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-stone-50 border border-stone-300 rounded-2xl px-4 py-3 text-xs text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/15 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             />
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || chatroomStatus === 'CLOSED_READ_ONLY'}
-              className="p-3 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white font-bold rounded-2xl shadow-lg transition-all"
+              className="p-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-bold rounded-2xl shadow-xs transition-all cursor-pointer"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -1174,20 +1145,20 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
 
       {/* REJECT PRESCRIPTION PROPOSAL MODAL */}
       {rejectionModalRx && (
-        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
               <div className="flex items-center space-x-2">
-                <Ban className="w-5 h-5 text-rose-400" />
-                <h3 className="text-sm font-bold text-white">Reject Proposed Specialist Prescription</h3>
+                <Ban className="w-5 h-5 text-rose-600" />
+                <h3 className="text-sm font-bold text-stone-900">Reject Proposed Specialist Prescription</h3>
               </div>
-              <button onClick={() => setRejectionModalRx(null)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setRejectionModalRx(null)} className="text-stone-400 hover:text-stone-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-300">
-              Provide clinical rationale for rejecting <strong className="text-amber-300">{rejectionModalRx.medicineName}</strong> proposed by the specialist:
+            <p className="text-xs text-stone-600">
+              Provide clinical rationale for rejecting <strong className="text-stone-900">{rejectionModalRx.medicineName}</strong> proposed by the specialist:
             </p>
 
             <textarea
@@ -1195,19 +1166,19 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
               placeholder="E.g., High risk of facial skin irritation when combined with patient's active Tretinoin retinoid application."
               value={rejectionReasonInput}
               onChange={(e) => setRejectionReasonInput(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+              className="w-full bg-stone-50 border border-stone-300 rounded-2xl p-3 text-xs text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:border-rose-500"
             />
 
             <div className="flex items-center space-x-2 pt-2">
               <button
                 onClick={() => setRejectionModalRx(null)}
-                className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl"
+                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl"
               >
                 Cancel
               </button>
               <button
                 onClick={handleLeadRejectRx}
-                className="flex-1 py-2.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-rose-600/30"
+                className="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-xs cursor-pointer"
               >
                 Confirm Rejection 🔴
               </button>
@@ -1218,35 +1189,35 @@ export default function HealthChatroom({ role = 'patient', currentUser = {}, ini
 
       {/* VIDEO CALL MODAL */}
       {activeCallModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-2xl shadow-2xl space-y-6 relative flex flex-col items-center">
-            <div className="w-full flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/50 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl p-6 w-full max-w-2xl shadow-2xl space-y-6 relative flex flex-col items-center">
+            <div className="w-full flex items-center justify-between border-b border-stone-200 pb-3">
               <div className="flex items-center space-x-2">
                 <img src={dermAuraLogo} alt="DermAura Logo" className="w-6 h-6 object-contain" />
-                <h3 className="text-base font-bold text-white">DermAura HD Tele-Consultation Call</h3>
+                <h3 className="text-base font-bold text-stone-900">DermAura HD Tele-Consultation Call</h3>
               </div>
-              <span className="px-3 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full text-xs font-mono font-bold">
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-xs font-mono font-bold">
                 ● 02:45 Connected
               </span>
             </div>
 
-            <div className="w-full h-72 rounded-2xl bg-slate-950 border border-slate-800 relative overflow-hidden flex items-center justify-center">
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 text-center p-6 space-y-3">
-                <div className="w-24 h-24 rounded-full bg-indigo-600/30 border-2 border-indigo-400 flex items-center justify-center text-4xl shadow-2xl animate-pulse">
+            <div className="w-full h-72 rounded-2xl bg-stone-900 relative overflow-hidden flex items-center justify-center">
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-stone-900 via-stone-800 to-emerald-950 text-center p-6 space-y-3">
+                <div className="w-24 h-24 rounded-full bg-emerald-600/30 border-2 border-emerald-400 flex items-center justify-center text-4xl shadow-2xl animate-pulse">
                   {role === 'patient' ? (selectedDoctor?.photo || '👩‍⚕️') : (selectedPatient?.photo || '👨')}
                 </div>
                 <div>
                   <h4 className="text-lg font-bold text-white">
                     {role === 'patient' ? (selectedDoctor?.name || 'Lead Doctor') : (selectedPatient?.name || 'Patient')}
                   </h4>
-                  <p className="text-xs text-teal-400 font-mono">1080p Encrypted Medical Stream Active</p>
+                  <p className="text-xs text-emerald-300 font-mono">1080p Encrypted Medical Stream Active</p>
                 </div>
               </div>
             </div>
 
             <button
               onClick={() => setActiveCallModal(null)}
-              className="px-6 py-3.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-full shadow-xl shadow-rose-600/30 flex items-center space-x-2 transition-all"
+              className="px-6 py-3.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-full shadow-md shadow-rose-600/20 flex items-center space-x-2 transition-all cursor-pointer"
             >
               <PhoneOff className="w-5 h-5" />
               <span>End Call</span>

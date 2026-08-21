@@ -164,50 +164,50 @@ export default function PatientRemindersDashboard({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl text-slate-100 relative overflow-hidden">
+    <div className="bg-white border border-stone-200 rounded-3xl p-6 md:p-8 shadow-sm text-stone-900 relative overflow-hidden">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed top-5 right-5 z-50 bg-emerald-950 border border-emerald-500/40 text-emerald-300 p-4 rounded-2xl shadow-2xl text-xs font-semibold flex items-center space-x-3 animate-in slide-in-from-top-5">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+        <div className="fixed top-5 right-5 z-50 bg-emerald-50 border border-emerald-300 text-emerald-800 p-4 rounded-2xl shadow-xl text-xs font-semibold flex items-center space-x-3 animate-in slide-in-from-top-5">
+          <CheckCircle2 className="w-5 h-5 text-emerald-600" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Header Tabs */}
-      <div className="flex flex-wrap items-center justify-between border-b border-slate-800 pb-5 mb-6 gap-3">
+      <div className="flex flex-wrap items-center justify-between border-b border-stone-200 pb-5 mb-6 gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">Patient Care Portal</h2>
-          <p className="text-slate-400 text-xs mt-0.5">Daily adherence tracker, scheduled tele-consultations, treatment escrow & doctor health reports</p>
+          <h2 className="text-2xl font-bold text-stone-900 tracking-tight">Patient Care Portal</h2>
+          <p className="text-stone-500 text-xs mt-0.5">Daily adherence tracker, scheduled tele-consultations, treatment escrow & doctor health reports</p>
         </div>
 
         {/* Tab Buttons */}
-        <div className="bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex items-center space-x-1">
+        <div className="bg-stone-50 p-1.5 rounded-2xl border border-stone-200 flex items-center space-x-1">
           <button
             onClick={() => setActiveTab('doses')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'doses'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white shadow-2xs'
+                : 'text-stone-600 hover:text-stone-900'
             }`}
           >
             Today's Doses
           </button>
           <button
             onClick={() => setActiveTab('appointments')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'appointments'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white shadow-2xs'
+                : 'text-stone-600 hover:text-stone-900'
             }`}
           >
             Appointments
           </button>
           <button
             onClick={() => setActiveTab('treatment')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'treatment'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white shadow-2xs'
+                : 'text-stone-600 hover:text-stone-900'
             }`}
           >
             Treatment Progress & Reports
@@ -219,10 +219,10 @@ export default function PatientRemindersDashboard({
       {activeTab === 'doses' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
               Scheduled Doses ({doses.filter((d) => d.status === 'TAKEN').length}/{doses.length} Completed)
             </h3>
-            <span className="text-xs text-indigo-400 font-medium">Daily Goal: 100%</span>
+            <span className="text-xs text-emerald-700 font-medium">Daily Goal: 100%</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -231,10 +231,10 @@ export default function PatientRemindersDashboard({
                 key={dose.id}
                 className={`p-5 rounded-2xl border transition-all flex flex-col justify-between space-y-4 relative overflow-hidden ${
                   dose.status === 'TAKEN'
-                    ? 'bg-emerald-950/20 border-emerald-500/30'
+                    ? 'bg-emerald-50/50 border-emerald-200'
                     : dose.status === 'SKIPPED'
-                    ? 'bg-slate-950/50 border-slate-800 opacity-60'
-                    : 'bg-slate-950/70 border-indigo-500/40 shadow-lg'
+                    ? 'bg-stone-50 border-stone-200 opacity-60'
+                    : 'bg-white border-stone-200 shadow-xs'
                 }`}
               >
                 <div>
@@ -242,41 +242,41 @@ export default function PatientRemindersDashboard({
                     <span
                       className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full font-mono ${
                         dose.timeOfDay === 'Morning'
-                          ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                          ? 'bg-amber-50 text-amber-800 border border-amber-200'
                           : dose.timeOfDay === 'Afternoon'
-                          ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                          : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                          ? 'bg-sky-50 text-sky-800 border border-sky-200'
+                          : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                       }`}
                     >
                       {dose.timeOfDay} ({dose.scheduledTime})
                     </span>
 
                     {dose.status === 'TAKEN' && (
-                      <span className="text-emerald-400 text-xs font-bold flex items-center space-x-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span className="text-emerald-700 text-xs font-bold flex items-center space-x-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                         <span>TAKEN</span>
                       </span>
                     )}
                   </div>
 
-                  <h4 className="font-bold text-sm text-white">{dose.drugName}</h4>
-                  <div className="text-xs text-indigo-300 font-mono mt-0.5">{dose.dosage}</div>
-                  <p className="text-[11px] text-slate-400 mt-2 italic">{dose.instructions}</p>
+                  <h4 className="font-bold text-sm text-stone-900">{dose.drugName}</h4>
+                  <div className="text-xs text-emerald-700 font-mono mt-0.5">{dose.dosage}</div>
+                  <p className="text-[11px] text-stone-500 mt-2 italic">{dose.instructions}</p>
                 </div>
 
                 {/* ONE-TAP ACTION BUTTONS */}
                 {dose.status !== 'TAKEN' ? (
-                  <div className="flex items-center space-x-2 pt-2 border-t border-slate-800/80">
+                  <div className="flex items-center space-x-2 pt-2 border-t border-stone-200">
                     <button
                       onClick={() => handleMarkDose(dose.id, 'TAKEN')}
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center space-x-1.5 shadow-lg shadow-emerald-600/20 transition-all"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center space-x-1.5 shadow-2xs transition-all cursor-pointer"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Mark Taken</span>
                     </button>
                     <button
                       onClick={() => handleMarkDose(dose.id, 'SKIPPED')}
-                      className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-xl text-xs transition-all"
+                      className="px-3 py-2 bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 rounded-xl text-xs transition-all cursor-pointer"
                     >
                       Skip
                     </button>
@@ -284,7 +284,7 @@ export default function PatientRemindersDashboard({
                 ) : (
                   <button
                     onClick={() => handleMarkDose(dose.id, 'PENDING')}
-                    className="text-[10px] text-slate-500 hover:text-slate-300 text-center block pt-1"
+                    className="text-[10px] text-stone-400 hover:text-stone-600 text-center block pt-1 cursor-pointer"
                   >
                     Undo Status
                   </button>
@@ -298,21 +298,21 @@ export default function PatientRemindersDashboard({
       {/* TAB 2: UPCOMING APPOINTMENTS */}
       {activeTab === 'appointments' && (
         <div className="space-y-4">
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Scheduled Tele-Consultation</h3>
+          <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Scheduled Tele-Consultation</h3>
 
-          <div className="bg-gradient-to-br from-indigo-950/40 via-slate-950 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
             <div className="flex items-center space-x-4">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-3xl">
+              <div className="w-14 h-14 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-3xl shadow-2xs">
                 {MOCK_UPCOMING_APPOINTMENT.photo}
               </div>
               <div>
-                <div className="inline-flex items-center space-x-1.5 text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full mb-1">
-                  <Clock className="w-3.5 h-3.5 animate-pulse" />
+                <div className="inline-flex items-center space-x-1.5 text-xs text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full mb-1">
+                  <Clock className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
                   <span>Starting in 15 Mins</span>
                 </div>
-                <h4 className="text-lg font-bold text-white">{MOCK_UPCOMING_APPOINTMENT.doctorName}</h4>
-                <p className="text-xs text-slate-400">{MOCK_UPCOMING_APPOINTMENT.specialty}</p>
-                <p className="text-[11px] text-slate-500 font-mono mt-0.5">{MOCK_UPCOMING_APPOINTMENT.slotTime}</p>
+                <h4 className="text-lg font-bold text-stone-900">{MOCK_UPCOMING_APPOINTMENT.doctorName}</h4>
+                <p className="text-xs text-stone-500">{MOCK_UPCOMING_APPOINTMENT.specialty}</p>
+                <p className="text-[11px] text-stone-400 font-mono mt-0.5">{MOCK_UPCOMING_APPOINTMENT.slotTime}</p>
               </div>
             </div>
 
@@ -320,7 +320,7 @@ export default function PatientRemindersDashboard({
               href={MOCK_UPCOMING_APPOINTMENT.meetLink}
               target="_blank"
               rel="noreferrer"
-              className="w-full md:w-auto bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold text-xs px-6 py-3.5 rounded-2xl shadow-xl shadow-indigo-500/20 flex items-center justify-center space-x-2 transition-all"
+              className="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-6 py-3.5 rounded-2xl shadow-xs flex items-center justify-center space-x-2 transition-all cursor-pointer"
             >
               <Video className="w-4 h-4" />
               <span>Join Video Consult</span>
@@ -334,47 +334,47 @@ export default function PatientRemindersDashboard({
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Days Completed Card */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
-              <div className="text-xs text-slate-400 font-medium">Treatment Progress</div>
-              <div className="text-2xl font-bold text-white mt-1">
-                Day {treatmentDaysCompleted} <span className="text-xs font-normal text-slate-400">of {treatmentDaysTotal} Days</span>
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4">
+              <div className="text-xs text-stone-500 font-medium">Treatment Progress</div>
+              <div className="text-2xl font-bold text-stone-900 mt-1">
+                Day {treatmentDaysCompleted} <span className="text-xs font-normal text-stone-400">of {treatmentDaysTotal} Days</span>
               </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
-                <div className="bg-indigo-500 h-full rounded-full transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+              <div className="w-full bg-stone-200 h-2 rounded-full mt-3 overflow-hidden">
+                <div className="bg-emerald-600 h-full rounded-full transition-all duration-500" style={{ width: `${progressPercent}%` }} />
               </div>
             </div>
 
             {/* Daily Payout Rate */}
-            <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
-              <div className="text-xs text-slate-400 font-medium">Daily Escrow Payout Rate</div>
-              <div className="text-2xl font-bold text-slate-200 mt-1 font-mono">
-                ₹{dailyRate.toLocaleString('en-IN')}<span className="text-xs font-normal text-slate-400">/day</span>
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4">
+              <div className="text-xs text-stone-500 font-medium">Daily Escrow Payout Rate</div>
+              <div className="text-2xl font-bold text-stone-900 mt-1 font-mono">
+                ₹{dailyRate.toLocaleString('en-IN')}<span className="text-xs font-normal text-stone-400">/day</span>
               </div>
-              <div className="text-[10px] text-slate-500 mt-2">Released upon daily check-in</div>
+              <div className="text-[10px] text-stone-400 mt-2">Released upon daily check-in</div>
             </div>
 
             {/* Remaining Escrow Balance */}
-            <div className="bg-emerald-950/30 border border-emerald-500/30 rounded-2xl p-4">
-              <div className="text-xs text-emerald-400 font-semibold">Remaining Escrow Balance</div>
-              <div className="text-2xl font-bold text-emerald-300 mt-1 font-mono">
+            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+              <div className="text-xs text-emerald-800 font-semibold">Remaining Escrow Balance</div>
+              <div className="text-2xl font-bold text-emerald-700 mt-1 font-mono">
                 ₹{escrowRemaining.toLocaleString('en-IN')}
               </div>
-              <div className="text-[10px] text-emerald-400/70 mt-2">100% Protected in Escrow</div>
+              <div className="text-[10px] text-emerald-800/70 mt-2">100% Protected in Escrow</div>
             </div>
           </div>
 
           {/* DOCTOR GENERATED PATIENT HEALTH REPORTS SECTION */}
-          <div className="space-y-4 pt-4 border-t border-slate-800">
+          <div className="space-y-4 pt-4 border-t border-stone-200">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                  <FileText className="w-4 h-4 text-teal-400" />
+                <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                  <FileText className="w-4 h-4 text-emerald-600" />
                   <span>Doctor Generated Health & Diagnostic Reports</span>
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">Clinical notes, AI scan assessments, and doctor-approved health summaries</p>
+                <p className="text-[11px] text-stone-500 mt-0.5">Clinical notes, AI scan assessments, and doctor-approved health summaries</p>
               </div>
 
-              <span className="px-2.5 py-1 bg-teal-950 text-teal-300 border border-teal-800 text-[10px] font-mono font-bold rounded-full">
+              <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold rounded-full">
                 {MOCK_DOCTOR_HEALTH_REPORTS.length} REPORTS ON FILE
               </span>
             </div>
@@ -383,28 +383,28 @@ export default function PatientRemindersDashboard({
               {MOCK_DOCTOR_HEALTH_REPORTS.map((rep) => (
                 <div
                   key={rep.id}
-                  className="bg-slate-950/80 border border-slate-800 hover:border-teal-500/40 rounded-2xl p-5 space-y-3 transition-all flex flex-col justify-between shadow-xl"
+                  className="bg-white border border-stone-200 hover:border-emerald-400 rounded-2xl p-5 space-y-3 transition-all flex flex-col justify-between shadow-xs"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${rep.badgeColor}`}>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border bg-emerald-50 text-emerald-800 border-emerald-200">
                         {rep.badge}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-mono">{rep.date}</span>
+                      <span className="text-[10px] text-stone-400 font-mono">{rep.date}</span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-white leading-snug">{rep.title}</h4>
-                    <p className="text-[10px] text-indigo-400 font-medium">By {rep.doctorName} ({rep.doctorRole})</p>
-                    <p className="text-[11px] text-slate-300 leading-relaxed bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80">
+                    <h4 className="text-xs font-bold text-stone-900 leading-snug">{rep.title}</h4>
+                    <p className="text-[10px] text-emerald-700 font-medium">By {rep.doctorName} ({rep.doctorRole})</p>
+                    <p className="text-[11px] text-stone-600 leading-relaxed bg-stone-50 p-2.5 rounded-xl border border-stone-200">
                       {rep.summary}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800/80">
-                    <span className="text-[10px] text-slate-400 font-mono">Encrypted Clinical Record</span>
+                  <div className="flex items-center justify-between pt-2 border-t border-stone-200">
+                    <span className="text-[10px] text-stone-400 font-mono">Encrypted Clinical Record</span>
                     <button
                       onClick={() => setSelectedReportModal(rep)}
-                      className="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 text-slate-950 font-bold text-[11px] rounded-xl flex items-center space-x-1.5 transition-all shadow-md"
+                      className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] rounded-xl flex items-center space-x-1.5 transition-all cursor-pointer shadow-xs"
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>View Full Report</span>
@@ -419,36 +419,36 @@ export default function PatientRemindersDashboard({
 
       {/* FULL REPORT MODAL PREVIEW */}
       {selectedReportModal && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-teal-500/40 rounded-3xl p-6 md:p-8 max-w-xl w-full space-y-5 shadow-2xl relative animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl p-6 md:p-8 max-w-xl w-full space-y-5 shadow-2xl relative animate-in fade-in zoom-in-95">
             <button
               onClick={() => setSelectedReportModal(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              className="absolute top-4 right-4 p-2 rounded-full bg-stone-100 text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="border-b border-slate-800 pb-4">
-              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border inline-block mb-2 ${selectedReportModal.badgeColor}`}>
+            <div className="border-b border-stone-200 pb-4">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border inline-block mb-2 bg-emerald-50 text-emerald-800 border-emerald-200">
                 {selectedReportModal.badge}
               </span>
-              <h3 className="text-lg font-extrabold text-white">{selectedReportModal.title}</h3>
-              <p className="text-xs text-indigo-400 font-medium">Attending Specialist: {selectedReportModal.doctorName} • {selectedReportModal.date}</p>
+              <h3 className="text-lg font-extrabold text-stone-900">{selectedReportModal.title}</h3>
+              <p className="text-xs text-emerald-700 font-medium">Attending Specialist: {selectedReportModal.doctorName} • {selectedReportModal.date}</p>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                <span className="text-[10px] font-mono text-slate-400 uppercase block font-bold">Clinical Assessment Summary</span>
-                <p className="text-slate-200 leading-relaxed">{selectedReportModal.summary}</p>
+              <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                <span className="text-[10px] font-mono text-stone-500 uppercase block font-bold">Clinical Assessment Summary</span>
+                <p className="text-stone-700 leading-relaxed">{selectedReportModal.summary}</p>
               </div>
 
-              <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                <span className="text-[10px] font-mono text-teal-400 uppercase block font-bold">Report Vitals & Measurements</span>
+              <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                <span className="text-[10px] font-mono text-emerald-800 uppercase block font-bold">Report Vitals & Measurements</span>
                 <div className="grid grid-cols-2 gap-2 text-[11px]">
                   {Object.entries(selectedReportModal.vitals).map(([k, v]) => (
-                    <div key={k} className="p-2 bg-slate-900/80 rounded-xl border border-slate-800">
-                      <span className="text-[9px] text-slate-400 uppercase block font-mono">{k.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className="font-bold text-white">{v}</span>
+                    <div key={k} className="p-2 bg-white rounded-xl border border-stone-200">
+                      <span className="text-[9px] text-stone-500 uppercase block font-mono">{k.replace(/([A-Z])/g, ' $1')}</span>
+                      <span className="font-bold text-stone-900">{v}</span>
                     </div>
                   ))}
                 </div>
@@ -458,7 +458,7 @@ export default function PatientRemindersDashboard({
             <div className="pt-2 flex items-center justify-end space-x-3">
               <button
                 onClick={() => setSelectedReportModal(null)}
-                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl transition-all"
+                className="px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-xs rounded-xl transition-all cursor-pointer"
               >
                 Close Report
               </button>

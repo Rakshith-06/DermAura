@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import Dashboard from './Dashboard';
-import DoctorDashboard from './DoctorDashboard';
-import LeadDoctorSelection from './LeadDoctorSelection';
-import CyberMedicalWorkspace from './CyberMedicalWorkspace';
-import dermAuraLogo from '../dermAuraLogoNoBG.png';
+import React, { useState } from 'react';
 import { 
   User, 
   Stethoscope, 
@@ -20,18 +15,30 @@ import {
   Sparkles,
   Award
 } from 'lucide-react';
+import dermAuraLogo from '../dermAuraLogoNoBG.png';
 
-export default function AuthPortal() {
+/**
+ * AuthLogin Component
+ * 
+ * Implements the Warm Light Botanical & Clinical Aesthetic for DermAura:
+ * - Off-White / Soft Cream canvas backdrop
+ * - Pure White frosted glass card containers with soft shadows
+ * - Soft Sage Green / Botanical Mint primary actions
+ * - Warm Terracotta / Gentle Peach badges and accents
+ * - Deep Slate / Espresso typography for crisp medical legibility
+ */
+export default function AuthLogin({
+  onLoginSuccess = () => {},
+  initialRole = 'patient',
+}) {
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
-  const [role, setRole] = useState('patient'); // 'patient' | 'doctor'
+  const [role, setRole] = useState(initialRole); // 'patient' | 'doctor'
   const [showPassword, setShowPassword] = useState(false);
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [showCyberWorkspace, setShowCyberWorkspace] = useState(false);
   const [otpStep, setOtpStep] = useState(1);
   const [otpInput, setOtpInput] = useState('');
   const [notification, setNotification] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -45,7 +52,6 @@ export default function AuthPortal() {
     age: '',
     gender: 'Male',
     emergencyName: '',
-    emergencyRelation: '',
     emergencyPhone: '',
     bloodGroup: 'O+',
     allergies: '',
@@ -60,13 +66,6 @@ export default function AuthPortal() {
     languagesSpoken: 'English, Hindi',
   });
 
-  // Ensure login portal is always the first page when visiting the website
-  useEffect(() => {
-    localStorage.removeItem('dermaura_user');
-    localStorage.removeItem('dermaura_token');
-    setCurrentUser(null);
-  }, []);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -76,6 +75,7 @@ export default function AuthPortal() {
     setTimeout(() => setNotification(null), 5000);
   };
 
+  // Quick Hackathon Demo Credentials Auto-Fill
   const handleQuickDemoFill = (demoRole) => {
     setRole(demoRole);
     setAuthMode('login');
@@ -122,8 +122,7 @@ export default function AuthPortal() {
     }
 
     localStorage.setItem('dermaura_user', JSON.stringify(mockUser));
-    setCurrentUser(mockUser);
-    showToast('success', `Welcome to DermAura ${demoRole === 'doctor' ? 'Doctor Portal' : 'Patient Dashboard'}!`);
+    showToast('success', `Filled credentials for ${demoRole === 'doctor' ? 'Dr. Sarah Jenkins' : 'Aarav Sharma'}!`);
   };
 
   const handleSubmit = async (e) => {
@@ -144,34 +143,30 @@ export default function AuthPortal() {
         }
       }
 
-      // Backend API call attempt
-      try {
-        const endpoint = authMode === 'login' ? '/api/auth/login' : '/api/auth/register';
-        const payload = {
-          email: formData.email,
-          password: formData.password,
-          role: role,
-          ...(authMode === 'signup' ? formData : {})
-        };
+      // Production backend authentication endpoint attempt
+      const endpoint = authMode === 'login' ? '/api/auth/login' : '/api/auth/register';
+      const payload = {
+        email: formData.email,
+        password: formData.password,
+        role: role,
+        ...(authMode === 'signup' ? formData : {})
+      };
 
+      try {
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-
         const data = await res.json();
         if (data.success && data.user) {
           localStorage.setItem('dermaura_user', JSON.stringify(data.user));
-          if (data.token) {
-            localStorage.setItem('dermaura_token', data.token);
-          }
-          setCurrentUser(data.user);
-          showToast('success', `Successfully authenticated as ${data.user.fullName}!`);
+          if (data.token) localStorage.setItem('dermaura_token', data.token);
+          onLoginSuccess(data.user);
           return;
         }
       } catch (_) {
-        // Fallback for standalone demo
+        // Fallback for standalone / client-side demonstration
       }
 
       // Standalone Fallback User Object
@@ -204,26 +199,14 @@ export default function AuthPortal() {
       };
 
       localStorage.setItem('dermaura_user', JSON.stringify(fallbackUser));
-      setCurrentUser(fallbackUser);
       showToast('success', `Signed into ${role === 'doctor' ? 'Doctor Portal' : 'Patient Dashboard'}!`);
+      onLoginSuccess(fallbackUser);
 
     } catch (error) {
-      showToast('error', 'Login error occurred.');
+      showToast('error', 'Login error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleLogout = () => {
-    try {
-      localStorage.setItem('dermaura_doctor_duty_status', 'offline');
-      window.dispatchEvent(new Event('storage'));
-      window.dispatchEvent(new CustomEvent('dermaura_duty_status_changed', { detail: 'offline' }));
-    } catch (_) {}
-
-    localStorage.removeItem('dermaura_user');
-    localStorage.removeItem('dermaura_token');
-    setCurrentUser(null);
   };
 
   const handleOtpVerify = (e) => {
@@ -232,39 +215,9 @@ export default function AuthPortal() {
       setShowOtpModal(false);
       handleQuickDemoFill(role);
     } else {
-      showToast('error', 'Invalid OTP code. Enter 123456 for demo mode.');
+      showToast('error', 'Invalid verification code. Enter 123456 for demo mode.');
     }
   };
-
-  // Route authenticated users to appropriate Dashboard
-  if (currentUser) {
-    if (currentUser.role === 'doctor') {
-      return (
-        <DoctorDashboard
-          user={currentUser}
-          doctorUser={currentUser}
-          onLogout={handleLogout}
-        />
-      );
-    }
-
-    if (currentUser.role === 'patient' && currentUser.isFirstLogin) {
-      return (
-        <LeadDoctorSelection
-          patientUser={currentUser}
-          onDoctorSelected={(updatedUser) => setCurrentUser(updatedUser)}
-        />
-      );
-    }
-
-    return (
-      <Dashboard
-        user={currentUser}
-        onLogout={handleLogout}
-        onUpdateUser={(updatedUser) => setCurrentUser(updatedUser)}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-stone-50 text-stone-800 flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans relative overflow-hidden">

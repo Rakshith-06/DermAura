@@ -149,7 +149,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   // Profile & Theme State
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [showProfileDetailsModal, setShowProfileDetailsModal] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [doctorSwitchModalOpen, setDoctorSwitchModalOpen] = useState(false);
 
   // E-Commerce & Prescription State
@@ -793,20 +793,20 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   };
 
   return (
-    <div className={`flex h-screen w-screen ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-100 text-slate-900'} font-sans overflow-hidden selection:bg-teal-500 selection:text-slate-950 transition-colors duration-300`}>
+    <div className={`flex h-screen w-screen ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-stone-50 text-stone-900'} font-sans overflow-hidden selection:bg-emerald-500 selection:text-white transition-colors duration-300`}>
       
       {/* 1. CHATGPT-STYLE COLLAPSIBLE SIDEBAR */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} transition-all duration-300 ${darkMode ? 'bg-slate-900/95 border-slate-800' : 'bg-white border-slate-200'} border-r flex flex-col justify-between z-[60] relative shadow-2xl h-full flex-shrink-0`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} transition-all duration-300 ${darkMode ? 'bg-slate-900/95 border-slate-800' : 'bg-white border-stone-200'} border-r flex flex-col justify-between z-[60] relative shadow-xs h-full flex-shrink-0`}>
         
         {/* Floating Expand Sidebar Button when Collapsed (z-[100] on sidebar right border) */}
         {!sidebarOpen && (
           <button
             onClick={() => setSidebarOpen(true)}
             title="Expand Sidebar"
-            className={`absolute -right-3.5 top-4 z-[100] w-7 h-7 rounded-full ${darkMode ? 'bg-teal-600 hover:bg-teal-500 border-slate-900 text-white' : 'bg-teal-600 hover:bg-teal-500 border-white text-white'} border-2 shadow-xl flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-all group`}
+            className="absolute -right-3.5 top-4 z-[100] w-7 h-7 rounded-full bg-emerald-600 hover:bg-emerald-700 border-white text-white border-2 shadow-md flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-all group"
           >
             <ChevronRight className="w-4 h-4 text-white" />
-            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[100] whitespace-nowrap">
+            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[100] whitespace-nowrap">
               <span>Expand Sidebar</span>
             </div>
           </button>
@@ -814,31 +814,31 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         <div className="flex flex-col h-full justify-between overflow-y-auto custom-scrollbar">
           {/* Top Logo & Name */}
-          <div className="p-3.5 flex items-center justify-between border-b border-slate-800/60 min-h-[57px]">
+          <div className="p-3.5 flex items-center justify-between border-b border-stone-200/80 min-h-[57px]">
             {sidebarOpen ? (
               <>
                 <button
                   onClick={() => setCurrentPage('about')}
                   title="About DermAura Platform & Medical Team"
-                  className="flex items-center space-x-2.5 text-left group hover:opacity-95 transition-all"
+                  className="flex items-center space-x-2.5 text-left group hover:opacity-95 transition-all cursor-pointer"
                 >
                   <img
                     src={dermAuraLogo}
                     alt="DermAura Logo"
-                    className="w-8 h-8 object-contain drop-shadow-sm group-hover:scale-105 transition-transform flex-shrink-0"
+                    className="w-8 h-8 object-contain drop-shadow-xs group-hover:scale-105 transition-transform flex-shrink-0"
                   />
                   <div>
-                    <span className={`font-extrabold text-base tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'} block group-hover:text-teal-300 transition-colors`}>
-                      Derm<span className="text-teal-400">Aura</span>
+                    <span className="font-extrabold text-base tracking-tight text-stone-900 block group-hover:text-emerald-700 transition-colors">
+                      Derm<span className="text-emerald-600">Aura</span>
                     </span>
-                    <span className="text-[9px] text-teal-400 font-mono block">Facial & Hair AI • About</span>
+                    <span className="text-[9px] text-emerald-700 font-mono block">Facial & Hair AI • About</span>
                   </div>
                 </button>
 
                 <button
                   onClick={() => setSidebarOpen(false)}
                   title="Collapse Sidebar"
-                  className={`p-1.5 rounded-lg ${darkMode ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-400' : 'bg-slate-100 hover:bg-slate-200 text-slate-600'} transition-all cursor-pointer hover:scale-105`}
+                  className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 transition-all cursor-pointer hover:scale-105"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
@@ -849,15 +849,15 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <button
                     onClick={() => setCurrentPage('about')}
                     title="About DermAura Platform"
-                    className="w-8 h-8 flex items-center justify-center group hover:scale-105 transition-transform flex-shrink-0"
+                    className="w-8 h-8 flex items-center justify-center group hover:scale-105 transition-transform flex-shrink-0 cursor-pointer"
                   >
                     <img
                       src={dermAuraLogo}
                       alt="DermAura Logo"
-                      className="w-8 h-8 object-contain drop-shadow-sm"
+                      className="w-8 h-8 object-contain drop-shadow-xs"
                     />
                   </button>
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[80] whitespace-nowrap flex items-center space-x-1.5">
+                  <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-[80] whitespace-nowrap flex items-center space-x-1.5">
                     <img src={dermAuraLogo} alt="Logo" className="w-3.5 h-3.5 object-contain inline-block" />
                     <span>About DermAura Platform</span>
                   </div>
@@ -871,16 +871,14 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             <button
               onClick={handleNewChat}
               title="New Consultation"
-              className={`w-full py-2.5 px-3 rounded-xl border ${darkMode ? 'border-slate-700/80 bg-slate-800/70 hover:bg-slate-800 text-slate-100' : 'border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-800'} text-xs font-semibold flex items-center ${
-                sidebarOpen ? 'justify-start space-x-2.5' : 'justify-center'
-              } transition-all shadow-sm`}
+              className="w-full py-2.5 px-3 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-800 text-xs font-semibold flex items-center transition-all shadow-2xs cursor-pointer justify-start space-x-2.5"
             >
-              <Plus className="w-4 h-4 text-teal-400 flex-shrink-0" />
+              <Plus className="w-4 h-4 text-emerald-600 flex-shrink-0" />
               {sidebarOpen && <span>New Consultation</span>}
             </button>
             {!sidebarOpen && (
-              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                <Plus className="w-3.5 h-3.5 text-teal-400" />
+              <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                <Plus className="w-3.5 h-3.5 text-emerald-600" />
                 <span>New Consultation</span>
               </div>
             )}
@@ -894,22 +892,22 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="AI Health Chatbot"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'chat' ? 'bg-teal-500/20 text-teal-300 font-semibold border border-teal-500/30' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
+                } transition-all cursor-pointer ${
+                  currentPage === 'chat'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <MessageSquare className="w-4 h-4 flex-shrink-0" />
+                <MessageSquare className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && <span>AI Health Chatbot</span>}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <MessageSquare className="w-3.5 h-3.5 text-teal-400" />
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
                   <span>AI Health Chatbot</span>
                 </div>
               )}
             </div>
-
-
 
             <div className="relative group">
               <button
@@ -917,44 +915,48 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="Doctor Tele-Chatroom"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'doctor-chat' ? 'bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30' : 'text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300'
+                } transition-all cursor-pointer ${
+                  currentPage === 'doctor-chat'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <Stethoscope className="w-4 h-4 flex-shrink-0 text-indigo-400" />
+                <Stethoscope className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
                   <div className="flex items-center justify-between w-full">
                     <span>Doctor Chatroom</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 animate-pulse">
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       Live
                     </span>
                   </div>
                 )}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <Stethoscope className="w-3.5 h-3.5 text-indigo-400" />
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                  <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Doctor Tele-Chatroom</span>
                 </div>
               )}
             </div>
 
-            {/* NEW FEATURES: Care & Reminders Portal */}
+            {/* Care & Reminders Portal */}
             <div className="relative group">
               <button
                 onClick={() => setCurrentPage('reminders')}
                 title="Care & Medication Adherence"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'reminders' ? 'bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30' : 'text-emerald-400 hover:bg-emerald-500/10 hover:text-emerald-300'
+                } transition-all cursor-pointer ${
+                  currentPage === 'reminders'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
                   <div className="flex items-center justify-between w-full">
                     <span>Care & Adherence</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       Doses
                     </span>
                   </div>
@@ -962,24 +964,24 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               </button>
             </div>
 
-
-
-            {/* NEW FEATURES: Quick Pre-Consultation Assessment */}
+            {/* Quick Pre-Consultation Assessment */}
             <div className="relative group">
               <button
                 onClick={() => setCurrentPage('pre-consult')}
                 title="Instant 24-Hr Session (₹300)"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'pre-consult' ? 'bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30' : 'text-indigo-400 hover:bg-indigo-500/10 hover:text-indigo-300'
+                } transition-all cursor-pointer ${
+                  currentPage === 'pre-consult'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <Sparkles className="w-4 h-4 flex-shrink-0 text-indigo-400" />
+                <Sparkles className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
                   <div className="flex items-center justify-between w-full">
                     <span>24-Hr Assessment</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       ₹300
                     </span>
                   </div>
@@ -993,23 +995,25 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="DermPharmacy Store"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'pharmacy' ? 'bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30' : 'text-emerald-400/90 hover:bg-emerald-500/10 hover:text-emerald-300'
+                } transition-all cursor-pointer ${
+                  currentPage === 'pharmacy'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <ShoppingBag className="w-4 h-4 flex-shrink-0 text-emerald-400" />
+                <ShoppingBag className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
                   <div className="flex items-center justify-between w-full">
                     <span>DermPharmacy</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       Store
                     </span>
                   </div>
                 )}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                  <ShoppingBag className="w-3.5 h-3.5 text-emerald-600" />
                   <span>DermPharmacy Store</span>
                 </div>
               )}
@@ -1021,16 +1025,18 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="DermScan Visual AI"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'scan' ? 'bg-teal-500/20 text-teal-300 font-semibold border border-teal-500/30' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
+                } transition-all cursor-pointer ${
+                  currentPage === 'scan'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <Scan className="w-4 h-4 flex-shrink-0" />
+                <Scan className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && <span>DermScan Visual AI</span>}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <Scan className="w-3.5 h-3.5 text-teal-400" />
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                  <Scan className="w-3.5 h-3.5 text-emerald-600" />
                   <span>DermScan Visual AI</span>
                 </div>
               )}
@@ -1042,31 +1048,29 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="Stress & Cortisol Quiz"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'stress' ? 'bg-indigo-500/20 text-indigo-300 font-semibold border border-indigo-500/30' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
+                } transition-all cursor-pointer ${
+                  currentPage === 'stress'
+                    ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300 shadow-2xs'
+                    : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                 }`}
               >
-                <Activity className="w-4 h-4 flex-shrink-0 text-indigo-400" />
+                <Activity className="w-4 h-4 flex-shrink-0 text-emerald-600" />
                 {sidebarOpen && (
                   <div className="flex items-center justify-between w-full">
                     <span>Stress & Cortisol Quiz</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       Quiz
                     </span>
                   </div>
                 )}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <Activity className="w-3.5 h-3.5 text-indigo-400" />
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                  <Activity className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Stress & Cortisol Quiz</span>
                 </div>
               )}
             </div>
-
-
-
-
 
             <div className="relative group">
               <button
@@ -1074,15 +1078,17 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 title="Emergency Medical SOS"
                 className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${
                   sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                } transition-all ${
-                  currentPage === 'emergency' ? 'bg-rose-500/20 text-rose-300 font-semibold border border-rose-500/30' : 'text-rose-400/80 hover:bg-rose-500/10 hover:text-rose-300'
+                } transition-all cursor-pointer ${
+                  currentPage === 'emergency'
+                    ? 'bg-rose-50 text-rose-800 font-bold border border-rose-300 shadow-2xs'
+                    : 'text-rose-700 hover:bg-rose-50'
                 }`}
               >
-                <PhoneCall className="w-4 h-4 flex-shrink-0 text-rose-400" />
+                <PhoneCall className="w-4 h-4 flex-shrink-0 text-rose-600" />
                 {sidebarOpen && <span>Emergency SOS</span>}
               </button>
               {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-rose-950 border border-rose-800/90 text-rose-200 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-rose-900 border border-rose-700 text-rose-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
                   <PhoneCall className="w-3.5 h-3.5 text-rose-400" />
                   <span>Emergency Medical SOS</span>
                 </div>
@@ -1092,54 +1098,56 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
           {/* Scope Badge */}
           {sidebarOpen && (
-            <div className="mx-3 my-2 p-2.5 bg-slate-950 border border-teal-900/50 rounded-xl text-[10px] space-y-1">
-              <span className="text-teal-400 font-bold flex items-center">
-                <Smile className="w-3 h-3 mr-1" /> Facial & Hair AI Scope
+            <div className="mx-3 my-2 p-2.5 bg-stone-50 border border-emerald-200 rounded-xl text-[10px] space-y-1">
+              <span className="text-emerald-800 font-bold flex items-center">
+                <Smile className="w-3 h-3 mr-1 text-emerald-600" /> Facial & Hair AI Scope
               </span>
-              <p className="text-slate-400 text-[9.5px]">Trained exclusively for facial skin & scalp health.</p>
+              <p className="text-stone-600 text-[9.5px]">Trained exclusively for facial skin & scalp health.</p>
             </div>
           )}
 
           {/* Recent Consultations Container */}
           {sidebarOpen && (
-            <div className="flex-1 overflow-y-auto custom-scrollbar px-3 py-2 border-t border-slate-800/80 space-y-1">
-              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block px-1 mb-1">
+            <div className="flex-1 overflow-y-auto custom-scrollbar px-3 py-2 border-t border-stone-200 space-y-1">
+              <span className="text-[10px] font-semibold text-stone-500 uppercase tracking-wider block px-1 mb-1">
                 Recent Consultations
               </span>
               {chatHistory.map((chat) => (
                 <div
                   key={chat.id}
                   onClick={() => setCurrentPage('chat')}
-                  className="group flex items-center justify-between p-2 rounded-xl text-xs text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 cursor-pointer transition-all"
+                  className="group flex items-center justify-between p-2 rounded-xl text-xs text-stone-600 hover:bg-stone-100 hover:text-stone-900 cursor-pointer transition-all"
                 >
                   <span className="truncate pr-2">{chat.title}</span>
-                  <span className="text-[10px] text-slate-600 group-hover:text-slate-500">{chat.date}</span>
+                  <span className="text-[10px] text-stone-400 group-hover:text-stone-600">{chat.date}</span>
                 </div>
               ))}
             </div>
           )}
 
           {/* USER CARD & DIRECT WEBPAGE PROFILE TRIGGER */}
-          <div className="p-3 border-t border-slate-800 bg-slate-950/80 relative group">
-            <div
+          <div className="p-3 border-t border-stone-200 bg-stone-50/80 relative group">
+            <button
               onClick={() => setCurrentPage('profile')}
               title="View Profile"
-              className="flex items-center justify-between p-2 rounded-xl hover:bg-indigo-500/10 hover:border-indigo-500/30 cursor-pointer transition-all border border-slate-800/50"
+              className="w-full flex items-center p-2 rounded-xl bg-white hover:bg-emerald-50 hover:border-emerald-300 cursor-pointer transition-all border border-stone-200/60 shadow-2xs text-left min-w-0 overflow-hidden"
             >
-              <div className={`flex items-center ${sidebarOpen ? 'space-x-2.5' : 'justify-center w-full'}`}>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-teal-400 flex items-center justify-center text-slate-950 font-bold text-xs flex-shrink-0 shadow-md">
-                  {user.role === 'doctor' ? <Stethoscope className="w-4 h-4" /> : <User className="w-4 h-4" />}
+              <div className={`flex items-center min-w-0 w-full ${sidebarOpen ? 'space-x-2.5' : 'justify-center'}`}>
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-2xs">
+                  {user.role === 'doctor' ? <Stethoscope className="w-4 h-4 text-emerald-700" /> : <User className="w-4 h-4 text-emerald-700" />}
                 </div>
                 {sidebarOpen && (
-                  <div className="truncate text-left">
-                    <p className="text-xs font-bold text-slate-100 truncate">{user.fullName}</p>
-                    <p className="text-[10px] font-mono text-indigo-400 uppercase">{user.role} • View Profile</p>
+                  <div className="min-w-0 flex-1 overflow-hidden text-left">
+                    <p className="text-xs font-bold text-stone-900 truncate leading-tight">{user.fullName}</p>
+                    <p className="text-[10px] font-mono text-emerald-700 uppercase font-semibold truncate leading-tight mt-0.5">
+                      {user.role === 'doctor' ? (user.specialization ? user.specialization.split('&')[0].trim() : 'Doctor') : 'Patient'} • Profile
+                    </p>
                   </div>
                 )}
               </div>
-            </div>
-            <div className="absolute left-full bottom-3 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-              <User className="w-3.5 h-3.5 text-indigo-400" />
+            </button>
+            <div className="absolute left-full bottom-3 ml-3 px-2.5 py-1.5 bg-stone-900 border border-stone-700 text-stone-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
+              <User className="w-3.5 h-3.5 text-emerald-400" />
               <span>View Profile</span>
             </div>
           </div>
@@ -1158,11 +1166,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         )}
 
         {/* Top Header Bar */}
-        <header className={`h-14 border-b ${darkMode ? 'border-slate-800/80 bg-slate-900/90' : 'border-slate-200 bg-white'} px-4 sm:px-6 flex items-center justify-between backdrop-blur-md relative z-50`}>
+        <header className="h-14 border-b border-stone-200 bg-white/95 px-4 sm:px-6 flex items-center justify-between backdrop-blur-md relative z-50">
           <div className="flex items-center space-x-3">
-            <span className="text-xs font-semibold text-slate-400 hidden sm:inline">Model:</span>
-            <span className="text-xs font-bold text-teal-300 px-2.5 py-1 rounded-full bg-teal-950 border border-teal-800 flex items-center space-x-1.5">
-              <Sparkles className="w-3 h-3 text-teal-400" />
+            <span className="text-xs font-semibold text-stone-500 hidden sm:inline">Model:</span>
+            <span className="text-xs font-bold text-emerald-800 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-300 flex items-center space-x-1.5 shadow-2xs">
+              <Sparkles className="w-3 h-3 text-emerald-600" />
               <span>DermAura Facial & Hair AI v2.4</span>
             </span>
           </div>
@@ -1172,12 +1180,12 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             <div className="relative z-50">
               <button
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="relative p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center space-x-1.5 border border-slate-700 transition-all shadow-md"
+                className="relative p-2 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-semibold flex items-center space-x-1.5 border border-stone-200 transition-all shadow-2xs cursor-pointer"
               >
-                <Bell className="w-4 h-4 text-amber-400" />
+                <Bell className="w-4 h-4 text-emerald-700" />
                 <span className="hidden sm:inline">Notifications</span>
                 {sessionRequests.length > 0 && (
-                  <span className="w-5 h-5 rounded-full bg-amber-500 text-slate-950 text-[10px] font-bold flex items-center justify-center animate-pulse">
+                  <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center animate-pulse">
                     {sessionRequests.length}
                   </span>
                 )}
@@ -1186,44 +1194,44 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               {/* Backdrop Listener to click outside notification */}
               {notificationsOpen && (
                 <div
-                  className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[1px]"
+                  className="fixed inset-0 z-40 bg-stone-900/10 backdrop-blur-[1px]"
                   onClick={() => setNotificationsOpen(false)}
                 />
               )}
 
               {/* Notification Drawer Dropdown */}
               {notificationsOpen && (
-                <div className="absolute right-0 top-full mt-2 w-80 md:w-96 bg-slate-900 border border-slate-700/90 rounded-2xl shadow-2xl p-4 z-[100] space-y-3 shadow-slate-950/90 ring-1 ring-amber-500/30 animate-in fade-in slide-in-from-top-2">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                    <h4 className="text-xs font-bold text-white flex items-center space-x-2">
-                      <Bell className="w-3.5 h-3.5 text-amber-400" />
+                <div className="absolute right-0 top-full mt-2 w-80 md:w-96 bg-white border border-stone-200 rounded-2xl shadow-xl p-4 z-[100] space-y-3 ring-1 ring-emerald-500/20 animate-in fade-in slide-in-from-top-2">
+                  <div className="flex items-center justify-between border-b border-stone-200 pb-2">
+                    <h4 className="text-xs font-bold text-stone-900 flex items-center space-x-2">
+                      <Bell className="w-3.5 h-3.5 text-emerald-600" />
                       <span>Notifications & Session Alerts</span>
                     </h4>
-                    <button onClick={() => setNotificationsOpen(false)} className="text-slate-400 hover:text-white">
+                    <button onClick={() => setNotificationsOpen(false)} className="text-stone-400 hover:text-stone-700 cursor-pointer">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
 
                   {sessionRequests.length === 0 ? (
-                    <div className="text-center py-4 text-xs text-slate-400">
+                    <div className="text-center py-4 text-xs text-stone-500">
                       No active session requests or notifications.
                     </div>
                   ) : (
                     <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
                       {sessionRequests.map((req) => (
-                        <div key={req.id} className="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2 text-xs">
+                        <div key={req.id} className="p-3 bg-stone-50 border border-stone-200 rounded-xl space-y-2 text-xs">
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-amber-400 text-[11px]">24-Hr Assessment Request</span>
+                            <span className="font-bold text-stone-900 text-[11px]">24-Hr Assessment Request</span>
                             <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold ${
-                              req.status === 'ACCEPTED' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800 animate-pulse'
+                              req.status === 'ACCEPTED' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-900 border border-amber-300 animate-pulse'
                             }`}>
                               {req.status === 'ACCEPTED' ? '🟢 ACCEPTED BY DOCTOR' : '⏳ PENDING ACCEPTANCE'}
                             </span>
                           </div>
-                          <p className="text-slate-300 text-[11px]">
-                            Scope: <strong className="text-teal-300">{req.skinType || 'Skin & Hair'}</strong>
+                          <p className="text-stone-700 text-[11px]">
+                            Scope: <strong className="text-emerald-800">{req.skinType || 'Skin & Hair'}</strong>
                           </p>
-                          <p className="text-slate-400 text-[10px] truncate">
+                          <p className="text-stone-500 text-[10px] truncate">
                             Complaint: {req.chiefComplaint}
                           </p>
                           {req.status === 'ACCEPTED' ? (
@@ -1232,13 +1240,13 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                                 setNotificationsOpen(false);
                                 setCurrentPage('doctor-chat');
                               }}
-                              className="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-lg shadow flex items-center justify-center space-x-1.5 transition-all"
+                              className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow-xs flex items-center justify-center space-x-1.5 transition-all cursor-pointer"
                             >
                               <Video className="w-3.5 h-3.5" />
                               <span>Join Meet & Live Tele-Consult 📹</span>
                             </button>
                           ) : (
-                            <div className="p-2 bg-amber-950/30 border border-amber-900/40 rounded-lg text-[10px] text-amber-300">
+                            <div className="p-2 bg-amber-50 border border-amber-200 rounded-lg text-[10px] text-amber-900">
                               ⏳ Waiting for Doctor to accept request and start meet.
                             </div>
                           )}
@@ -1254,20 +1262,20 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             <div
               onClick={() => setDoctorSwitchModalOpen(true)}
               title="Attending Lead Doctor Clinical Availability"
-              className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-slate-950/90 border border-slate-800 rounded-xl text-xs cursor-pointer hover:border-slate-700 transition-all shadow"
+              className="hidden lg:flex items-center space-x-2 px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs cursor-pointer hover:border-stone-300 transition-all shadow-2xs"
             >
               <span className={`w-2.5 h-2.5 rounded-full ${
-                doctorDutyStatus === 'online' ? 'bg-emerald-400 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-400' : 'bg-rose-500'
+                doctorDutyStatus === 'online' ? 'bg-emerald-500 animate-pulse' : doctorDutyStatus === 'busy' ? 'bg-amber-500' : 'bg-rose-500'
               }`} />
-              <span className="font-bold text-slate-200">
+              <span className="font-bold text-stone-900">
                 {user.primaryLeadDoctorName || 'Dr. Sarah Jenkins'}
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 doctorDutyStatus === 'online'
-                  ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                   : doctorDutyStatus === 'busy'
-                  ? 'bg-amber-950 text-amber-300 border border-amber-800'
-                  : 'bg-rose-950 text-rose-300 border border-rose-800'
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                  : 'bg-rose-100 text-rose-800 border border-rose-300'
               }`}>
                 {doctorDutyStatus === 'online' ? '🟢 Online & Available' : doctorDutyStatus === 'busy' ? '🟡 Busy in Consultation' : '🔴 Off-Duty'}
               </span>
@@ -1275,27 +1283,27 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
             <button
               onClick={() => setDoctorSwitchModalOpen(true)}
-              className="p-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-semibold flex items-center space-x-1.5 border border-amber-500/30 transition-all"
+              className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-semibold flex items-center space-x-1.5 border border-emerald-300 transition-all cursor-pointer shadow-2xs"
             >
-              <Stethoscope className="w-3.5 h-3.5 text-amber-400" />
+              <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
               <span className="hidden sm:inline">Switch Doctor (Escrow)</span>
             </button>
 
             <button
               onClick={() => setCartOpen(true)}
-              className="relative p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center space-x-2 border border-slate-700 transition-all"
+              className="relative p-2 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-semibold flex items-center space-x-2 border border-stone-200 transition-all cursor-pointer shadow-2xs"
             >
-              <ShoppingCart className="w-4 h-4 text-emerald-400" />
+              <ShoppingCart className="w-4 h-4 text-emerald-600" />
               <span className="hidden sm:inline">Cart</span>
               {cart.length > 0 && (
-                <span className="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-bold flex items-center justify-center">
+                <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-bold flex items-center justify-center">
                   {cart.length}
                 </span>
               )}
             </button>
 
-            <div className="flex items-center space-x-2 text-xs text-slate-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center space-x-2 text-xs text-stone-500">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span className="hidden sm:inline">Encrypted Session</span>
             </div>
           </div>
@@ -1347,41 +1355,41 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
         
         {/* PAGE 1: CHATBOT PAGE */}
         {currentPage === 'chat' && (
-          <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] w-full overflow-hidden relative">
+          <div className="flex-1 flex flex-col h-[calc(100vh-3.5rem)] w-full overflow-hidden relative bg-stone-50">
             <div className="flex-1 overflow-y-auto custom-scrollbar w-full p-4 sm:p-6">
               <div className="max-w-3xl w-full mx-auto space-y-6">
                 {messages.length <= 1 && (
                   <div className="py-10 text-center space-y-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center font-bold text-slate-950 mx-auto shadow-xl shadow-teal-500/20">
-                      <Bot className="w-8 h-8" />
+                    <div className="w-14 h-14 rounded-2xl bg-emerald-100 border border-emerald-300 flex items-center justify-center font-bold text-emerald-800 mx-auto shadow-sm">
+                      <Bot className="w-8 h-8 text-emerald-600" />
                     </div>
-                    <h2 className={`text-2xl font-extrabold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                      What facial skin or hair query can I assist with today, <span className="text-teal-400">{user.fullName}</span>?
+                    <h2 className="text-2xl font-extrabold text-stone-900">
+                      What facial skin or hair query can I assist with today, <span className="text-emerald-700">{user.fullName}</span>?
                     </h2>
-                    <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
+                    <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">
                       DermAura AI is trained specifically for facial acne, rosacea, scalp health, and hair loss evaluation.
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4 max-w-lg mx-auto text-left">
                       <button
                         onClick={() => handleSendMessage('Check symptoms for facial acne, redness, and sensitive skin care')}
-                        className={`p-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} border rounded-2xl text-xs text-slate-300 transition-all flex items-start space-x-2.5`}
+                        className="p-3 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50/30 rounded-2xl text-xs text-stone-700 transition-all flex items-start space-x-2.5 shadow-2xs cursor-pointer"
                       >
-                        <Smile className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
+                        <Smile className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                         <div>
-                          <span className={`font-semibold block ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>Facial Skin & Acne Check</span>
-                          <span className="text-[11px] text-slate-500">Rosacea, redness & facial care</span>
+                          <span className="font-semibold block text-stone-900">Facial Skin & Acne Check</span>
+                          <span className="text-[11px] text-stone-500">Rosacea, redness & facial care</span>
                         </div>
                       </button>
 
                       <button
                         onClick={() => handleSendMessage('Assess scalp health, hair thinning, and anti-dandruff solutions')}
-                        className={`p-3 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'} border rounded-2xl text-xs text-slate-300 transition-all flex items-start space-x-2.5`}
+                        className="p-3 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50/30 rounded-2xl text-xs text-stone-700 transition-all flex items-start space-x-2.5 shadow-2xs cursor-pointer"
                       >
-                        <Scissors className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                        <Scissors className="w-4 h-4 text-emerald-700 flex-shrink-0 mt-0.5" />
                         <div>
-                          <span className={`font-semibold block ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>Hair & Scalp Health</span>
-                          <span className="text-[11px] text-slate-500">Hair loss & scalp seborrhea</span>
+                          <span className="font-semibold block text-stone-900">Hair & Scalp Health</span>
+                          <span className="text-[11px] text-stone-500">Hair loss & scalp seborrhea</span>
                         </div>
                       </button>
                     </div>
@@ -1394,24 +1402,22 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                     className={`flex items-start space-x-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {msg.sender === 'ai' && (
-                      <div className="w-8 h-8 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400 font-bold text-xs flex-shrink-0">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-100/80 border border-emerald-300 flex items-center justify-center text-emerald-700 font-bold text-xs flex-shrink-0 shadow-2xs">
                         <Bot className="w-4 h-4" />
                       </div>
                     )}
 
-                    <div className={`max-w-lg rounded-2xl p-4 text-xs leading-relaxed space-y-1 shadow-md ${
+                    <div className={`max-w-lg rounded-2xl p-4 text-xs leading-relaxed space-y-1 shadow-2xs ${
                       msg.sender === 'user'
-                        ? 'bg-teal-600 text-white rounded-tr-none'
-                        : darkMode
-                          ? 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'
-                          : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none'
+                        ? 'bg-emerald-600 text-white rounded-tr-none font-medium'
+                        : 'bg-white border border-stone-200 text-stone-800 rounded-tl-none'
                     }`}>
                       <p className="whitespace-pre-wrap">{renderFormattedText(msg.text)}</p>
-                      <span className="text-[10px] opacity-60 block text-right font-mono">{msg.timestamp}</span>
+                      <span className="text-[10px] opacity-70 block text-right font-mono">{msg.timestamp}</span>
                     </div>
 
                     {msg.sender === 'user' && (
-                      <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 font-bold text-xs flex-shrink-0">
+                      <div className="w-8 h-8 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-700 font-bold text-xs flex-shrink-0 shadow-2xs">
                         <User className="w-4 h-4" />
                       </div>
                     )}
@@ -1420,13 +1426,13 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
                 {isTyping && (
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-400 font-bold text-xs">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 border border-emerald-300 flex items-center justify-center text-emerald-700 font-bold text-xs shadow-2xs">
                       <Bot className="w-4 h-4" />
                     </div>
-                    <div className={`border rounded-2xl px-4 py-3 text-xs text-slate-400 flex items-center space-x-1 ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                      <span className="w-2 h-2 rounded-full bg-teal-400 animate-bounce" />
-                      <span className="w-2 h-2 rounded-full bg-teal-400 animate-bounce delay-150" />
-                      <span className="w-2 h-2 rounded-full bg-teal-400 animate-bounce delay-300" />
+                    <div className="bg-white border border-stone-200 rounded-2xl px-4 py-3 text-xs text-stone-500 flex items-center space-x-1 shadow-2xs">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-150" />
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-300" />
                     </div>
                   </div>
                 )}
@@ -1441,7 +1447,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   e.preventDefault();
                   handleSendMessage();
                 }}
-                className={`relative border focus-within:border-teal-500 rounded-2xl p-2.5 shadow-2xl transition-all ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-300'}`}
+                className="relative border border-stone-300 focus-within:border-emerald-600 focus-within:ring-2 focus-within:ring-emerald-500/15 rounded-2xl p-2.5 shadow-sm transition-all bg-white"
               >
                 <textarea
                   rows={2}
@@ -1454,16 +1460,16 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                     }
                   }}
                   placeholder="Ask DermAura AI about facial skin or hair/scalp concerns (Press Enter to send)..."
-                  className={`w-full bg-transparent text-xs ${darkMode ? 'text-slate-100 placeholder-slate-500' : 'text-slate-900 placeholder-slate-400'} focus:outline-none resize-none px-2`}
+                  className="w-full bg-transparent text-xs text-stone-900 placeholder-stone-400 focus:outline-none resize-none px-2"
                 />
 
-                <div className="flex items-center justify-between pt-1 px-1 border-t border-slate-800/80">
+                <div className="flex items-center justify-between pt-1 px-1 border-t border-stone-100">
                   <div className="flex items-center space-x-1">
                     <button
                       type="button"
                       onClick={() => setCurrentPage('scan')}
                       title="Upload Face or Hair Image"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-teal-400 hover:bg-slate-800 transition-all"
+                      className="p-1.5 rounded-lg text-stone-500 hover:text-emerald-700 hover:bg-stone-100 transition-all cursor-pointer"
                     >
                       <Paperclip className="w-4 h-4" />
                     </button>
@@ -1471,7 +1477,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                       type="button"
                       onClick={() => setCurrentPage('pharmacy')}
                       title="Open DermPharmacy Store"
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-all"
+                      className="p-1.5 rounded-lg text-stone-500 hover:text-emerald-700 hover:bg-stone-100 transition-all cursor-pointer"
                     >
                       <ShoppingBag className="w-4 h-4" />
                     </button>
@@ -1480,7 +1486,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <button
                     type="submit"
                     disabled={!inputQuery.trim()}
-                    className="p-2 rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-30 disabled:hover:bg-teal-500 text-slate-950 transition-all"
+                    className="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-30 text-white font-bold transition-all shadow-xs cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -1492,11 +1498,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         {/* PAGE ABOUT DERMAURA & MEDICAL TEAM */}
         {currentPage === 'about' && (
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-5xl mx-auto space-y-8 w-full">
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-teal-950/80 border border-slate-800 p-8 shadow-2xl space-y-4">
-              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-semibold">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-5xl mx-auto space-y-8 w-full bg-stone-50">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-900 via-stone-900 to-emerald-950 text-white p-8 shadow-md space-y-4">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">
                 <Sparkle className="w-3.5 h-3.5" />
                 <span>Smart India Hackathon Healthcare Initiative</span>
               </div>
@@ -1504,18 +1508,18 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <div className="flex items-center space-x-4">
                 <img src={dermAuraLogo} alt="DermAura Logo" className="w-14 h-14 object-contain drop-shadow-xl" />
                 <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-                  About <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">DermAura</span>
+                  About <span className="text-emerald-400">DermAura</span>
                 </h1>
               </div>
               
-              <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
-                DermAura is an AI-driven, clinical-grade healthcare platform designed exclusively for **Facial Skin Lesions** and **Hair/Scalp Dermatology**. Built for the Smart India Hackathon (SIH), our system bridges intelligent AI triage with certified tele-dermatologists and doctor-gated e-commerce.
+              <p className="text-sm text-stone-200 max-w-2xl leading-relaxed">
+                DermAura is an AI-driven, clinical-grade healthcare platform designed exclusively for <strong>Facial Skin Lesions</strong> and <strong>Hair/Scalp Dermatology</strong>. Built for the Smart India Hackathon (SIH), our system bridges intelligent AI triage with certified tele-dermatologists and doctor-gated e-commerce.
               </p>
 
               <div className="pt-2">
                 <button
                   onClick={() => setCurrentPage('chat')}
-                  className="px-6 py-3 bg-gradient-to-r from-teal-500 to-emerald-400 hover:from-teal-400 hover:to-emerald-300 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-teal-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+                  className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/30 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5 cursor-pointer"
                 >
                   <Bot className="w-4 h-4" />
                   <span>Launch DermAura AI Chatbot</span>
@@ -1526,37 +1530,37 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <Target className="w-5 h-5 text-teal-400" />
-                <h2 className="text-xl font-bold text-white">Our Motive & Vision</h2>
+                <Target className="w-5 h-5 text-emerald-600" />
+                <h2 className="text-xl font-bold text-stone-900">Our Motive & Vision</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold">
+                <div className="p-5 bg-white border border-stone-200 rounded-2xl space-y-2 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
                     <Smile className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Facial & Hair Specialization</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <h3 className="text-sm font-bold text-stone-900">Facial & Hair Specialization</h3>
+                  <p className="text-xs text-stone-600 leading-relaxed">
                     Generic diagnostic tools fail on specialized skin textures. DermAura isolates facial dermatitis, rosacea, acne vulgaris, and scalp hair loss for maximal clinical precision.
                   </p>
                 </div>
 
-                <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
+                <div className="p-5 bg-white border border-stone-200 rounded-2xl space-y-2 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white">Doctor-Gated E-Commerce</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <h3 className="text-sm font-bold text-stone-900">Doctor-Gated E-Commerce</h3>
+                  <p className="text-xs text-stone-600 leading-relaxed">
                     Preventing dangerous self-medication. Prescription items like Tretinoin and Minoxidil remain strictly locked until validated by certified dermatologists.
                   </p>
                 </div>
 
-                <div className="p-5 bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold">
+                <div className="p-5 bg-white border border-stone-200 rounded-2xl space-y-2 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
                     <Award className="w-5 h-5" />
                   </div>
-                  <h3 className="text-sm font-bold text-white">SIH Healthcare Innovation</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <h3 className="text-sm font-bold text-stone-900">SIH Healthcare Innovation</h3>
+                  <p className="text-xs text-stone-600 leading-relaxed">
                     Developed for Smart India Hackathon to democratize early dermatological triage across rural and urban India with instant AI diagnostics and tele-consults.
                   </p>
                 </div>
@@ -1564,50 +1568,50 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             </div>
 
             <div className="space-y-4 pt-2">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                 <div className="flex items-center space-x-2">
-                  <Users className="w-5 h-5 text-indigo-400" />
-                  <h2 className="text-xl font-bold text-white">Meet Our Specialized Medical Team</h2>
+                  <Users className="w-5 h-5 text-emerald-600" />
+                  <h2 className="text-xl font-bold text-stone-900">Meet Our Specialized Medical Team</h2>
                 </div>
-                <span className="text-xs font-mono text-slate-400">Certified Panel</span>
+                <span className="text-xs font-mono text-stone-500">Certified Panel</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {doctorTeam.map((doc) => (
                   <div
                     key={doc.id}
-                    className="p-5 bg-slate-900 border border-slate-800 hover:border-teal-500/40 rounded-3xl space-y-3 transition-all shadow-xl flex flex-col justify-between"
+                    className="p-5 bg-white border border-stone-200 hover:border-emerald-400 rounded-3xl space-y-3 transition-all shadow-xs flex flex-col justify-between"
                   >
                     <div className="space-y-3">
                       <div className="flex items-start space-x-4">
-                        <div className="w-14 h-14 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-3xl shadow-inner flex-shrink-0">
+                        <div className="w-14 h-14 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-3xl shadow-2xs flex-shrink-0">
                           {doc.image}
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-teal-400 uppercase tracking-wider block">
+                          <span className="text-[10px] font-mono text-emerald-700 uppercase tracking-wider block font-bold">
                             {doc.role}
                           </span>
-                          <h3 className="text-base font-bold text-white">{doc.name}</h3>
-                          <p className="text-xs text-slate-400">{doc.qualification}</p>
-                          <span className="inline-block mt-1 text-[10px] font-semibold text-emerald-400">
+                          <h3 className="text-base font-bold text-stone-900">{doc.name}</h3>
+                          <p className="text-xs text-stone-500">{doc.qualification}</p>
+                          <span className="inline-block mt-1 text-[10px] font-semibold text-emerald-700">
                             {doc.experience} • {doc.hospital}
                           </span>
                         </div>
                       </div>
 
-                      <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
+                      <p className="text-xs text-stone-600 leading-relaxed bg-stone-50 p-3 rounded-2xl border border-stone-200">
                         "{doc.bio}"
                       </p>
 
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block">
+                        <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider block font-semibold">
                           Specializations:
                         </span>
                         <div className="flex flex-wrap gap-1.5">
                           {doc.specialties.map((spec, i) => (
                             <span
                               key={i}
-                              className="px-2.5 py-0.5 rounded-full text-[10px] bg-teal-950 text-teal-300 border border-teal-800/80 font-medium"
+                              className="px-2.5 py-0.5 rounded-full text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium"
                             >
                               {spec}
                             </span>
@@ -1616,11 +1620,11 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between mt-3">
-                      <span className="text-[11px] text-slate-400 font-medium">Certified DermAura Specialist</span>
+                    <div className="pt-3 border-t border-stone-200 flex items-center justify-between mt-3">
+                      <span className="text-[11px] text-stone-500 font-medium">Certified DermAura Specialist</span>
                       <button
                         onClick={() => setDoctorSwitchModalOpen(true)}
-                        className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all"
+                        className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all cursor-pointer"
                       >
                         Switch to This Doctor
                       </button>
@@ -1630,15 +1634,15 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               </div>
             </div>
 
-            <div className="p-8 bg-gradient-to-r from-teal-950/60 via-slate-900 to-emerald-950/60 border border-teal-900/60 rounded-3xl text-center space-y-4 shadow-2xl">
-              <Bot className="w-10 h-10 text-teal-400 mx-auto" />
-              <h3 className="text-xl font-extrabold text-white">Ready for your instant facial or hair diagnostic check?</h3>
-              <p className="text-xs text-slate-300 max-w-md mx-auto">
+            <div className="p-8 bg-white border border-stone-200 rounded-3xl text-center space-y-4 shadow-sm">
+              <Bot className="w-10 h-10 text-emerald-600 mx-auto" />
+              <h3 className="text-xl font-extrabold text-stone-900">Ready for your instant facial or hair diagnostic check?</h3>
+              <p className="text-xs text-stone-600 max-w-md mx-auto">
                 Consult with DermAura AI right now or book a session with our panel of facial & hair dermatologists.
               </p>
               <button
                 onClick={() => setCurrentPage('chat')}
-                className="px-8 py-3.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-2xl shadow-xl shadow-teal-500/30 inline-flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+                className="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-2xl shadow-md shadow-emerald-600/20 inline-flex items-center space-x-2 transition-all transform hover:-translate-y-0.5 cursor-pointer"
               >
                 <Bot className="w-4 h-4" />
                 <span>Go to DermAura AI Chatbot</span>
@@ -1659,69 +1663,69 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         {/* PAGE 2: DERMPHARMACY STORE */}
         {currentPage === 'pharmacy' && (
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-6xl mx-auto space-y-6 w-full">
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950/70 via-slate-900 to-teal-950/70 border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-6xl mx-auto space-y-6 w-full bg-stone-50">
+            <div className="p-6 rounded-3xl bg-white border border-stone-200 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
               <div>
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
-                  <ShoppingBag className="w-3.5 h-3.5" />
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
+                  <ShoppingBag className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Facial & Hair Medical E-Commerce</span>
                 </div>
-                <h2 className="text-2xl font-black text-white">Facial & Hair Care Pharmacy</h2>
-                <p className="text-xs text-slate-400 mt-1 max-w-xl">
-                  Doctor-Gated Medical Security: Patients can purchase **100% Organic** products directly, or items explicitly **Unlocked / Recommended by certified doctors**.
+                <h2 className="text-2xl font-black text-stone-900">Facial & Hair Care Pharmacy</h2>
+                <p className="text-xs text-stone-600 mt-1 max-w-xl">
+                  Doctor-Gated Medical Security: Patients can purchase <strong>100% Organic</strong> products directly, or items explicitly <strong>Unlocked / Recommended by certified doctors</strong>.
                 </p>
               </div>
 
-              <div className="p-4 bg-slate-950/90 border border-slate-800 rounded-2xl space-y-2 text-xs max-w-md">
-                <div className="flex items-center space-x-2 text-emerald-400 font-bold">
-                  <ShieldCheck className="w-4 h-4" />
+              <div className="p-4 bg-stone-50 border border-stone-200 rounded-2xl space-y-2 text-xs max-w-md">
+                <div className="flex items-center space-x-2 text-emerald-800 font-bold">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>Clinical E-Commerce Security Active</span>
                 </div>
-                <p className="text-[11px] text-slate-300 leading-relaxed">
+                <p className="text-[11px] text-stone-600 leading-relaxed">
                   Non-organic & prescription items are locked by default. To purchase a locked product, send an unlock request message to your doctor in chat.
                 </p>
               </div>
             </div>
 
             {/* Category Filter Tabs & Search Bar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-stone-200 shadow-2xs">
               <div className="flex flex-wrap gap-1.5 w-full sm:w-auto">
                 <button
                   onClick={() => setPharmacyCategory('all')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    pharmacyCategory === 'all' ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    pharmacyCategory === 'all' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   All Products
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('organic')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    pharmacyCategory === 'organic' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    pharmacyCategory === 'organic' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   🌿 Organic Only
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('facial')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    pharmacyCategory === 'facial' ? 'bg-teal-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    pharmacyCategory === 'facial' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   Facial Skin Care
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('hair')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    pharmacyCategory === 'hair' ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    pharmacyCategory === 'hair' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   Hair & Scalp
                 </button>
                 <button
                   onClick={() => setPharmacyCategory('rx')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-                    pharmacyCategory === 'rx' ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    pharmacyCategory === 'rx' ? 'bg-emerald-600 text-white font-bold shadow-2xs' : 'bg-stone-50 text-stone-700 hover:bg-stone-100'
                   }`}
                 >
                   Prescription Rx
@@ -1729,13 +1733,13 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               </div>
 
               <div className="relative w-full sm:w-64">
-                <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
+                <Search className="absolute left-3 top-2.5 w-4 h-4 text-stone-400" />
                 <input
                   type="text"
                   placeholder="Search products..."
                   value={pharmacySearch}
                   onChange={(e) => setPharmacySearch(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-teal-500"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl pl-9 pr-3 py-1.5 text-xs text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:border-emerald-600"
                 />
               </div>
             </div>
@@ -1749,65 +1753,65 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 return (
                   <div
                     key={product.id}
-                    className={`relative bg-slate-900 border rounded-3xl p-5 flex flex-col justify-between transition-all ${
-                      !isBuyable ? 'border-slate-800/80 bg-slate-900/60' : 'border-slate-800 hover:border-emerald-500/50 shadow-xl'
+                    className={`relative bg-white border rounded-3xl p-5 flex flex-col justify-between transition-all ${
+                      !isBuyable ? 'border-stone-200/80 bg-stone-50/50' : 'border-stone-200 hover:border-emerald-500 shadow-xs'
                     }`}
                   >
                     {isOrganic ? (
-                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10">
-                        <Check className="w-3 h-3 text-emerald-400" />
+                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10">
+                        <Check className="w-3 h-3 text-emerald-700" />
                         <span>Organic 🌿</span>
                       </div>
                     ) : isUnlocked ? (
-                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10 shadow-lg">
-                        <Unlock className="w-3 h-3 text-indigo-400" />
+                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10 shadow-2xs">
+                        <Unlock className="w-3 h-3 text-emerald-700" />
                         <span>Doctor Unlocked 🔓</span>
                       </div>
                     ) : (
-                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-rose-950/90 text-rose-300 border border-rose-700/60 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10 shadow-lg">
-                        <Lock className="w-3 h-3" />
+                      <div className="absolute top-3 right-3 px-2.5 py-1 bg-rose-100 text-rose-800 border border-rose-300 rounded-full text-[10px] font-mono font-bold flex items-center space-x-1 z-10 shadow-2xs">
+                        <Lock className="w-3 h-3 text-rose-700" />
                         <span>Doctor Lock 🔒</span>
                       </div>
                     )}
 
                     <div className="space-y-3">
-                      <div className="w-16 h-16 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-center text-3xl shadow-inner mx-auto my-2">
+                      <div className="w-16 h-16 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-center text-3xl shadow-2xs mx-auto my-2">
                         {product.image}
                       </div>
 
                       <div>
-                        <span className="text-[10px] font-mono uppercase text-slate-500 tracking-wider block">
+                        <span className="text-[10px] font-mono uppercase text-stone-500 tracking-wider block font-semibold">
                           {product.category}
                         </span>
-                        <h3 className="text-sm font-bold text-white line-clamp-1 mt-0.5">{product.name}</h3>
-                        <p className="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-2">{product.description}</p>
+                        <h3 className="text-sm font-bold text-stone-900 line-clamp-1 mt-0.5">{product.name}</h3>
+                        <p className="text-xs text-stone-600 mt-1 leading-relaxed line-clamp-2">{product.description}</p>
                       </div>
 
                       <div className={`p-2.5 rounded-xl border text-[10px] leading-relaxed ${
                         !isBuyable
-                          ? 'bg-rose-950/30 border-rose-900/40 text-rose-300'
+                          ? 'bg-rose-50 border-rose-200 text-rose-800'
                           : isOrganic
-                          ? 'bg-emerald-950/30 border-emerald-900/40 text-emerald-300'
-                          : 'bg-indigo-950/30 border-indigo-900/40 text-indigo-300'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                          : 'bg-emerald-50 border-emerald-200 text-emerald-800'
                       }`}>
                         <span className="font-bold uppercase tracking-wider block flex items-center mb-0.5">
-                          <ShieldAlert className="w-3 h-3 mr-1 flex-shrink-0" />
+                          <ShieldAlert className="w-3 h-3 mr-1 flex-shrink-0 text-emerald-700" />
                           <span>Status & Safety Warning:</span>
                         </span>
                         <span>{product.safetyWarning}</span>
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-800 mt-4 flex items-center justify-between">
+                    <div className="pt-4 border-t border-stone-200 mt-4 flex items-center justify-between">
                       <div>
-                        <span className="text-xs text-slate-500 block">Price</span>
-                        <span className="text-lg font-black text-white">₹{product.price}</span>
+                        <span className="text-xs text-stone-500 block font-semibold">Price</span>
+                        <span className="text-lg font-black text-stone-900">₹{product.price}</span>
                       </div>
 
                       {isBuyable ? (
                         <button
                           onClick={() => addToCart(product)}
-                          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all flex items-center space-x-1.5"
+                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center space-x-1.5 cursor-pointer"
                         >
                           <ShoppingCart className="w-3.5 h-3.5" />
                           <span>Add to Cart</span>
@@ -1818,9 +1822,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                             setUnlockRequestModalProduct(product);
                             setUnlockRequestNote(`Hello Doctor, I request clinical evaluation and prescription unlock for ${product.name}. Could you please check my profile and unlock this product for me?`);
                           }}
-                          className="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold rounded-xl transition-all flex items-center space-x-1.5 shadow-md"
+                          className="px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-semibold rounded-xl transition-all flex items-center space-x-1.5 shadow-2xs cursor-pointer"
                         >
-                          <MessageSquare className="w-3.5 h-3.5 text-amber-400" />
+                          <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
                           <span>Ask Doctor to Unlock 💬</span>
                         </button>
                       )}
@@ -1834,17 +1838,17 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         {/* PAGE 3: DERMSCAN VISUAL AI */}
         {currentPage === 'scan' && (
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full">
-            <div className="border-b border-slate-800 pb-4 flex items-center justify-between">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full bg-stone-50">
+            <div className="border-b border-stone-200 pb-4 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-                  <Scan className="w-5 h-5 text-teal-400" />
+                <h2 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+                  <Scan className="w-5 h-5 text-emerald-600" />
                   <span>DermScan Facial & Hair AI Analyzer</span>
                 </h2>
-                <p className="text-xs text-slate-400">Trained exclusively for facial skin lesions and scalp/hair diagnostic triage.</p>
+                <p className="text-xs text-stone-500">Trained exclusively for facial skin lesions and scalp/hair diagnostic triage.</p>
               </div>
 
-              <span className="px-3 py-1 rounded-full bg-teal-950 text-teal-300 border border-teal-800 text-xs font-mono font-bold">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold">
                 SCOPE: FACE & HAIR
               </span>
             </div>
@@ -1865,36 +1869,36 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <div className="md:col-span-6 space-y-4">
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-6 bg-slate-900 border-2 border-dashed border-slate-800 hover:border-teal-500/60 rounded-3xl text-center space-y-3 cursor-pointer transition-all"
+                  className="p-6 bg-white border-2 border-dashed border-stone-300 hover:border-emerald-500 rounded-3xl text-center space-y-3 cursor-pointer transition-all shadow-2xs"
                 >
-                  <UploadCloud className="w-10 h-10 text-teal-400 mx-auto" />
+                  <UploadCloud className="w-10 h-10 text-emerald-600 mx-auto" />
                   <div>
-                    <h3 className="text-sm font-bold text-white">Click to Upload Face or Scalp Image</h3>
-                    <p className="text-[11px] text-slate-400 mt-1">Supports PNG, JPG, WEBP (Max 10MB)</p>
+                    <h3 className="text-sm font-bold text-stone-900">Click to Upload Face or Scalp Image</h3>
+                    <p className="text-[11px] text-stone-500 mt-1">Supports PNG, JPG, WEBP (Max 10MB)</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider block">
                     Or select sample test image:
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={() => handlePresetSelect('acne')}
-                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all ${
-                        scanPresetName.includes('Acne') ? 'bg-teal-500/20 border-teal-500 text-teal-300' : 'bg-slate-900 border-slate-800 text-slate-400'
+                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                        scanPresetName.includes('Acne') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
                       }`}
                     >
-                      <Smile className="w-4 h-4 mx-auto mb-1 text-teal-400" />
+                      <Smile className="w-4 h-4 mx-auto mb-1 text-emerald-600" />
                       <span>Facial Acne</span>
                     </button>
                     <button
                       onClick={() => handlePresetSelect('scalp')}
-                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all ${
-                        scanPresetName.includes('Scalp') ? 'bg-indigo-500/20 border-indigo-500 text-indigo-300' : 'bg-slate-900 border-slate-800 text-slate-400'
+                      className={`p-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                        scanPresetName.includes('Scalp') ? 'bg-emerald-50 border-emerald-500 text-emerald-800 shadow-2xs' : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
                       }`}
                     >
-                      <Scissors className="w-4 h-4 mx-auto mb-1 text-indigo-400" />
+                      <Scissors className="w-4 h-4 mx-auto mb-1 text-emerald-700" />
                       <span>Scalp Dandruff</span>
                     </button>
                   </div>
@@ -1904,7 +1908,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <button
                     onClick={executeImageScan}
                     disabled={isScanning}
-                    className="w-full py-3 bg-gradient-to-r from-teal-500 to-emerald-400 hover:from-teal-400 hover:to-emerald-300 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-teal-500/25 flex items-center justify-center space-x-2 transition-all"
+                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 transition-all cursor-pointer"
                   >
                     <Scan className="w-4 h-4" />
                     <span>{isScanning ? 'Running Neural Net Scan...' : 'Analyze Image with DermScan AI'}</span>
@@ -1915,24 +1919,24 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               {/* Right Image Preview & Report */}
               <div className="md:col-span-6 space-y-4">
                 {scanImagePreview ? (
-                  <div className="p-4 bg-slate-900 border border-slate-800 rounded-3xl space-y-3 relative overflow-hidden">
-                    <div className="relative h-48 w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+                  <div className="p-4 bg-white border border-stone-200 rounded-3xl space-y-3 relative overflow-hidden shadow-xs">
+                    <div className="relative h-48 w-full rounded-2xl overflow-hidden bg-stone-100 border border-stone-200">
                       <img src={scanImagePreview} alt="Scan Target" className="w-full h-full object-cover" />
                       {isScanning && (
-                        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm flex flex-col items-center justify-center space-y-3">
-                          <Scan className="w-10 h-10 text-teal-400 animate-spin" />
-                          <div className="w-3/4 bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div className="bg-teal-400 h-full transition-all duration-300" style={{ width: `${scanProgress}%` }} />
+                        <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm flex flex-col items-center justify-center space-y-3">
+                          <Scan className="w-10 h-10 text-emerald-400 animate-spin" />
+                          <div className="w-3/4 bg-stone-700 h-2 rounded-full overflow-hidden">
+                            <div className="bg-emerald-400 h-full transition-all duration-300" style={{ width: `${scanProgress}%` }} />
                           </div>
-                          <span className="text-xs font-mono text-teal-300 font-bold">Scanning neural patterns... {scanProgress}%</span>
+                          <span className="text-xs font-mono text-emerald-300 font-bold">Scanning neural patterns... {scanProgress}%</span>
                         </div>
                       )}
                     </div>
-                    <span className="text-xs font-mono text-slate-400 block truncate">Target: {scanPresetName}</span>
+                    <span className="text-xs font-mono text-stone-500 block truncate font-semibold">Target: {scanPresetName}</span>
                   </div>
                 ) : (
-                  <div className="h-full min-h-[220px] bg-slate-900/60 border border-slate-800/80 rounded-3xl flex flex-col items-center justify-center p-6 text-center text-slate-500">
-                    <Scan className="w-12 h-12 mb-2 text-slate-700" />
+                  <div className="h-full min-h-[220px] bg-white border border-stone-200 rounded-3xl flex flex-col items-center justify-center p-6 text-center text-stone-400 shadow-2xs">
+                    <Scan className="w-12 h-12 mb-2 text-stone-300" />
                     <p className="text-xs">No image selected for visual analysis yet.</p>
                   </div>
                 )}
@@ -1941,52 +1945,52 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
             {/* AI DIAGNOSTIC REPORT RESULT CARD */}
             {scanReport && (
-              <div className="p-6 bg-slate-900 border border-teal-500/50 rounded-3xl shadow-2xl space-y-4 animate-in fade-in slide-in-from-bottom-4">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
+              <div className="p-6 bg-white border border-emerald-300 rounded-3xl shadow-md space-y-4 animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-stone-200 pb-3 gap-2">
                   <div className="flex items-center space-x-2">
-                    <Sparkles className="w-5 h-5 text-teal-400" />
-                    <h3 className="text-base font-bold text-white">DermScan Diagnostic Assessment Report</h3>
+                    <Sparkles className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-base font-bold text-stone-900">DermScan Diagnostic Assessment Report</h3>
                   </div>
-                  <span className="px-3 py-1 bg-teal-950 text-teal-300 border border-teal-800 text-xs font-mono font-bold rounded-full">
+                  <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold rounded-full">
                     Confidence: {scanReport.confidence}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">Detected Condition</span>
-                    <span className="font-bold text-teal-300">{scanReport.condition}</span>
+                  <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                    <span className="text-stone-500 text-[10px] block">Detected Condition</span>
+                    <span className="font-bold text-emerald-800">{scanReport.condition}</span>
                   </div>
-                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">Severity Level</span>
-                    <span className="font-bold text-amber-400">{scanReport.severity}</span>
+                  <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                    <span className="text-stone-500 text-[10px] block">Severity Level</span>
+                    <span className="font-bold text-amber-700">{scanReport.severity}</span>
                   </div>
-                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block">Affected Anatomic Region</span>
-                    <span className="font-bold text-slate-200">{scanReport.affectedArea}</span>
+                  <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                    <span className="text-stone-500 text-[10px] block">Affected Anatomic Region</span>
+                    <span className="font-bold text-stone-800">{scanReport.affectedArea}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-2xl border border-slate-800">
+                <p className="text-xs text-stone-600 leading-relaxed bg-stone-50 p-3 rounded-2xl border border-stone-200">
                   {scanReport.summary}
                 </p>
 
                 <div className="space-y-2">
-                  <span className="text-xs font-bold text-teal-400 block">Clinical Recommendations:</span>
-                  <ul className="space-y-1 text-xs text-slate-300 pl-4 list-disc">
+                  <span className="text-xs font-bold text-emerald-800 block">Clinical Recommendations:</span>
+                  <ul className="space-y-1 text-xs text-stone-600 pl-4 list-disc">
                     {scanReport.recommendations.map((rec, i) => (
                       <li key={i}>{rec}</li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-2 flex flex-wrap gap-3 border-t border-slate-800">
+                <div className="pt-2 flex flex-wrap gap-3 border-t border-stone-200">
                   <button
                     onClick={() => {
                       handleSendMessage(`DermScan AI analyzed my face/scalp photo and diagnosed: ${scanReport.condition}. What treatment steps should I follow next?`);
                       setCurrentPage('chat');
                     }}
-                    className="px-4 py-2 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-xl shadow-md flex items-center space-x-1.5 transition-all"
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs flex items-center space-x-1.5 transition-all cursor-pointer"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>Ask AI Chatbot About This Diagnosis</span>
@@ -1994,9 +1998,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
                   <button
                     onClick={() => setCurrentPage('doctor-chat')}
-                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center space-x-1.5 transition-all"
+                    className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 font-bold text-xs rounded-xl flex items-center space-x-1.5 transition-all cursor-pointer"
                   >
-                    <Stethoscope className="w-4 h-4" />
+                    <Stethoscope className="w-4 h-4 text-emerald-600" />
                     <span>Send Report to Lead PCP Doctor 💬</span>
                   </button>
                 </div>
@@ -2007,19 +2011,19 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         {/* PAGE: STRESS & CORTISOL ANALYZER QUIZ */}
         {currentPage === 'stress' && (
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full bg-stone-50">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-4">
               <div>
-                <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-                  <Activity className="w-5 h-5 text-indigo-400" />
+                <h2 className="text-xl font-bold text-stone-900 flex items-center space-x-2">
+                  <Activity className="w-5 h-5 text-emerald-600" />
                   <span>DermAura Stress & Cortisol Impact Analyzer</span>
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-stone-500">
                   Assess how stress, sleep disruption, and anxiety affect your serum cortisol levels and trigger skin outbreaks.
                 </p>
               </div>
 
-              <span className="px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800 text-xs font-mono font-bold">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-mono font-bold">
                 NEURO-SKIN CLINICAL QUIZ
               </span>
             </div>
@@ -2027,9 +2031,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
             {/* Assessment Cards */}
             <div className="space-y-4">
               {stressQuestions.map((q, idx) => (
-                <div key={q.id} className="p-5 bg-slate-900 border border-slate-800 rounded-3xl space-y-3 shadow-lg">
-                  <h3 className="text-sm font-bold text-slate-100 flex items-center space-x-2">
-                    <span className="w-6 h-6 rounded-full bg-indigo-950 border border-indigo-800 text-indigo-300 text-xs flex items-center justify-center font-mono">
+                <div key={q.id} className="p-5 bg-white border border-stone-200 rounded-3xl space-y-3 shadow-2xs">
+                  <h3 className="text-sm font-bold text-stone-900 flex items-center space-x-2">
+                    <span className="w-6 h-6 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-center font-mono font-bold">
                       0{idx + 1}
                     </span>
                     <span>{q.question}</span>
@@ -2042,14 +2046,14 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                         <button
                           key={optIdx}
                           onClick={() => handleSelectStressOption(q.id, opt.pts)}
-                          className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between ${
+                          className={`p-3 rounded-2xl border text-left text-xs transition-all flex items-center justify-between cursor-pointer ${
                             isSelected
-                              ? 'bg-indigo-600/20 border-indigo-500 text-indigo-200 font-semibold shadow-md'
-                              : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                              ? 'bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-2xs'
+                              : 'bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-white'
                           }`}
                         >
                           <span>{opt.label}</span>
-                          {isSelected && <CheckCircle2 className="w-4 h-4 text-indigo-400 ml-2 flex-shrink-0" />}
+                          {isSelected && <CheckCircle2 className="w-4 h-4 text-emerald-600 ml-2 flex-shrink-0" />}
                         </button>
                       );
                     })}
@@ -2063,10 +2067,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <button
                 onClick={handleCalculateStressScore}
                 disabled={Object.keys(stressAnswers).length < stressQuestions.length}
-                className={`py-3 px-8 rounded-2xl font-bold text-xs shadow-xl flex items-center space-x-2 transition-all ${
+                className={`py-3 px-8 rounded-2xl font-bold text-xs shadow-md flex items-center space-x-2 transition-all cursor-pointer ${
                   Object.keys(stressAnswers).length < stressQuestions.length
-                    ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
-                    : 'bg-gradient-to-r from-indigo-600 to-teal-500 hover:from-indigo-500 hover:to-teal-400 text-white shadow-indigo-600/25'
+                    ? 'bg-stone-200 text-stone-400 cursor-not-allowed border border-stone-300'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
                 }`}
               >
                 <Sparkles className="w-4 h-4" />
@@ -2080,44 +2084,44 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
             {/* Quiz Result Report Card */}
             {stressResult && (
-              <div className="p-6 bg-slate-900 border border-slate-800 rounded-3xl space-y-5 shadow-2xl animate-in zoom-in-95">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="p-6 bg-white border border-stone-200 rounded-3xl space-y-5 shadow-sm animate-in zoom-in-95">
+                <div className="flex items-center justify-between border-b border-stone-200 pb-3">
                   <div className="flex items-center space-x-2">
-                    <HeartPulse className="w-5 h-5 text-indigo-400" />
-                    <h3 className="text-base font-bold text-white">Your Neuro-Skin Stress Diagnostic Report</h3>
+                    <HeartPulse className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-base font-bold text-stone-900">Your Neuro-Skin Stress Diagnostic Report</h3>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-mono font-bold border ${stressResult.badgeColor}`}>
+                  <span className="px-3 py-1 rounded-full text-xs font-mono font-bold border bg-emerald-50 text-emerald-800 border-emerald-200">
                     {stressResult.category}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Score Dial */}
-                  <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col items-center justify-center text-center space-y-1">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase">Stress Score</span>
-                    <div className="text-3xl font-black text-indigo-400">{stressResult.percentage}%</div>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                  <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 flex flex-col items-center justify-center text-center space-y-1">
+                    <span className="text-[10px] font-mono text-stone-500 uppercase font-semibold">Stress Score</span>
+                    <div className="text-3xl font-black text-emerald-700">{stressResult.percentage}%</div>
+                    <span className="text-[10px] text-stone-500 font-mono">
                       {stressResult.score} / {stressResult.maxPts} Impact Points
                     </span>
                   </div>
 
                   {/* Summary */}
-                  <div className="md:col-span-2 p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                    <span className="text-[10px] font-mono text-indigo-400 uppercase font-bold">Clinical Impact Summary</span>
-                    <p className="text-xs text-slate-300 leading-relaxed">{stressResult.summary}</p>
+                  <div className="md:col-span-2 p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                    <span className="text-[10px] font-mono text-emerald-800 uppercase font-bold">Clinical Impact Summary</span>
+                    <p className="text-xs text-stone-600 leading-relaxed">{stressResult.summary}</p>
                   </div>
                 </div>
 
                 {/* Recommendations */}
-                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2">
-                  <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold flex items-center">
-                    <ShieldCheck className="w-3.5 h-3.5 mr-1" />
+                <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
+                  <span className="text-[10px] font-mono text-emerald-800 uppercase font-bold flex items-center">
+                    <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" />
                     Recommended Dermatologist Care Steps:
                   </span>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
+                  <ul className="space-y-1.5 text-xs text-stone-600">
                     {stressResult.recommendations.map((rec, idx) => (
                       <li key={idx} className="flex items-start space-x-2">
-                        <span className="text-teal-400 font-bold">•</span>
+                        <span className="text-emerald-600 font-bold">•</span>
                         <span>{rec}</span>
                       </li>
                     ))}
@@ -2125,23 +2129,23 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 </div>
 
                 {/* Share With Doctor Action Bar */}
-                <div className="pt-2 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-                  <span className="text-xs text-slate-400">
+                <div className="pt-2 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <span className="text-xs text-stone-500">
                     💡 Sharing lets your consulting doctor review your stress levels alongside your DermScan diagnoses.
                   </span>
 
                   <button
                     onClick={handleShareStressReportWithDoctor}
                     disabled={stressSharedWithDoctor}
-                    className={`w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs shadow-lg flex items-center justify-center space-x-2 transition-all ${
+                    className={`w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs shadow-xs flex items-center justify-center space-x-2 transition-all cursor-pointer ${
                       stressSharedWithDoctor
-                        ? 'bg-emerald-950 text-emerald-300 border border-emerald-800 cursor-default'
-                        : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25'
+                        ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 cursor-default'
+                        : 'bg-emerald-600 hover:bg-emerald-700 text-white'
                     }`}
                   >
                     {stressSharedWithDoctor ? (
                       <>
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                         <span>Shared with Doctor ✓</span>
                       </>
                     ) : (
@@ -2159,37 +2163,37 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
         {/* BOOKING MODAL */}
         {selectedDoctorForBooking && (
-          <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 relative">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-base font-bold text-white">Confirm Appointment with {selectedDoctorForBooking.name}</h3>
-                <button onClick={() => setSelectedDoctorForBooking(null)} className="p-1 text-slate-400 hover:text-slate-200">
+          <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white border border-stone-200 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 relative">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+                <h3 className="text-base font-bold text-stone-900">Confirm Appointment with {selectedDoctorForBooking.name}</h3>
+                <button onClick={() => setSelectedDoctorForBooking(null)} className="p-1 text-stone-400 hover:text-stone-700 cursor-pointer">
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
               <div className="space-y-3 text-xs">
-                <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-slate-500 font-mono text-[10px] block uppercase">Doctor Specialty</span>
-                  <p className="font-bold text-indigo-400">{selectedDoctorForBooking.role}</p>
+                <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-stone-500 font-mono text-[10px] block uppercase">Doctor Specialty</span>
+                  <p className="font-bold text-emerald-800">{selectedDoctorForBooking.role}</p>
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">Select Appointment Date *</label>
+                  <label className="block text-stone-700 mb-1 font-semibold">Select Appointment Date *</label>
                   <input
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-stone-900 focus:bg-white focus:outline-none focus:border-emerald-600"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 mb-1 font-semibold">Preferred Time Slot *</label>
+                  <label className="block text-stone-700 mb-1 font-semibold">Preferred Time Slot *</label>
                   <select
                     value={bookingTime}
                     onChange={(e) => setBookingTime(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-3 py-2 text-xs text-stone-900 focus:bg-white focus:outline-none focus:border-emerald-600"
                   >
                     <option value="10:30 AM">10:30 AM (Morning)</option>
                     <option value="02:15 PM">02:15 PM (Afternoon)</option>
@@ -2197,7 +2201,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   </select>
                 </div>
 
-                <div className="p-3 bg-emerald-950/40 border border-emerald-800/50 rounded-2xl text-[11px] text-emerald-300">
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl text-[11px] text-emerald-800">
                   ⚡ Confirming this consultation will automatically issue a verified doctor prescription to unlock DermPharmacy Rx medicines!
                 </div>
               </div>
@@ -2205,13 +2209,13 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               <div className="flex space-x-2 pt-2">
                 <button
                   onClick={() => setSelectedDoctorForBooking(null)}
-                  className="w-1/3 py-2.5 bg-slate-800 text-slate-300 font-bold text-xs rounded-xl"
+                  className="w-1/3 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleConfirmBooking}
-                  className="w-2/3 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-indigo-600/30"
+                  className="w-2/3 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 cursor-pointer"
                 >
                   Confirm & Issue Prescription
                 </button>
@@ -2220,28 +2224,26 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
           </div>
         )}
 
-
-
         {/* PAGE 6: EMERGENCY SOS */}
         {currentPage === 'emergency' && (
-          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full">
-            <div className="border-b border-rose-900/50 pb-4">
-              <h2 className="text-xl font-bold text-rose-400 flex items-center space-x-2">
-                <PhoneCall className="w-5 h-5" />
+          <div className="flex-1 overflow-y-auto custom-scrollbar p-6 max-w-4xl mx-auto space-y-6 w-full bg-stone-50">
+            <div className="border-b border-rose-200 pb-4">
+              <h2 className="text-xl font-bold text-rose-700 flex items-center space-x-2">
+                <PhoneCall className="w-5 h-5 text-rose-600" />
                 <span>Emergency Medical SOS</span>
               </h2>
-              <p className="text-xs text-rose-300">Instant 24/7 hotline numbers for acute allergic flares or facial burns.</p>
+              <p className="text-xs text-stone-600">Instant 24/7 hotline numbers for acute allergic flares or facial burns.</p>
             </div>
 
-            <div className="p-8 bg-rose-950/40 border border-rose-900/60 rounded-3xl text-center space-y-4">
-              <PhoneCall className="w-12 h-12 text-rose-400 mx-auto animate-bounce" />
-              <h3 className="text-2xl font-black text-white">Call National Medical Helpline</h3>
-              <p className="text-xs text-slate-300 max-w-md mx-auto">
+            <div className="p-8 bg-white border border-rose-200 rounded-3xl text-center space-y-4 shadow-sm">
+              <PhoneCall className="w-12 h-12 text-rose-600 mx-auto animate-bounce" />
+              <h3 className="text-2xl font-black text-stone-900">Call National Medical Helpline</h3>
+              <p className="text-xs text-stone-600 max-w-md mx-auto">
                 For urgent medical transport or severe reactions, call 108 immediately.
               </p>
               <a
                 href="tel:108"
-                className="inline-block px-8 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-rose-600/30"
+                className="inline-block px-8 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm rounded-xl shadow-md shadow-rose-600/20 cursor-pointer"
               >
                 Dial 108 Emergency Now
               </a>
@@ -2253,54 +2255,54 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
       {/* 3. PROFILE DETAILS MODAL */}
       {showProfileDetailsModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 relative">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 relative">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
               <div className="flex items-center space-x-2">
-                {user.role === 'doctor' ? <Stethoscope className="w-5 h-5 text-indigo-400" /> : <User className="w-5 h-5 text-teal-400" />}
-                <h3 className="text-base font-bold text-white">
+                {user.role === 'doctor' ? <Stethoscope className="w-5 h-5 text-emerald-600" /> : <User className="w-5 h-5 text-emerald-600" />}
+                <h3 className="text-base font-bold text-stone-900">
                   {user.role === 'doctor' ? 'Doctor Profile Details' : 'Patient Profile Details'}
                 </h3>
               </div>
               <button
                 onClick={() => setShowProfileDetailsModal(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-200"
+                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                <span className="text-[10px] text-slate-500 font-mono uppercase">Full Name</span>
-                <p className="font-bold text-white text-sm">{user.fullName}</p>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                <span className="text-[10px] text-stone-500 font-mono uppercase">Full Name</span>
+                <p className="font-bold text-stone-900 text-sm">{user.fullName}</p>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <span className="text-[10px] text-slate-500 font-mono uppercase">Role</span>
-                  <p className="font-bold text-teal-400 uppercase">{user.role}</p>
+                <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                  <span className="text-[10px] text-stone-500 font-mono uppercase">Role</span>
+                  <p className="font-bold text-emerald-700 uppercase">{user.role}</p>
                 </div>
-                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                  <span className="text-[10px] text-slate-500 font-mono uppercase">Status</span>
-                  <p className="font-bold text-emerald-400">Verified</p>
+                <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                  <span className="text-[10px] text-stone-500 font-mono uppercase">Status</span>
+                  <p className="font-bold text-emerald-700">Verified</p>
                 </div>
               </div>
-              <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                <span className="text-[10px] text-slate-500 font-mono uppercase">Email Address</span>
-                <p className="font-semibold text-slate-200">{user.email}</p>
+              <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                <span className="text-[10px] text-stone-500 font-mono uppercase">Email Address</span>
+                <p className="font-semibold text-stone-800">{user.email}</p>
               </div>
 
               {user.role === 'doctor' && (
-                <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-                  <span className="text-[10px] text-slate-500 font-mono uppercase">Medical License & Specialization</span>
-                  <p className="font-semibold text-indigo-300">{user.licenseNumber || 'MCI-98421-B'} ({user.specialization || 'Dermatology'})</p>
+                <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 space-y-1">
+                  <span className="text-[10px] text-stone-500 font-mono uppercase">Medical License & Specialization</span>
+                  <p className="font-semibold text-emerald-800">{user.licenseNumber || 'MCI-98421-B'} ({user.specialization || 'Dermatology'})</p>
                 </div>
               )}
             </div>
 
             <button
               onClick={() => setShowProfileDetailsModal(false)}
-              className="w-full py-2.5 bg-teal-500 text-slate-950 font-bold text-xs rounded-xl"
+              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl cursor-pointer"
             >
               Close Profile
             </button>
@@ -2310,41 +2312,41 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
       {/* 4. SHOPPING CART DRAWER MODAL */}
       {cartOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex justify-end">
-          <div className="w-full max-w-md bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex justify-end">
+          <div className="w-full max-w-md bg-white border-l border-stone-200 p-6 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right">
             <div>
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+              <div className="flex items-center justify-between border-b border-stone-200 pb-4 mb-4">
                 <div className="flex items-center space-x-2">
-                  <ShoppingCart className="w-5 h-5 text-emerald-400" />
-                  <h3 className="text-lg font-bold text-white">Your Medical Cart ({cart.length})</h3>
+                  <ShoppingCart className="w-5 h-5 text-emerald-600" />
+                  <h3 className="text-lg font-bold text-stone-900">Your Medical Cart ({cart.length})</h3>
                 </div>
                 <button
                   onClick={() => setCartOpen(false)}
-                  className="p-1 text-slate-400 hover:text-slate-200 text-xs font-bold"
+                  className="p-1 text-stone-500 hover:text-stone-800 text-xs font-bold cursor-pointer"
                 >
                   ✕ Close
                 </button>
               </div>
 
               {cart.length === 0 ? (
-                <div className="text-center py-12 space-y-2 text-slate-500">
-                  <ShoppingBag className="w-12 h-12 mx-auto text-slate-700" />
+                <div className="text-center py-12 space-y-2 text-stone-400">
+                  <ShoppingBag className="w-12 h-12 mx-auto text-stone-300" />
                   <p className="text-xs">Your cart is empty.</p>
                 </div>
               ) : (
                 <div className="space-y-3 max-h-[60vh] overflow-y-auto custom-scrollbar pr-1">
                   {cart.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-slate-950 rounded-2xl border border-slate-800 text-xs">
+                    <div key={index} className="flex items-center justify-between p-3 bg-stone-50 rounded-2xl border border-stone-200 text-xs">
                       <div className="flex items-center space-x-3">
                         <span className="text-2xl">{item.image}</span>
                         <div>
-                          <p className="font-bold text-white truncate max-w-[180px]">{item.name}</p>
-                          <span className="text-[10px] text-slate-400">₹{item.price}</span>
+                          <p className="font-bold text-stone-900 truncate max-w-[180px]">{item.name}</p>
+                          <span className="text-[10px] text-stone-500">₹{item.price}</span>
                         </div>
                       </div>
                       <button
                         onClick={() => removeFromCart(index)}
-                        className="p-1 text-rose-400 hover:text-rose-300"
+                        className="p-1 text-rose-600 hover:text-rose-800 cursor-pointer"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -2354,10 +2356,10 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               )}
             </div>
 
-            <div className="border-t border-slate-800 pt-4 space-y-3">
-              <div className="flex justify-between text-sm font-bold text-white">
+            <div className="border-t border-stone-200 pt-4 space-y-3">
+              <div className="flex justify-between text-sm font-bold text-stone-900">
                 <span>Total Amount:</span>
-                <span className="text-emerald-400 font-mono">₹{cartTotal}</span>
+                <span className="text-emerald-700 font-mono">₹{cartTotal}</span>
               </div>
               <button
                 disabled={cart.length === 0}
@@ -2366,7 +2368,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   setCart([]);
                   setCartOpen(false);
                 }}
-                className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-30 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/25"
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 cursor-pointer"
               >
                 Proceed to Checkout
               </button>
@@ -2377,72 +2379,72 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
 
       {/* MODAL: REQUEST DOCTOR RX UNLOCK FOR PRODUCT */}
       {unlockRequestModalProduct && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-lg shadow-2xl space-y-4 relative">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-stone-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-stone-200 rounded-3xl p-6 w-full max-w-lg shadow-2xl space-y-4 relative">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
               <div className="flex items-center space-x-2">
-                <Lock className="w-5 h-5 text-amber-400" />
-                <h3 className="text-base font-bold text-white">Ask Doctor to Unlock Product</h3>
+                <Lock className="w-5 h-5 text-emerald-600" />
+                <h3 className="text-base font-bold text-stone-900">Ask Doctor to Unlock Product</h3>
               </div>
               <button
                 onClick={() => setUnlockRequestModalProduct(null)}
-                className="p-1 text-slate-400 hover:text-slate-200"
+                className="p-1 text-stone-400 hover:text-stone-700 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Product Card Details */}
-            <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 flex items-center space-x-4">
-              <div className="w-14 h-14 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-3xl flex-shrink-0">
+            <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 flex items-center space-x-4">
+              <div className="w-14 h-14 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-3xl flex-shrink-0 shadow-2xs">
                 {unlockRequestModalProduct.image}
               </div>
               <div className="truncate">
-                <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">
+                <span className="text-[10px] font-mono text-emerald-700 uppercase font-bold block">
                   {unlockRequestModalProduct.category}
                 </span>
-                <h4 className="text-sm font-bold text-white truncate">{unlockRequestModalProduct.name}</h4>
-                <p className="text-xs text-emerald-400 font-mono font-bold">₹{unlockRequestModalProduct.price}</p>
+                <h4 className="text-sm font-bold text-stone-900 truncate">{unlockRequestModalProduct.name}</h4>
+                <p className="text-xs text-emerald-700 font-mono font-bold">₹{unlockRequestModalProduct.price}</p>
               </div>
             </div>
 
-            {/* Fixed: Always routes to Lead Primary Doctor (no selection) */}
-            <div className="p-3 bg-slate-950 rounded-2xl border border-amber-800/60 flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-800 flex items-center justify-center text-xl flex-shrink-0">
+            {/* Fixed: Always routes to Lead Primary Doctor */}
+            <div className="p-3 bg-stone-50 rounded-2xl border border-emerald-300 flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-xl flex-shrink-0 shadow-2xs">
                 👩‍⚕️
               </div>
               <div>
                 <div className="flex items-center space-x-1.5">
-                  <Crown className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-xs font-bold text-amber-300">
+                  <Crown className="w-3.5 h-3.5 text-emerald-600" />
+                  <span className="text-xs font-bold text-stone-900">
                     {user?.primaryLeadDoctorName || 'Dr. Sarah Jenkins'}
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-0.5">Lead Primary Care Provider (PCP Gatekeeper)</p>
-                <span className="text-[9px] font-mono text-emerald-400 font-semibold">🟢 Online & Ready</span>
+                <p className="text-[10px] text-stone-500 mt-0.5">Lead Primary Care Provider (PCP Gatekeeper)</p>
+                <span className="text-[9px] font-mono text-emerald-700 font-semibold">🟢 Online & Ready</span>
               </div>
             </div>
 
             {/* Note text area */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300 block">Your Message to Lead Doctor:</label>
+              <label className="text-xs font-semibold text-stone-700 block">Your Message to Lead Doctor:</label>
               <textarea
                 rows={3}
                 value={unlockRequestNote}
                 onChange={(e) => setUnlockRequestNote(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 custom-scrollbar"
+                className="w-full bg-stone-50 border border-stone-300 rounded-xl p-3 text-xs text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:border-emerald-600 custom-scrollbar"
               />
             </div>
 
-            <div className="p-3 bg-amber-950/30 border border-amber-900/40 rounded-xl text-[11px] text-amber-300 flex items-center space-x-2">
-              <ShieldAlert className="w-4 h-4 flex-shrink-0 text-amber-400" />
+            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-900 flex items-center space-x-2">
+              <ShieldAlert className="w-4 h-4 flex-shrink-0 text-emerald-600" />
               <span>All prescription unlock requests go exclusively to your Lead Primary Doctor for centralized safety review and drug interaction checks.</span>
             </div>
 
             <div className="pt-2 flex items-center justify-end space-x-2">
               <button
                 onClick={() => setUnlockRequestModalProduct(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all"
+                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold rounded-xl transition-all cursor-pointer"
               >
                 Cancel
               </button>
@@ -2461,7 +2463,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                     status: 'Pending Lead PCP Approval ⏳'
                   };
 
-                  // 1. Save to doctor chat requests
                   try {
                     const existing = JSON.parse(localStorage.getItem('dermaura_doctor_chat_requests') || '[]');
                     localStorage.setItem('dermaura_doctor_chat_requests', JSON.stringify([newRequest, ...existing]));
@@ -2469,7 +2470,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                     localStorage.setItem('dermaura_doctor_chat_requests', JSON.stringify([newRequest]));
                   }
 
-                  // 2. Post directly into chatroom thread targeting Lead PCP
                   const chatMsg = {
                     id: `msg-${Date.now()}`,
                     sender: 'patient',
@@ -2495,9 +2495,9 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   setBookingToast(`Unlock request for ${unlockRequestModalProduct.name} posted to your Lead PCP ${user?.primaryLeadDoctorName || 'Dr. Sarah Jenkins'} in your Doctor Chatroom!`);
                   setTimeout(() => setBookingToast(null), 5000);
                   setUnlockRequestModalProduct(null);
-                  setCurrentPage('doctor-chat'); // Navigate directly to chatroom
+                  setCurrentPage('doctor-chat');
                 }}
-                className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-xl shadow-lg transition-all flex items-center space-x-1.5"
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center space-x-1.5 cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Post Request to Lead Doctor Chatroom 💬</span>
