@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Dashboard from './Dashboard';
-import DoctorDashboard from './DoctorDashboard';
-import LeadDoctorSelection from './LeadDoctorSelection';
-import CyberMedicalWorkspace from './CyberMedicalWorkspace';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import dermAuraLogo from '../dermAuraLogoNoBG.png';
 import { 
   User, 
@@ -22,6 +20,10 @@ import {
 } from 'lucide-react';
 
 export default function AuthPortal() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
   const [role, setRole] = useState('patient'); // 'patient' | 'doctor'
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +33,6 @@ export default function AuthPortal() {
   const [otpInput, setOtpInput] = useState('');
   const [notification, setNotification] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -59,13 +60,6 @@ export default function AuthPortal() {
     doctorGender: 'Female',
     languagesSpoken: 'English, Hindi',
   });
-
-  // Ensure login portal is always the first page when visiting the website
-  useEffect(() => {
-    localStorage.removeItem('dermaura_user');
-    localStorage.removeItem('dermaura_token');
-    setCurrentUser(null);
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -113,17 +107,11 @@ export default function AuthPortal() {
       password: 'password123',
     }));
 
-    if (demoRole === 'doctor') {
-      try {
-        localStorage.setItem('dermaura_doctor_duty_status', 'online');
-        window.dispatchEvent(new Event('storage'));
-        window.dispatchEvent(new CustomEvent('dermaura_duty_status_changed', { detail: 'online' }));
-      } catch (_) {}
-    }
-
-    localStorage.setItem('dermaura_user', JSON.stringify(mockUser));
-    setCurrentUser(mockUser);
+    login(mockUser, 'demo-jwt-token-sih-2026');
     showToast('success', `Welcome to DermAura ${demoRole === 'doctor' ? 'Doctor Portal' : 'Patient Dashboard'}!`);
+
+    const destination = location.state?.from?.pathname || (demoRole === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
+    navigate(destination, { replace: true });
   };
 
   const handleSubmit = async (e) => {
@@ -162,12 +150,17 @@ export default function AuthPortal() {
 
         const data = await res.json();
         if (data.success && data.user) {
-          localStorage.setItem('dermaura_user', JSON.stringify(data.user));
-          if (data.token) {
-            localStorage.setItem('dermaura_token', data.token);
-          }
-          setCurrentUser(data.user);
+          login(data.user, data.token || 'demo-jwt-token-sih-2026');
           showToast('success', `Successfully authenticated as ${data.user.fullName}!`);
+          
+          const destination = location.state?.from?.pathname || (
+            data.user.role === 'doctor'
+              ? '/doctor/dashboard'
+              : data.user.isFirstLogin
+                ? '/onboarding/select-doctor'
+                : '/patient/dashboard'
+          );
+          navigate(destination, { replace: true });
           return;
         }
       } catch (_) {
@@ -203,27 +196,23 @@ export default function AuthPortal() {
         isVerified: true
       };
 
-      localStorage.setItem('dermaura_user', JSON.stringify(fallbackUser));
-      setCurrentUser(fallbackUser);
+      login(fallbackUser, 'demo-jwt-token-sih-2026');
       showToast('success', `Signed into ${role === 'doctor' ? 'Doctor Portal' : 'Patient Dashboard'}!`);
+
+      const destination = location.state?.from?.pathname || (
+        fallbackUser.role === 'doctor'
+          ? '/doctor/dashboard'
+          : fallbackUser.isFirstLogin
+            ? '/onboarding/select-doctor'
+            : '/patient/dashboard'
+      );
+      navigate(destination, { replace: true });
 
     } catch (error) {
       showToast('error', 'Login error occurred.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleLogout = () => {
-    try {
-      localStorage.setItem('dermaura_doctor_duty_status', 'offline');
-      window.dispatchEvent(new Event('storage'));
-      window.dispatchEvent(new CustomEvent('dermaura_duty_status_changed', { detail: 'offline' }));
-    } catch (_) {}
-
-    localStorage.removeItem('dermaura_user');
-    localStorage.removeItem('dermaura_token');
-    setCurrentUser(null);
   };
 
   const handleOtpVerify = (e) => {
@@ -235,36 +224,6 @@ export default function AuthPortal() {
       showToast('error', 'Invalid OTP code. Enter 123456 for demo mode.');
     }
   };
-
-  // Route authenticated users to appropriate Dashboard
-  if (currentUser) {
-    if (currentUser.role === 'doctor') {
-      return (
-        <DoctorDashboard
-          user={currentUser}
-          doctorUser={currentUser}
-          onLogout={handleLogout}
-        />
-      );
-    }
-
-    if (currentUser.role === 'patient' && currentUser.isFirstLogin) {
-      return (
-        <LeadDoctorSelection
-          patientUser={currentUser}
-          onDoctorSelected={(updatedUser) => setCurrentUser(updatedUser)}
-        />
-      );
-    }
-
-    return (
-      <Dashboard
-        user={currentUser}
-        onLogout={handleLogout}
-        onUpdateUser={(updatedUser) => setCurrentUser(updatedUser)}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen bg-stone-50 text-stone-800 flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans relative overflow-hidden">

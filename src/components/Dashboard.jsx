@@ -63,18 +63,11 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard({ user: initialUser, onLogout, onUpdateUser }) {
-  const [patientUser, setPatientUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem('dermaura_user');
-      return saved ? JSON.parse(saved) : (initialUser || {});
-    } catch (e) {
-      return initialUser || {};
-    }
-  });
+  const [patientUser, setPatientUser] = useState(() => initialUser || {});
 
   useEffect(() => {
     if (initialUser) {
-      setPatientUser((prev) => ({ ...prev, ...initialUser }));
+      setPatientUser(initialUser);
     }
   }, [initialUser]);
 
