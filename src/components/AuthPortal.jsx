@@ -354,14 +354,7 @@ export default function AuthPortal() {
                 </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setShowCyberWorkspace(true)}
-                className="w-full py-2.5 bg-gradient-to-r from-[#00B4D8] to-[#1E3A8A] hover:from-[#00B4D8] hover:to-[#00B4D8] border border-cyan-400/40 rounded-xl text-xs font-bold text-white transition-all shadow-lg shadow-cyan-950/40 flex items-center justify-center space-x-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                <span>Launch Cyber-Medical Workstation ⚡</span>
-              </button>
+
             </div>
           </div>
 
