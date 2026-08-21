@@ -701,7 +701,6 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
   return (
     <div className={`flex h-screen w-screen ${darkMode ? 'bg-slate-950 text-slate-100' : 'bg-stone-50 text-stone-900'} font-sans overflow-hidden selection:bg-emerald-500 selection:text-white transition-colors duration-300`}>
 
-      {/* 1. CHATGPT-STYLE COLLAPSIBLE SIDEBAR */}
       <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} transition-all duration-300 ${darkMode ? 'bg-slate-900/95 border-slate-800' : 'bg-white border-stone-200'} border-r flex flex-col justify-between z-[60] relative shadow-xs h-full flex-shrink-0`}>
 
         {/* Floating Expand Sidebar Button when Collapsed (z-[100] on sidebar right border) */}
@@ -925,26 +924,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               )}
             </div>
 
-            <div className="relative group">
-              <button
-                onClick={() => setCurrentPage('emergency')}
-                title="Emergency Medical SOS"
-                className={`w-full py-2 px-3 rounded-xl text-xs font-medium flex items-center ${sidebarOpen ? 'justify-start space-x-3' : 'justify-center'
-                  } transition-all cursor-pointer ${currentPage === 'emergency'
-                    ? 'bg-rose-50 text-rose-800 font-bold border border-rose-300 shadow-2xs'
-                    : 'text-rose-700 hover:bg-rose-50'
-                  }`}
-              >
-                <PhoneCall className="w-4 h-4 flex-shrink-0 text-rose-600" />
-                {sidebarOpen && <span>Emergency SOS</span>}
-              </button>
-              {!sidebarOpen && (
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2.5 py-1.5 bg-rose-900 border border-rose-700 text-rose-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
-                  <PhoneCall className="w-3.5 h-3.5 text-rose-400" />
-                  <span>Emergency Medical SOS</span>
-                </div>
-              )}
-            </div>
+
           </div>
 
           {/* Scope Badge */}
@@ -1115,7 +1095,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               className="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-semibold flex items-center space-x-1.5 border border-emerald-300 transition-all cursor-pointer shadow-2xs"
             >
               <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="hidden sm:inline">Switch Doctor (Escrow)</span>
+              <span className="hidden sm:inline">Consult Other Doctor</span>
             </button>
 
             <button
@@ -1202,7 +1182,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 DermAura is an AI-driven, clinical-grade healthcare platform designed exclusively for <strong>Facial Skin Lesions</strong> and <strong>Hair/Scalp Dermatology</strong>. Built for the Smart India Hackathon (SIH), our system bridges intelligent AI triage with certified tele-dermatologists and doctor-gated e-commerce.
               </p>
 
-              <div className="pt-2">
+              {/* <div className="pt-2">
                 <button
                   onClick={() => setCurrentPage('chat')}
                   className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/30 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5 cursor-pointer"
@@ -1211,7 +1191,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                   <span>Launch DermAura AI Chatbot</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
-              </div>
+              </div> */}
             </div>
 
             <div className="space-y-4">
@@ -1320,7 +1300,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
               </div>
             </div>
 
-            <div className="p-8 bg-white border border-stone-200 rounded-3xl text-center space-y-4 shadow-sm">
+            {/* <div className="p-8 bg-white border border-stone-200 rounded-3xl text-center space-y-4 shadow-sm">
               <Bot className="w-10 h-10 text-emerald-600 mx-auto" />
               <h3 className="text-xl font-extrabold text-stone-900">Ready for your instant facial or hair diagnostic check?</h3>
               <p className="text-xs text-stone-600 max-w-md mx-auto">
@@ -1333,7 +1313,7 @@ export default function Dashboard({ user: initialUser, onLogout, onUpdateUser })
                 <Bot className="w-4 h-4" />
                 <span>Go to DermAura AI Chatbot</span>
               </button>
-            </div>
+            </div> */}
 
           </div>
         )}
