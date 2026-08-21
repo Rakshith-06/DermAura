@@ -996,15 +996,6 @@ export default function DoctorDashboard({ user, onLogout }) {
                   </div>
                 )}
               </div>
-              {sidebarOpen && (
-                <button
-                  onClick={handleDoctorLogout}
-                  title="Log Out of Doctor Portal"
-                  className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition-all flex-shrink-0 ml-1"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              )}
             </div>
             {!sidebarOpen && (
               <div className="absolute left-full bottom-3 ml-3 px-2.5 py-1.5 bg-slate-900 border border-slate-700/90 text-slate-100 text-xs font-semibold rounded-xl shadow-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 z-50 whitespace-nowrap flex items-center space-x-1.5">
